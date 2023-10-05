@@ -268,7 +268,7 @@ namespace Michsky.MUIP
             Navigation customNav = new Navigation();
             customNav.mode = navigationMode;
 
-            if (navigationMode == Navigation.Mode.Vertical || navigationMode == Navigation.Mode.Horizontal) { customNav.wrapAround = wrapAround; }
+            if (navigationMode == Navigation.Mode.Vertical || navigationMode == Navigation.Mode.Horizontal) { }//customNav.wrapAround = wrapAround; }
             else if (navigationMode == Navigation.Mode.Explicit) { StartCoroutine("InitUINavigation", customNav); return; }
 
             targetButton.navigation = customNav;

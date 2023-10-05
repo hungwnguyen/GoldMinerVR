@@ -1,12 +1,36 @@
 fileFormatVersion: 2
-guid: 7aacc24f8722a468eb49f14399b05b6d
+guid: 5c5cd40eaa80cd44ab75155435a8bdae
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 4471966693379266801
+    second: img_kimcuong2-1_0
+  - first:
+      213: -4854554673872927315
+    second: img_kimcuong2-1_1
+  - first:
+      213: -7593318978019626311
+    second: img_kimcuong2-1_2
+  - first:
+      213: 5342652603964812720
+    second: img_kimcuong2-1_3
+  - first:
+      213: 176398025808400682
+    second: img_kimcuong2-1_4
+  - first:
+      213: -7332056552369090952
+    second: img_kimcuong2-1_5
+  - first:
+      213: -5542545079190454734
+    second: img_kimcuong2-1_6
+  - first:
+      213: -3978091799818577032
+    second: img_kimcuong2-1_7
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -23,26 +47,24 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
-  vTOnly: 0
-  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
   seamlessCubemap: 0
-  textureFormat: -1
-  maxTextureSize: 1024
+  textureFormat: 1
+  maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
-    aniso: 1
-    mipBias: 0
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
     wrapU: 1
     wrapV: 1
-    wrapW: 1
+    wrapW: -1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -56,20 +78,17 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
-  flipbookRows: 1
-  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
-  ignorePngGamma: 0
-  applyGammaDecoding: 1
+  applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 1024
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -78,46 +97,10 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
-    maxTextureSize: 1024
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Server
-    maxTextureSize: 1024
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Android
-    maxTextureSize: 1024
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: iPhone
-    maxTextureSize: 1024
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -126,10 +109,22 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: WebGL
-    maxTextureSize: 1024
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -138,7 +133,175 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: img_kimcuong2-1_0
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 913
+        width: 484
+        height: 362
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f8df3e930e9f0e30800000000000000
+      internalID: 4471966693379266801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: img_kimcuong2-1_1
+      rect:
+        serializedVersion: 2
+        x: 613
+        y: 913
+        width: 484
+        height: 362
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da58711ae3821acb0800000000000000
+      internalID: -4854554673872927315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: img_kimcuong2-1_2
+      rect:
+        serializedVersion: 2
+        x: 1198
+        y: 913
+        width: 482
+        height: 362
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b278e0ee9c1f9690800000000000000
+      internalID: -7593318978019626311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: img_kimcuong2-1_3
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 448
+        width: 482
+        height: 349
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0bd63a99c3ae42a40800000000000000
+      internalID: 5342652603964812720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: img_kimcuong2-1_4
+      rect:
+        serializedVersion: 2
+        x: 613
+        y: 448
+        width: 484
+        height: 349
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a21d363e111b27200800000000000000
+      internalID: 176398025808400682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: img_kimcuong2-1_5
+      rect:
+        serializedVersion: 2
+        x: 1198
+        y: 448
+        width: 482
+        height: 349
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 87e07fa996d4f3a90800000000000000
+      internalID: -7332056552369090952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: img_kimcuong2-1_6
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 15
+        width: 482
+        height: 347
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23e734bbd9ce413b0800000000000000
+      internalID: -5542545079190454734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: img_kimcuong2-1_7
+      rect:
+        serializedVersion: 2
+        x: 613
+        y: 15
+        width: 484
+        height: 347
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 87b5bebb59afac8c0800000000000000
+      internalID: -3978091799818577032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -149,7 +312,6 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
