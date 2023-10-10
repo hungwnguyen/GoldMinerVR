@@ -19,7 +19,7 @@ public class ExampleRoomController
 
     public delegate void OnBeginRoundCountDown();
 
-    public delegate void OnGotTargetLineUp(ShootingGalleryNewTargetLineUpMessage targetLineup);
+    public delegate void OnGotTargetLineUp(GoldMinerNewTargetLineUpMessage targetLineup);
 
     // Network Events
     //==========================
@@ -313,6 +313,7 @@ public class ExampleRoomController
         catch (Exception ex)
         {
             LSLog.LogError($"Failed to create room {roomId} : {ex.Message}");
+            LobbyController.NeedUnload = true;
             return;
         }
         LSLog.LogImportant($"Created Room: {_room.Id}");
@@ -416,7 +417,7 @@ public class ExampleRoomController
         });
 
         //Custom game logic
-        _room.OnMessage<ShootingGalleryNewTargetLineUpMessage>("newTargetLineUp",
+        _room.OnMessage<GoldMinerNewTargetLineUpMessage>("newTargetLineUp",
             targets => { onGotTargetLineUp?.Invoke(targets); });
 
         _room.OnMessage<ShootingGalleryScoreUpdateMessage>("onScoreUpdate",

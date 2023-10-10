@@ -11,6 +11,9 @@ using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour
 {
+    [DllImport("__Internal")]
+    private static extern void CopyTextToClipboard(string text);
+
     [Serializable]
     public class MyEvent : UnityEvent { }
     [Space(5f), Header("Run on start"), Space(5f)]
@@ -25,9 +28,6 @@ public class GameUI : MonoBehaviour
 
     [SerializeField]
     private TextMeshProUGUI roomID;
-
-    [DllImport("__Internal")]
-    private static extern void CopyTextToClipboard(string text);
 
     [SerializeField] private CountDown windowCountDown;
 

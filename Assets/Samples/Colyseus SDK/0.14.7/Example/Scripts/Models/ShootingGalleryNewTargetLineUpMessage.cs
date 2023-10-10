@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ShootingGalleryNewTargetLineUpMessage
+public class GoldMinerNewTargetLineUpMessage
 {
-    public ShootingGalleryTargetModel[] targets;
+    public GoldMinerTargetModel[] targets;
 }

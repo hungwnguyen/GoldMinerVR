@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
     private eGameState lastGameState;
     public eGameState PlayMode;
 
+    [SerializeField] MapController mapController;
     #endregion
 
     #region Monobehavior Call Back
@@ -65,6 +66,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+        Application.targetFrameRate = 60;
         siblingCurrent = -1;
         PlayMode = eGameState.NONE;
         Instance = this;
@@ -98,6 +100,7 @@ public class GameManager : MonoBehaviour
         ExampleRoomController.onAddNetworkEntity += OnNetworkAdd;
         ExampleRoomController.onRemoveNetworkEntity += OnNetworkRemove;
 
+        ExampleRoomController.onGotTargetLineUp += GotNewTargetLineUp;
         ExampleRoomController.onRoomStateChanged += OnRoomStateChanged;
         ExampleRoomController.onBeginRoundCountDown += OnBeginRoundCountDown;
         ExampleRoomController.onBeginRound += OnBeginRound;
@@ -109,6 +112,7 @@ public class GameManager : MonoBehaviour
     {
         ExampleRoomController.onAddNetworkEntity -= OnNetworkAdd;
         ExampleRoomController.onRemoveNetworkEntity -= OnNetworkRemove;
+        ExampleRoomController.onGotTargetLineUp -= GotNewTargetLineUp;
 
         ExampleRoomController.onRoomStateChanged -= OnRoomStateChanged;
         ExampleRoomController.onBeginRoundCountDown -= OnBeginRoundCountDown;
@@ -197,16 +201,28 @@ public class GameManager : MonoBehaviour
             this.transform.GetChild(i).tag = "Player";
         }
     }
-    
+
     #endregion
 
-    
+
     #region ColySeusCall Back
 
-    private bool AwaitingAnyPlayerReady()
+    private void GotNewTargetLineUp(GoldMinerNewTargetLineUpMessage targetLineUp)
     {
-        //Returns true if the server is waiting for anyone to be ready
-        return currentGameState == eGameState.WAITING || currentGameState == eGameState.WAITINGFOROTHERS;
+        if (targetLineUp == null || targetLineUp.targets == null)
+        {
+            LSLog.LogError("No targets came in");
+            return;
+        }
+        int targetCount = targetLineUp.targets.Length;
+        for (int i = 0; i < targetCount; ++i)
+        {
+           /* Debug.Log("row " + targetLineUp.targets[i].row +
+                " comlumn : " + int.Parse(targetLineUp.targets[i].uid)
+                 + "id :" + targetLineUp.targets[i].id);*/
+            mapController.CreateMap(targetLineUp.targets[i].row,  int.Parse(targetLineUp.targets[i].uid), targetLineUp.targets[i].id);
+            
+        }
     }
 
     private void OnBeginRound()
@@ -328,11 +344,9 @@ public class GameManager : MonoBehaviour
             PlayMode = eGameState.BEGINROUND;
             this.siblingCurrent = int.Parse(attributes["generalMessage"]);
         }
-
         if (_showCountdown && attributes.ContainsKey("countDown"))
         {
             _countDownString = attributes["countDown"];
-            LSLog.LogImportant(_countDownString);
         }
         else
         {

@@ -9,7 +9,7 @@ public class TargetBase : MonoBehaviour
     [SerializeField]
     private GameObject hitEffectPrefab = null;
 
-    private ShootingGalleryTargetModel modelRef;
+    private GoldMinerTargetModel modelRef;
 
     [SerializeField]
     private TextMeshPro scoreValue = null;
@@ -29,7 +29,7 @@ public class TargetBase : MonoBehaviour
         get { return _moveSpeed; }
     }
 
-    public void Init(ShootingGalleryTargetModel model)
+    public void Init(GoldMinerTargetModel model)
     {
         modelRef = model;
         if (scoreValue != null)

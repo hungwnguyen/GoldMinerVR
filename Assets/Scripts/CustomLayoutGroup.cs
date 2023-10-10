@@ -1,15 +1,18 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class CustomLayoutGroup : MonoBehaviour
 {
     [Tooltip("spacing of gameObject child")]
     [SerializeField] private float spacing = 2.5f;
-    [SerializeField] private float speedScale = 1f;
+    private float speedScale = 0.02f;
     private float timeToScale;
+    int NumberPlayer = 0;
 
     void Start()
     {
         timeToScale = 0;
+        this.transform.localScale = Vector3.one * 0.8f;
     }
 
     void Update()
@@ -24,37 +27,26 @@ public class CustomLayoutGroup : MonoBehaviour
     public void UpdateScale()
     {
         timeToScale += Time.deltaTime;
-        if (timeToScale < 0.75f)
+        if (timeToScale < 0.55f)
         {
             this.transform.localScale -= Time.deltaTime * speedScale * Vector3.one;
         }
         else if (timeToScale < 1)
         {
-            this.transform.localScale += Time.deltaTime * speedScale * Vector3.one * 3;
+            this.transform.localScale += Time.deltaTime * speedScale * Vector3.one * 16 / 9;
         }
         else
         {
             this.transform.localScale = Vector3.one;
             timeToScale = -1;
+            Destroy(this.GetComponent<CustomLayoutGroup>());
         }
 
     }
 
-    int GetPlayersWithTag(int numb)
-    {
-        int count = 0;
-        for (int i = 0; i < numb; i++)
-        {
-            Transform child = transform.GetChild(i);
-            if (child.gameObject.CompareTag("Player"))
-                count++;
-        }
-        return count;
-    }
     void UpdateLayout()
     {
-        //int NumberPlayer = GetPlayersWithTag(this.transform.childCount);
-        int NumberPlayer = this.transform.childCount;
+        NumberPlayer = this.transform.childCount;
         int halfCount = NumberPlayer / 2;
 
         for (int i = 0; i < NumberPlayer; i++)
@@ -62,18 +54,18 @@ public class CustomLayoutGroup : MonoBehaviour
             Transform child = transform.GetChild(i);
             /*if (child.gameObject.CompareTag("Player"))
             {*/
-                float xPosition;
+            float xPosition;
 
-                if (NumberPlayer % 2 == 0)
-                {
-                    xPosition = (i - halfCount + 0.5f) * spacing;
-                }
-                else
-                {
-                    xPosition = (i - halfCount) * spacing;
-                }
+            if (NumberPlayer % 2 == 0)
+            {
+                xPosition = (i - halfCount + 0.5f) * spacing;
+            }
+            else
+            {
+                xPosition = (i - halfCount) * spacing;
+            }
 
-                child.position = new Vector3(xPosition, child.position.y, child.position.z);
+            child.position = new Vector3(xPosition, child.position.y, child.position.z);
             //}
         }
     }

@@ -393,7 +393,7 @@ public class GalleryGameManager : MonoBehaviour
         view.SendMessage("OnEntityRemoved", SendMessageOptions.DontRequireReceiver);
     }
 
-    private void GotNewTargetLineUp(ShootingGalleryNewTargetLineUpMessage targetLineUp)
+    private void GotNewTargetLineUp(GoldMinerNewTargetLineUpMessage targetLineUp)
     {
         targetsController.GotNewTargetLineUp(targetLineUp);
     }

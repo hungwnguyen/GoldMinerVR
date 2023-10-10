@@ -39,7 +39,7 @@ public class MessengerController : MonoBehaviour
     {
         this.current.enabled = false;
         mes.color = new Color32(172, 172, 172, 255);
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(5);
         this.current.enabled = true;
         mes.color = new Color32(255, 255, 255, 255);
     }

@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class TargetController : MonoBehaviour
 {
-    public delegate void OnTargetDestroyed(string entity, ShootingGalleryTargetModel model);
+    public delegate void OnTargetDestroyed(string entity, GoldMinerTargetModel model);
 
     public static OnTargetDestroyed onTargetDestroyed;
 
     [SerializeField]
     private GameObject defaultTarget = null;
 
-    private List<ShootingGalleryTargetModel> newTargets;
+    private List<GoldMinerTargetModel> newTargets;
 
     [SerializeField]
     private TargetPrefabPair[] potentialTargets = null;
@@ -41,7 +41,7 @@ public class TargetController : MonoBehaviour
         ExampleRoomController.onRoundEnd -= OnRoundEnd;
     }
 
-    public void GotNewTargetLineUp(ShootingGalleryNewTargetLineUpMessage targetLineUp)
+    public void GotNewTargetLineUp(GoldMinerNewTargetLineUpMessage targetLineUp)
     {
         if (targetLineUp == null || targetLineUp.targets == null)
         {
@@ -50,7 +50,7 @@ public class TargetController : MonoBehaviour
         }
 
         targetCount = targetLineUp.targets.Length;
-        newTargets = new List<ShootingGalleryTargetModel>();
+        newTargets = new List<GoldMinerTargetModel>();
         for (int i = 0; i < targetLineUp.targets.Length; ++i)
         {
             if (!trackedTargets.Contains(targetLineUp.targets[i].uid))
@@ -75,10 +75,10 @@ public class TargetController : MonoBehaviour
         }
     }
 
-    private void SpawnTargets(List<ShootingGalleryTargetModel> newTargets)
+    private void SpawnTargets(List<GoldMinerTargetModel> newTargets)
     {
         List<TargetBase> spawnedTargets = new List<TargetBase>(); //Pass this to whatever will handle the targets
-        foreach (ShootingGalleryTargetModel target in newTargets)
+        foreach (GoldMinerTargetModel target in newTargets)
         {
             GameObject prefab = null;
             foreach (TargetPrefabPair targetPair in potentialTargets)
@@ -106,7 +106,7 @@ public class TargetController : MonoBehaviour
         targetHolder.Reset();
     }
 
-    private void HandleTargetHit(string entityID, ShootingGalleryTargetModel model)
+    private void HandleTargetHit(string entityID, GoldMinerTargetModel model)
     {
         GalleryGameManager.Instance.RegisterTargetKill(entityID, model.uid);
     }

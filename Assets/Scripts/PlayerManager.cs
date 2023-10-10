@@ -4,19 +4,86 @@ using TMPro;
 using LucidSightTools;
 using System.Collections.Generic;
 using Michsky.MUIP;
+using UnityEngine.UI;
 
 public class PlayerManager : ExampleNetworkedEntityView
 {
-    public TextMeshProUGUI userNameDisplay;
+    [SerializeField] private TextMeshProUGUI userNameDisplay, scoreText, scoreHeper;
 
     [Tooltip("The local player instance. Use this to know if the local player is represented in the Scene")]
     public string userName = null;
 
     public bool isReady = false;
 
+    private int score = 0;
+
     [SerializeField] private NotificationManager messengerPopup;
     [SerializeField] private TextMeshProUGUI messengerText;
+    [SerializeField] private DayCauScript dayCau;
+    [SerializeField] private LuoiCauScript luoiCau;
+    private Button touchArea;
 
+
+
+    protected override void Start()
+    {
+        autoInitEntity = false;
+        base.Start();
+        userName = string.Empty;
+        StartCoroutine("WaitForConnect");
+        touchArea = GameObject.FindGameObjectWithTag("input").GetComponent<Button>();
+        touchArea.onClick.AddListener(checkTouchScene);
+    }
+
+
+    protected override void Update()
+    {
+        base.Update();
+        if (IsMine)
+        {
+            luoiCau.checkKeoCauXong();
+            if (GameManager.Instance.PlayMode == GameManager.eGameState.ENDROUND)
+            {
+                luoiCau.checkMoveOutCameraView();
+            }
+            dayCau.lineRenderer.SetPosition(0, dayCau.target.position);
+            dayCau.lineRenderer.SetPosition(1, luoiCau.transform.position);
+        }
+    }
+
+    protected void FixedUpdate()
+    {
+        if (IsMine)
+        {
+            if (GameManager.Instance.PlayMode == GameManager.eGameState.ENDROUND)
+            {
+                if (dayCau.typeAction == TypeAction.ThaCau ||
+                    dayCau.typeAction == TypeAction.KeoCau)
+                {
+                    luoiCau.GetComponent<Rigidbody2D>().velocity = luoiCau.velocity * luoiCau.speed;
+                }
+                    
+                if (dayCau.speed > 0 && dayCau.typeAction == TypeAction.Nghi)
+                {
+                    dayCau.transform.rotation = Quaternion.Euler(0, 0, Mathf.Sin(Time.time * dayCau.speed) * dayCau.angleMax);
+                }
+            }
+
+        }
+    }
+
+    #region Gameplay logic
+
+    public void checkTouchScene()
+    {
+        if (IsMine && GameManager.Instance.PlayMode == GameManager.eGameState.ENDROUND)
+        {
+            luoiCau.checkTouchScene();
+        }
+    }
+    #endregion
+
+    #region Colyseus Call back
     public void UpdateReadyState(bool ready)
     {
         if (IsMine)
@@ -32,6 +99,14 @@ public class PlayerManager : ExampleNetworkedEntityView
             }
             SetAttributes(new Dictionary<string, string>() { { "isReady", isReady.ToString() } });
         }
+    }
+
+    public void UpdateScore(int score)
+    {
+        scoreHeper.text = this.scoreText.text;
+        this.score += score;
+        scoreText.text = this.score + "$";
+        scoreHeper.GetComponentInParent<Animator>().Play("Transition");
     }
 
     public void UpdateMessenger(string s)
@@ -73,7 +148,7 @@ public class PlayerManager : ExampleNetworkedEntityView
                 this.gameObject.name = userName;
             }
         }
-        
+
         if (state.attributes.TryGetValue("messenger", out string messenger))
         {
             messengerText.text = messenger;
@@ -110,28 +185,6 @@ public class PlayerManager : ExampleNetworkedEntityView
         yield return new WaitForEndOfFrame();
         this.transform.SetSiblingIndex(GameManager.Instance.siblingCurrent);
     }
-
-    protected override void Start()
-    {
-        autoInitEntity = false;
-        base.Start();
-        userName = string.Empty;
-        StartCoroutine("WaitForConnect");
-    }
-
-
-    protected override void Update()
-    {
-        base.Update();
-        if (IsMine)
-        {
-            UpdateInput();
-        }
-    }
- 
-    private void UpdateInput()
-    {
-
-    }
+    #endregion
 }
 

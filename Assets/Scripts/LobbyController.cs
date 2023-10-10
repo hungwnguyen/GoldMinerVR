@@ -41,7 +41,7 @@ public class LobbyController : MonoBehaviour
         get => _customEvent2;
         set { _customEvent2 = value; }
     }
-    
+
     public int minRequiredPlayers = 1;
     public int numberOfTargetRows = 5;
 
@@ -50,8 +50,14 @@ public class LobbyController : MonoBehaviour
 
     [SerializeField]
     private RoomSelectionMenu selectRoomMenu = null;
+
     [SerializeField]
     private TMP_InputField roomID;
+
+    [SerializeField] 
+    private TextMeshProUGUI usernameSetting;
+
+    public static bool NeedUnload = false;
     #endregion
 
     private IEnumerator Start()
@@ -60,8 +66,6 @@ public class LobbyController : MonoBehaviour
         {
             yield return new WaitForEndOfFrame();
         }
-        yield return new WaitForEndOfFrame();
-        
         Dictionary<string, object> roomOptions = new Dictionary<string, object>
         {
             ["logic"] = "GoldMiner", //The name of our custom logic file
@@ -70,14 +74,25 @@ public class LobbyController : MonoBehaviour
         };
         ExampleManager.Instance.Initialize(roomName, roomOptions);
         ExampleManager.onRoomsReceived += OnRoomsReceived;
-        while(string.IsNullOrEmpty(AccountController.usernameDisplay))
-        {
-            yield return new WaitForEndOfFrame();
-        }
-        ExampleManager.Instance.UserName = AccountController.usernameDisplay;
+        /*while (string.IsNullOrEmpty(AccountController.usernameDisplay))
+            {
+                yield return new WaitForEndOfFrame();
+            }
+            ExampleManager.Instance.UserName = AccountController.usernameDisplay;*/
+        ExampleManager.Instance.UserName = PlayerPrefs.GetString("Player name");
         CreateUser();
+        usernameSetting.text = PlayerPrefs.GetString("Player name");
         yield return new WaitForSeconds(0.45f);
         EventActive0();
+    }
+
+    void Update()
+    {
+        if (NeedUnload)
+        {
+            EventActive2();
+            NeedUnload = false;
+        }
     }
 
     private void OnDestroy()
@@ -91,7 +106,6 @@ public class LobbyController : MonoBehaviour
         _customEvent0.Invoke();
     }
 
-
     private void EventActive()
     {
         UISystemProfilerApi.AddMarker("MyEvent.CustomEvent", this);
@@ -103,6 +117,11 @@ public class LobbyController : MonoBehaviour
         UISystemProfilerApi.AddMarker("MyEvent.CustomEvent2", this);
         _customEvent2.Invoke();
     }
+
+    /// <summary>
+    /// Activate only one time when start game.
+    /// </summary>
+    
 
     public void FindRoom()
     {
@@ -167,7 +186,6 @@ public class LobbyController : MonoBehaviour
 
     private IEnumerator LoadSceneAsync(string scene, Action onComplete)
     {
-        Scene currScene = SceneManager.GetActiveScene();
         AsyncOperation op = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
         while (op.progress <= 0.9f)
         {
@@ -180,6 +198,6 @@ public class LobbyController : MonoBehaviour
         {
             yield return new WaitForEndOfFrame();
         }
-        SceneManager.UnloadSceneAsync(currScene);
+        SceneManager.UnloadSceneAsync(2);
     }
 }

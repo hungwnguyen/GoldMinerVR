@@ -1,10 +1,7 @@
 ﻿using DatabaseAPI.Account;
-using System.Collections;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class HomeSetting : Setting
 {
@@ -19,11 +16,16 @@ public class HomeSetting : Setting
     protected override void Start()
     {
         base.Start();
-        usernameSetting.text = AccountController.usernameDisplay;
+        //usernameSetting.text = AccountController.usernameDisplay;
+        usernameSetting.text = PlayerPrefs.GetString("Player name", "");
     }
 
     public override void SaveChangeSetting()
     {
+        /*if (!AccountController.userName.Equals("Guest"))
+        {
+            base.SaveChangeSetting();
+        }*/
         base.SaveChangeSetting();
         string s = changeUsername.text;
         try
@@ -33,10 +35,16 @@ public class HomeSetting : Setting
         catch
         {
             s = s[0].ToString().ToUpper() + (s.Length > 1 ? s.Substring(1) : "");
-            AccountController.controller.ChangeUserName(s);
             usernameSetting.text = s;
             ExampleManager.Instance.UserName = s;
-            Debug.Log(s);
+            PlayerPrefs.SetString("Player name", s);
+            /*if (!AccountController.userName.Equals("Guest"))
+            {
+                s = s[0].ToString().ToUpper() + (s.Length > 1 ? s.Substring(1) : "");
+                AccountController.controller.ChangeUserName(s);
+            }
+            usernameSetting.text = s;
+            ExampleManager.Instance.UserName = s;*/
         }
     }
 

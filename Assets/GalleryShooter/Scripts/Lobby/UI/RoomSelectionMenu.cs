@@ -26,18 +26,9 @@ public class RoomSelectionMenu : MonoBehaviour
 
     private float refreshTimer = 5f;
 
-    private IEnumerator Start()
-    {
-        while (!ExampleManager.IsReady || !this.gameObject.activeSelf)
-        {
-            yield return new WaitForEndOfFrame();
-        }
-        //GetAvailableRooms();
-    }
-
     private IEnumerator RefreshRoutine()
     {
-        while (gameObject.activeSelf && AccountController.usernameDisplay != null)
+        while (gameObject.activeSelf && ExampleManager.Instance.UserName != null)
         {
             GetAvailableRooms();
             yield return new WaitForSeconds(refreshTimer);
@@ -46,7 +37,7 @@ public class RoomSelectionMenu : MonoBehaviour
 
     public void GetAvailableRooms()
     {
-        if (gameObject.activeSelf && AccountController.usernameDisplay != null)
+        if (gameObject.activeSelf && ExampleManager.Instance.UserName != null)
         {
             ExampleManager.Instance.GetAvailableRooms();
         }

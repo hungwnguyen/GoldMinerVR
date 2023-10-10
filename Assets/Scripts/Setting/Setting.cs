@@ -16,9 +16,11 @@ public abstract class Setting : MonoBehaviour
     {
         #region Save sound
         float value = bgmusic.value * 100;
-        AccountController.controller.SetStat("BGMusic", (int)value);
+        PlayerPrefs.SetInt("BGMusic", (int)value);
+        //AccountController.controller.SetStat("BGMusic", (int)value);
         value = fxsound.value * 100;
-        AccountController.controller.SetStat("FXSound", (int)value);
+        PlayerPrefs.SetInt("FXSound", (int)value);
+        //AccountController.controller.SetStat("FXSound", (int)value);
         #endregion
     }
 

@@ -1,5 +1,6 @@
 ﻿using DatabaseAPI.Account;
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -28,7 +29,13 @@ public class GameSetting : Setting
     {
         if (ExampleManager.Instance.IsInRoom)
         {
-            ExampleManager.Instance.LeaveAllRooms(() => { SceneManager.LoadScene("Lobby"); });
+            ExampleManager.Instance.LeaveAllRooms(() => { StartCoroutine(LoadScene("Lobby")); });
         }
+    }
+
+    private IEnumerator LoadScene(string scene)
+    {
+        yield return new WaitForSeconds(0.25f);
+        SceneManager.LoadScene(scene);
     }
 }

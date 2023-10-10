@@ -48,7 +48,6 @@ namespace DatabaseAPI.Account
             {
                 PlayFabSettings.TitleId = "80494"; // Please change this value to your own titleId from Account Manager Window
             }
-            
             // Auto Login Condition
             if (PlayerPrefs.HasKey("PLAYFAB_USER_EMAIL") && !PlayerPrefs.HasKey("Log_out"))
             {
@@ -84,8 +83,11 @@ namespace DatabaseAPI.Account
         {
             
             Debug.Log("Congratulations, you're now connected!");
-            PlayerPrefs.SetString("PLAYFAB_USER_EMAIL", userEmail);
-            PlayerPrefs.SetString("PLAYFAB_USER_PASSWORD", userPassword);
+            if (!userEmail.Equals("guest@gmail.com"))
+            {
+                PlayerPrefs.SetString("PLAYFAB_USER_EMAIL", userEmail);
+                PlayerPrefs.SetString("PLAYFAB_USER_PASSWORD", userPassword);
+            }
             if (PlayerPrefs.HasKey("Log_out"))
             {
                 PlayerPrefs.DeleteKey("Log_out");

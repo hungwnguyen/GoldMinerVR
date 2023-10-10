@@ -142,11 +142,6 @@ public class LoginUIController : MonoBehaviour
 
     #region UIManagerCallback
 
-    public void UISound()
-    {
-        SoundManager.CreatePlayFXSound(SoundManager.Instance.audioClip.aud_touch);
-    }
-
     public IEnumerator UpdateAllStats()
     {
         EventActive1();
@@ -207,8 +202,13 @@ public class LoginUIController : MonoBehaviour
 
     public void SignIn()
     {
-        AccountController.controller.GET_USER_EMAIL(email1.text);
-        AccountController.controller.GET_USER_PASSWORD(password1.text);
+        AccountController.controller.LOGIN_ACTION();
+    }
+
+    public void GuestLogin()
+    {
+        AccountController.controller.GET_USER_EMAIL("guest@gmail.com");
+        AccountController.controller.GET_USER_PASSWORD("88888888");
         AccountController.controller.LOGIN_ACTION();
     }
 

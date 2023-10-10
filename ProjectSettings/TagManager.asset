@@ -6,6 +6,10 @@ TagManager:
   tags:
   - HorizontalLayoutGroupCustom
   - destroy
+  - TNT
+  - mouse
+  - luoicau
+  - input
   layers:
   - Default
   - TransparentFX

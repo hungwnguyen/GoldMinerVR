@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections;
 
 [Serializable]
-public class ShootingGalleryTargetModel
+public class GoldMinerTargetModel
 {
     public int id;
     public string uid;
