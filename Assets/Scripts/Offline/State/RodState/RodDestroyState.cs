@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace yuki
 {
@@ -29,10 +30,12 @@ namespace yuki
 
         private void OnAnimationFinished()
         {
-            if(rod is Mouse && !rod.IsDraged)
+            Debug.Log("On destroy state");
+            if(rod is Mouse)
             {
                 Mouse mouse = (Mouse)rod;
                 mouse.DestroyMouse();
+                rod.DestroyRod();
             }
             else if(rod is Boom && rod.IsDraged)
             {

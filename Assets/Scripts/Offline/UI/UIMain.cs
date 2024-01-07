@@ -8,12 +8,15 @@ using UnityEngine;
 
 namespace yuki
 {
-    public class UIManager : MonoBehaviour
+    public class UIMain : MonoBehaviour
     {
+        [SerializeField] private GameObject _element;
         [SerializeField] private TMP_Text _score;
         [SerializeField] private TMP_Text _TNT;
         [SerializeField] private TMP_Text _powerBuff;
-        public static UIManager Instance;
+        [SerializeField] private TMP_Text _time;
+        [SerializeField] private TMP_Text _level;
+        public static UIMain Instance;
 
         void Awake()
         {
@@ -29,6 +32,7 @@ namespace yuki
         {
             _score.SetText("$ " + PlayerManager.Instance.Score.ToString());
             _TNT.SetText("TNT: " + PlayerManager.Instance.GetTNTNumber().ToString());
+            _level.SetText("Level: " + LevelManager.Instance.Level.ToString());
         }
 
         public void SetPowerBuffText(float powerBuffTime)
@@ -38,7 +42,17 @@ namespace yuki
 
         public void SetPowerBuffEnable(bool enable)
         {
-            _powerBuff.enabled = enable;
+            _powerBuff.gameObject.SetActive(enable);
+        }
+
+        public void SetTime(float time)
+        {
+            _time.SetText("Time: " + time.ToString());
+        }
+
+        public void SetStatus(bool status)
+        {
+            _element.SetActive(status);
         }
     }
 }

@@ -10,6 +10,8 @@ TagManager:
   - mouse
   - luoicau
   - input
+  - PopupTextCointainer
+  - Rod
   layers:
   - Default
   - TransparentFX

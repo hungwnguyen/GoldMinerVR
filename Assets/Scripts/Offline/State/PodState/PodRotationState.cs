@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace yuki
 {
@@ -37,10 +38,14 @@ namespace yuki
 
                 pod.transform.rotation = Quaternion.AngleAxis(_angle, Vector3.forward);
 
-                if(Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButtonDown(0))
                 {
                     pod.FSM.ChangeState(pod.ShootState);
                 }
+                //if (Input.GetKeyDown(KeyCode.Space))
+                //{
+                //    pod.FSM.ChangeState(pod.ShootState);
+                //}
             }
         }
     }

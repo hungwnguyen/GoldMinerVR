@@ -32,7 +32,6 @@ namespace yuki
             {
                 if(collider.TryGetComponent(out IDragable dragable))
                 {
-                    Debug.Log("Drag");
                     _isDraged = true;
                     _rod = collider.transform;
                     dragable.Draged(this);
@@ -44,6 +43,10 @@ namespace yuki
 
         public void DestroyRod()
         {
+            if(_rod.gameObject.TryGetComponent(out Mouse mouse))
+            {
+                Destroy(mouse.Parent.gameObject);
+            }
             Destroy(_rod.gameObject);
         }
 
@@ -54,6 +57,14 @@ namespace yuki
                 if (!rod.IsDestroy)
                 {
                     rod.IsDestroy = true;
+                }
+                else
+                {
+                    if (rod.gameObject.TryGetComponent(out Mouse mouse))
+                    {
+                        Destroy(mouse.Parent.gameObject);
+                    }
+                    Destroy(rod.gameObject);
                 }
             }
         }

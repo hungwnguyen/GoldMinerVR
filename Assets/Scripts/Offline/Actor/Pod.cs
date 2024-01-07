@@ -22,15 +22,24 @@ namespace yuki
         private float _currentTime;
         #endregion
 
+        #region ITEM BUFF
+        private float _diamondBuff; public float DiamondBuff { get => _diamondBuff; set => _diamondBuff = value; }
+        private float _rockBuff; public float RockBuff { get => _rockBuff; set => _rockBuff = value; }
+        #endregion
+
         public Drag Drag { get; private set; }
         [SerializeField] private GameObject _popupText; public GameObject PopupText { get => _popupText; set => _popupText = value; }
+
+        public static Pod Instance;
 
         protected override void Awake()
         {
             base.Awake();
 
+            Instance = this;
+
             _height = Camera.main.orthographicSize * 2;
-            _width = _height * Camera.main.aspect; 
+            _width = _height * Camera.main.aspect;
 
             RotationState = new PodRotationState(this, podData, "rotate");
             RewindState = new PodRewindState(this, podData, "rewind");
@@ -44,17 +53,10 @@ namespace yuki
             Drag = GetComponentInChildren<Drag>();
             _originPos = new Vector3(0, Height / 2, 0);
             _powerBuff = 1;
+            _currentTime = 0;
+            _diamondBuff = 1;
+            _rockBuff = 1;
             FSM.Initialization(RotationState);
-        }
-
-        protected override void Update()
-        {
-            base.Update();
-
-            if(_powerBuffTime > 0)
-            {
-                CheckIfCountdownEnd();
-            }
         }
 
         public bool CheckIfOutOfScreen()
@@ -65,8 +67,8 @@ namespace yuki
         public void StartPowerBuff()
         {
             _currentTime += _powerBuffTime;
-            UIManager.Instance.SetPowerBuffText(_currentTime);
-            UIManager.Instance.SetPowerBuffEnable(true);
+            UIMain.Instance.SetPowerBuffText(_currentTime);
+            UIMain.Instance.SetPowerBuffEnable(true);
             StartCoroutine(Countdown());
         }
 
@@ -76,19 +78,19 @@ namespace yuki
             {
                 _currentTime -= 1;
 
-                UIManager.Instance.SetPowerBuffText(_currentTime);
+                UIMain.Instance.SetPowerBuffText(_currentTime);
 
                 yield return new WaitForSeconds(1.0f);
             }
-            
+            CheckIfCountdownEnd();
         }
 
-        private void CheckIfCountdownEnd() { 
+        private void CheckIfCountdownEnd() {
             if(_currentTime == 0)
             {
                 _powerBuff = 1;
                 _powerBuffTime = 0;
-                UIManager.Instance.SetPowerBuffEnable(false);
+                UIMain.Instance.SetPowerBuffEnable(false);
             }
         }
 
@@ -99,8 +101,7 @@ namespace yuki
                 var cointainer = GameObject.FindGameObjectWithTag("PopupTextCointainer");
                 if(cointainer != null )
                 {
-                    Debug.Log("gg");
-                    var go = Instantiate(_popupText, transform.position, Quaternion.identity, cointainer.transform);
+                    var go = Instantiate(_popupText, cointainer.transform.position, Quaternion.identity, cointainer.transform);
                     go.GetComponent<TMP_Text>().SetText(content);
                 }
                 else
@@ -112,6 +113,11 @@ namespace yuki
             {
                 Debug.Log("Missing popuptext prefab");
             }
+        }
+
+        public void SetStatus(bool status)
+        {
+            this.gameObject.SetActive(status);
         }
     }
 }

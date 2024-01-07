@@ -16,14 +16,15 @@ namespace yuki
             get => _patrolDestination >= 2 ? 0 : _patrolDestination;
             set => _patrolDestination = value;
         }
+        public Transform Parent { get; private set; }
 
         protected override void Start()
         {
             base.Start();
 
             _patrolDestination = 0;
+            Parent = transform.parent;
         }
-
 
         public void Move()
         {
@@ -43,7 +44,7 @@ namespace yuki
 
         public void DestroyMouse()
         {
-            Destroy(transform.parent.gameObject);
+            Destroy(Parent.gameObject);
         }
     }
 }

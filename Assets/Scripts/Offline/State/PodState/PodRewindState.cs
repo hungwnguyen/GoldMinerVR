@@ -18,7 +18,7 @@ namespace yuki
 
             if(!isExistingState)
             {
-                if(Input.GetMouseButtonDown(1) && PlayerManager.Instance.GetTNTNumber() > 0)
+                if(Input.GetMouseButtonDown(1) && PlayerManager.Instance.GetTNTNumber() > 0 && pod.Drag.IsDraged)
                 {
                     pod.Drag.DestroyRodByTNT();
                     pod.Drag.IsDraged = false;

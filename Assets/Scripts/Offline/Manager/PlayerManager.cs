@@ -9,16 +9,16 @@ namespace yuki
 {
     public enum Item
     {
-        DIAMOND_UP,
-        ROCK_UP,
-        POWER_UP,
-        TNT,
-        LUCKY_UP,
-        NONE
+        DIAMOND_UP = 200,
+        ROCK_UP = 210,
+        POWER_UP = 250,
+        TNT = 50,
+        LUCKY_UP = 500,
+        NONE = 0
     }
     public class PlayerManager : MonoBehaviour
     {
-        private float _score; public float Score { get => _score; set => _score = value; }
+        [SerializeField] private float _score; public float Score { get => _score; set => _score = value; }
         private List<Item> _items; public List<Item> Items { get => _items; set => _items = value; }
 
         public static PlayerManager Instance;

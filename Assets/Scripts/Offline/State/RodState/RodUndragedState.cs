@@ -37,13 +37,13 @@ namespace yuki
                     _mouse.Move();
                 }
 
-                if (rod.IsDestroy)
-                {
-                    rod.FSM.ChangeState(rod.DestroyState);
-                }
-                else if(rod.IsDraged)
+                if (rod.IsDraged)
                 {
                     rod.FSM.ChangeState(rod.DragState);
+                }
+                else if (rod.IsDestroy)
+                {
+                    rod.FSM.ChangeState(rod.DestroyState);
                 }
             }
         }

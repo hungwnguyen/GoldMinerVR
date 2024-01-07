@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace yuki
 {
@@ -10,6 +11,13 @@ namespace yuki
     {
         public RodDragState(Actor actor, ActorData data, string anim) : base(actor, data, anim)
         {
+        }
+
+        public override void Enter()
+        {
+            base.Enter();
+
+            Debug.Log("On dragged state");
         }
 
         public override void LogicUpdate()

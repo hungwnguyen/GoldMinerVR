@@ -22,6 +22,16 @@ namespace yuki
         BOOM
     }
 
+    public enum RodTypeName
+    {
+        GOLD,
+        DIAMOND,
+        MOUSE,
+        RANDOM_BAG,
+        ROCK,
+        BOOM
+    }
+
     public class Rod : Actor, IDragable
     {
         [SerializeField] protected RodData rodData;
@@ -31,6 +41,26 @@ namespace yuki
 
         private bool _isDestroy; public bool IsDestroy { get => _isDestroy; set => _isDestroy = value; }
         private bool _isDraged; public bool IsDraged { get => _isDraged; set => _isDraged = value; }
+        public RodTypeName Type 
+        {
+            get 
+            {
+                if (rodData.type.ToString().Contains(RodTypeName.GOLD.ToString()))
+                    return RodTypeName.GOLD;
+                else if (rodData.type.ToString().Contains(RodTypeName.DIAMOND.ToString()))
+                    return RodTypeName.DIAMOND;
+                else if (rodData.type.ToString().Contains(RodTypeName.MOUSE.ToString()))
+                    return RodTypeName.MOUSE;
+                else if (rodData.type.ToString().Contains(RodTypeName.RANDOM_BAG.ToString()))
+                    return RodTypeName.RANDOM_BAG;
+                else if (rodData.type.ToString().Contains(RodTypeName.ROCK.ToString()))
+                    return RodTypeName.ROCK;
+                else if (rodData.type.ToString().Contains(RodTypeName.BOOM.ToString()))
+                    return RodTypeName.BOOM;
+                else
+                    return RodTypeName.GOLD;
+            }
+        }
 
         public EventHandler EventHandler { get; private set; }
         protected override void Awake()
@@ -54,13 +84,18 @@ namespace yuki
         {
             _isDraged = true;
             drag.SlowDown = rodData.weight;
-            drag.ValueEarn = rodData.value;
-            if(transform.parent != null)
+            if(Type == RodTypeName.DIAMOND)
             {
-                Transform oldParent = transform.parent;
-                Destroy(oldParent.gameObject);
+                drag.ValueEarn = rodData.value * Pod.Instance.DiamondBuff;
             }
-            //Debug.Log(oldParent.name);
+            else if(Type == RodTypeName.ROCK)
+            {
+                drag.ValueEarn = rodData.value * Pod.Instance.RockBuff;
+            }
+            else
+            {
+                drag.ValueEarn = rodData.value;
+            }
             transform.SetParent(drag.transform);
             
         }
