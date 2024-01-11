@@ -22,44 +22,17 @@ namespace yuki
         BOOM
     }
 
-    public enum RodTypeName
-    {
-        GOLD,
-        DIAMOND,
-        MOUSE,
-        RANDOM_BAG,
-        ROCK,
-        BOOM
-    }
-
     public class Rod : Actor, IDragable
     {
         [SerializeField] protected RodData rodData;
         public RodUndragedState UndragedState { get; private set; }
         public RodDragState DragState { get; private set; }
         public RodDestroyState DestroyState { get; private set; }
-
         private bool _isDestroy; public bool IsDestroy { get => _isDestroy; set => _isDestroy = value; }
         private bool _isDraged; public bool IsDraged { get => _isDraged; set => _isDraged = value; }
-        public RodTypeName Type 
+        public RodType Type 
         {
-            get 
-            {
-                if (rodData.type.ToString().Contains(RodTypeName.GOLD.ToString()))
-                    return RodTypeName.GOLD;
-                else if (rodData.type.ToString().Contains(RodTypeName.DIAMOND.ToString()))
-                    return RodTypeName.DIAMOND;
-                else if (rodData.type.ToString().Contains(RodTypeName.MOUSE.ToString()))
-                    return RodTypeName.MOUSE;
-                else if (rodData.type.ToString().Contains(RodTypeName.RANDOM_BAG.ToString()))
-                    return RodTypeName.RANDOM_BAG;
-                else if (rodData.type.ToString().Contains(RodTypeName.ROCK.ToString()))
-                    return RodTypeName.ROCK;
-                else if (rodData.type.ToString().Contains(RodTypeName.BOOM.ToString()))
-                    return RodTypeName.BOOM;
-                else
-                    return RodTypeName.GOLD;
-            }
+            get => rodData.type;
         }
 
         public EventHandler EventHandler { get; private set; }
@@ -84,13 +57,13 @@ namespace yuki
         {
             _isDraged = true;
             drag.SlowDown = rodData.weight;
-            if(Type == RodTypeName.DIAMOND)
+            if(Type == RodType.DIAMOND)
             {
-                drag.ValueEarn = rodData.value * Pod.Instance.DiamondBuff;
+                drag.ValueEarn = rodData.value * Player.Instance.DiamondBuff;
             }
-            else if(Type == RodTypeName.ROCK)
+            else if(Type == RodType.ROCK)
             {
-                drag.ValueEarn = rodData.value * Pod.Instance.RockBuff;
+                drag.ValueEarn = rodData.value * Player.Instance.RockBuff;
             }
             else
             {
@@ -102,7 +75,7 @@ namespace yuki
 
         public void DestroyRod()
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
 }

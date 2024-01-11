@@ -42,10 +42,6 @@ namespace yuki
                 {
                     pod.FSM.ChangeState(pod.ShootState);
                 }
-                //if (Input.GetKeyDown(KeyCode.Space))
-                //{
-                //    pod.FSM.ChangeState(pod.ShootState);
-                //}
             }
         }
     }

@@ -10,8 +10,9 @@ namespace yuki
 {
     [Serializable]
     public class RodGenerate {
-        public RodType type;
+        public string name;
         public GameObject prefab;
+        public Order order;
         public int min;
         public int max;
     }
@@ -20,18 +21,7 @@ namespace yuki
     {
         [SerializeField] private List<RodGenerate> _rods = new List<RodGenerate>();
         [SerializeField] private int _numberOfRodGenerate;
-        [SerializeField] private Vector2 _offsetScreen;
 
-        private float _height;
-        private float _width;
-
-        private float _top;
-        private float _bottom;
-        private float _left;
-        private float _right;
-
-        private System.Random _random = new System.Random();
-        private float _sumWeight;
         public static Spawner Instance;
 
         void Awake()
@@ -41,8 +31,7 @@ namespace yuki
 
         void Start ()
         {
-            Initialization();
-            if (LevelManager.Instance.Level == 1)
+            if (GameManager.Instance.Level == 1)
             {
                 SpawnRod();
             }
@@ -68,7 +57,12 @@ namespace yuki
                 while(count < randNumberOfRodGenerate)
                 {
                     i++;
-                    Vector2 randomPos = new Vector2(UnityEngine.Random.Range(_left, _right), UnityEngine.Random.Range(_bottom, _top));
+                    float minPos = Screen.Instance.GameplayRect.yMin;
+                    float maxPos = Screen.Instance.GameplayRect.yMax;
+
+                    GetOrderPos(ref minPos, ref maxPos, rod);
+
+                    Vector2 randomPos = new Vector2(UnityEngine.Random.Range(Screen.Instance.GameplayRect.xMin, Screen.Instance.GameplayRect.xMax), UnityEngine.Random.Range(minPos, maxPos));
                     if (CheckCollision(randomPos))
                     {
                         SpawnRandomRod(rod.prefab, randomPos);
@@ -77,9 +71,9 @@ namespace yuki
                     if (i == 2000)
                         break;
                 }
-                
+
             }
-            
+
         }
 
         public void DestroyAllRod()
@@ -100,35 +94,6 @@ namespace yuki
             }
         }
 
-        //private int GetRandomRodIndex()
-        //{
-        //    double r = _random.NextDouble() * _sumWeight;
-        //    for(int i=0; i<_rods.Count; i++)
-        //    {
-        //        if (_rods[i].weight >= r)
-        //        {
-        //            return i;
-        //        }
-        //    }
-        //    return 0;
-        //}
-
-        private void Initialization()
-        {
-            _height = Camera.main.orthographicSize * 2;
-            _width = _height * Camera.main.aspect;
-            _top = _height / 2 - 2.5f - _offsetScreen.y;
-            _bottom = -_height / 2 + _offsetScreen.y;
-            _left = -_width / 2 + _offsetScreen.x;
-            _right = _width / 2 - _offsetScreen.x;
-            _sumWeight = 0f;
-            //foreach(RodGenerate rod in _rods)
-            //{
-            //    _sumWeight += rod.chance;
-            //    rod.weight = _sumWeight;
-            //}
-        }
-
         private bool CheckCollision(Vector2 pos)
         {
             Collider2D[] hits = Physics2D.OverlapCircleAll(pos, 1.5f);
@@ -140,13 +105,12 @@ namespace yuki
             Collider2D[] cols = obj.GetComponentsInParent<Collider2D>(true);
             Collider2D col = cols[cols.Length - 1];
             
-
             if (col != null)
             {
                 Bounds colBound = col.bounds;
                 Vector2 boundMin = colBound.min;
                 Vector2 boundMax = colBound.max;
-                if(boundMin.x > _left && boundMin.y < _top && boundMax.x < _right && boundMax.y > _bottom)
+                if(boundMin.x > Screen.Instance.GameplayRect.xMin && boundMin.y < Screen.Instance.GameplayRect.yMax && boundMax.x < Screen.Instance.GameplayRect.xMax && boundMax.y > Screen.Instance.GameplayRect.yMin)
                 {
                     return true;
                 }
@@ -155,9 +119,36 @@ namespace yuki
             return false;
         }
 
-        public void GetRandomChane()
+        private void GetOrderPos(ref float minPos, ref float maxPos, RodGenerate rod)
         {
-            
+            switch (rod.order)
+            {
+                case Order.ENTIRE:
+                    minPos = Screen.Instance.GameplayRect.yMin;
+                    maxPos = Screen.Instance.GameplayRect.yMax;
+                    break;
+                case Order.PART_ONE:
+                    minPos = Screen.Instance.PartOneRect.yMin;
+                    maxPos = Screen.Instance.PartOneRect.yMax;
+                    break;
+                case Order.PART_TWO:
+                    minPos = Screen.Instance.PartTwoRect.yMin;
+                    maxPos = Screen.Instance.PartTwoRect.yMax;
+                    break;
+                case Order.PART_THREE:
+                    minPos = Screen.Instance.PartThreeRect.yMin;
+                    maxPos = Screen.Instance.PartThreeRect.yMax;
+                    break;
+                case Order.PART_ONE_TWO:
+                    minPos = Screen.Instance.PartTwoRect.yMin;
+                    maxPos = Screen.Instance.PartOneRect.yMax;
+                    break;
+                case Order.PART_TWO_THREE:
+                    minPos = Screen.Instance.PartThreeRect.yMin;
+                    maxPos = Screen.Instance.PartTwoRect.yMax;
+                    break;
+            }
         }
-    } 
+
+    }
 }

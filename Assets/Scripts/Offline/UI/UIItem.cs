@@ -44,10 +44,10 @@ namespace yuki
 
         private void BuyItem()
         {
-            if(PlayerManager.Instance.Score >= _priceItem)
+            if(Player.Instance.Score >= _priceItem)
             {
-                PlayerManager.Instance.Items.Add(_item);
-                PlayerManager.Instance.Score -= _priceItem;
+                Player.Instance.Bag.Add(_item);
+                Player.Instance.Score -= _priceItem;
                 Destroy(this.gameObject);
             }
             else
@@ -59,11 +59,11 @@ namespace yuki
         private int CalculateItemPrice()
         {
             float _price = (int)_item;
-            if(LevelManager.Instance.Level == 1)
+            if(GameManager.Instance.Level == 1)
             {
                 return (int) _price;
             }
-            _price += LevelManager.Instance.Level * (float) new System.Random().NextDouble() * _price;
+            _price += GameManager.Instance.Level * (float) new System.Random().NextDouble() * _price;
             return Mathf.RoundToInt(_price);
         }
 

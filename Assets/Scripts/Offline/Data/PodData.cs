@@ -9,7 +9,7 @@ namespace yuki
     {
         public float angleMax = 80f;
         public float rotationSpeed = 2f;
-        public float speed = 10f;
+        public float strength = 10f;
     }
 }
 

@@ -29,14 +29,17 @@ namespace yuki
 
         private void NextLevel() 
         {
-            LevelManager.Instance.NextLevel();
+            GameManager.Instance.NextLevel();
         }
 
         public void AddItemToShop()
         {
-            foreach(GameObject item in _prefab)
+            int rand = UnityEngine.Random.Range(0, _prefab.Count);
+            for (int i = 0; i < _prefab.Count; i++)
             {
-                Instantiate(item, _content);
+                if (i == rand)
+                    continue;
+                Instantiate(_prefab[i], _content);
             }
         }
 

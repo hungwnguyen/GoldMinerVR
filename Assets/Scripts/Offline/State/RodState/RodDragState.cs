@@ -13,13 +13,6 @@ namespace yuki
         {
         }
 
-        public override void Enter()
-        {
-            base.Enter();
-
-            Debug.Log("On dragged state");
-        }
-
         public override void LogicUpdate()
         {
             base.LogicUpdate();

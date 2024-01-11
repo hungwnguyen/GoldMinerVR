@@ -12,7 +12,11 @@ namespace yuki
         protected virtual void Awake()
         {
             FSM = new FiniteStateMachine();
-            Anim = GetComponentInChildren<Animator>();
+            Anim = GetComponent<Animator>();
+            if(Anim == null)
+            {
+                Anim = GetComponentInParent<Animator>();
+            }
         }
 
         protected virtual void Start()

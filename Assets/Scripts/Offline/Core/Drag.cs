@@ -12,8 +12,6 @@ namespace yuki
         [SerializeField] private LayerMask whatIsDragable;
         [SerializeField] private Transform dragPosition;
         [SerializeField] private Vector2 dragSize;
-
-        public Dictionary<RandomBagItem, String> RandomBagDict { get; private set; }
         private bool _isDraged; public bool IsDraged { get => _isDraged; set => _isDraged = value; }
         private float _slowDown; public float SlowDown { get => _slowDown; set => _slowDown = value; }
         private float _valueEarn; public float ValueEarn { get => _valueEarn; set => _valueEarn = value; }
@@ -41,16 +39,23 @@ namespace yuki
             }
         }
 
-        public void DestroyRod()
+        public void FinishDrag()
         {
             if(_rod.gameObject.TryGetComponent(out Mouse mouse))
             {
                 Destroy(mouse.Parent.gameObject);
             }
+            else if(_rod.gameObject.TryGetComponent(out RandomBag randomBag))
+            {
+                randomBag.GetEffectRandomBag();
+            }
+            Player.Instance.Score += ValueEarn;
+            _slowDown = 0;
+            _valueEarn = 0;
             Destroy(_rod.gameObject);
         }
 
-        public void DestroyRodByTNT()
+        public void UseTNT()
         {
             if(_rod.gameObject.TryGetComponent(out Rod rod))
             {
@@ -67,35 +72,6 @@ namespace yuki
                     Destroy(rod.gameObject);
                 }
             }
-        }
-
-        public string GetRandomBagItem()
-        {
-            if(_rod.gameObject.TryGetComponent(out RandomBag randomBag))
-            {
-                RandomBagItem item = randomBag.RandomItem();
-                RandomBagDict = randomBag.CreateDictStr();
-                switch (item)
-                {
-                    case RandomBagItem.TNT_1:
-                        PlayerManager.Instance.Items.Add(Item.TNT);
-                        return RandomBagDict[RandomBagItem.TNT_1];
-                    case RandomBagItem.TNT_2:
-                        PlayerManager.Instance.Items.Add(Item.TNT);
-                        PlayerManager.Instance.Items.Add(Item.TNT);
-                        return RandomBagDict[RandomBagItem.TNT_2];
-                    case RandomBagItem.TNT_3:
-                        PlayerManager.Instance.Items.Add(Item.TNT);
-                        PlayerManager.Instance.Items.Add(Item.TNT);
-                        PlayerManager.Instance.Items.Add(Item.TNT);
-                        return RandomBagDict[RandomBagItem.TNT_3];
-                    case RandomBagItem.STRENGTH_UP:
-                        return RandomBagDict[RandomBagItem.STRENGTH_UP];
-                    case RandomBagItem.NONE:
-                        return RandomBagDict[RandomBagItem.NONE];
-                }
-            }
-            return "";
         }
 
         void OnDrawGizmos()
