@@ -24,17 +24,17 @@ namespace yuki
 
         void Awake()
         {
-            if (Instance == null)
+            if (Instance != null && Instance != this)
+            {
+                Destroy(this);
+            }
+            else
             {
                 Instance = this;
             }
             CalculateScreenPart();
         }
 
-        private void Start()
-        {
-            
-        }
  
         private void Update()
         {
