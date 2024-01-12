@@ -123,7 +123,6 @@ public class PlayerManager : ExampleNetworkedEntityView
     protected override void UpdateStateFromView()
     {
         base.UpdateStateFromView();
-
     }
 
     protected override void UpdateViewFromState()
