@@ -10,6 +10,8 @@ TagManager:
   - mouse
   - luoicau
   - input
+  - PopupTextCointainer
+  - Rod
   layers:
   - Default
   - TransparentFX
@@ -22,7 +24,7 @@ TagManager:
   - PlayerBoundary
   - Player
   - Projectile
-  - 
+  - Rod
   - 
   - 
   - 
@@ -46,4 +48,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Pod
+    uniqueID: 761217887
     locked: 0
