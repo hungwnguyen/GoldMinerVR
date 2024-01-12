@@ -11,11 +11,14 @@ namespace yuki
     public class PopupTextContainer : MonoBehaviour
     {
         [SerializeField] private GameObject _popupText;
-        public static PopupTextContainer Instance;
+        public static PopupTextContainer Instance { get; private set; }
 
         void Awake()
         {
-            Instance = this;
+            if(Instance == null)
+            {
+                Instance = this;
+            }
         }
 
         public void ShowPopupText(string content)

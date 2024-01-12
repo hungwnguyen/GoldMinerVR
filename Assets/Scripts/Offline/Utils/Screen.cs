@@ -20,11 +20,14 @@ namespace yuki
         public Rect PartOneRect { get; private set; }
         public Rect PartTwoRect { get; private set; }
         public Rect PartThreeRect { get; private set; }
-        public static Screen Instance;
+        public static Screen Instance { get; private set; }
 
         void Awake()
         {
-            Instance = this;
+            if (Instance == null)
+            {
+                Instance = this;
+            }
             CalculateScreenPart();
         }
 

@@ -15,12 +15,14 @@ namespace yuki
         private float _currentTime;
         private float _targetScore;
         private float _offset = 0;
-        public static GameManager Instance;
+        public static GameManager Instance { get; private set; }
 
         void Awake()
         {
-            Instance = this;
-            DontDestroyOnLoad(this);
+            if(Instance == null)
+            {
+                Instance = this;
+            }
         }
 
         void Start()

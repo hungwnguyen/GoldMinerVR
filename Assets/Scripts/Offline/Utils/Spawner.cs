@@ -22,11 +22,15 @@ namespace yuki
         [SerializeField] private List<RodGenerate> _rods = new List<RodGenerate>();
         [SerializeField] private int _numberOfRodGenerate;
 
-        public static Spawner Instance;
+        public static Spawner Instance { get; private set; }
 
         void Awake()
         {
-            Instance = this;
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            
         }
 
         void Start ()
