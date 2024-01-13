@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: PodData
   m_EditorClassIdentifier: 
   angleMax: 70
-  rotationSpeed: 2
-  speed: 10
+  rotationSpeed: 4
+  strength: 15

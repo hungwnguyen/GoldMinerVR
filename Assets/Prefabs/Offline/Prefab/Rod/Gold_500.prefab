@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4702384153525270243}
   - component: {fileID: 8240658553194551054}
   - component: {fileID: 4768025338604757184}
+  - component: {fileID: 4002873607769898982}
   m_Layer: 11
   m_Name: Gold_500
   m_TagString: Rod
@@ -48,6 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rodData: {fileID: 11400000, guid: 9dd4f47c568b2754888b8a8208b25910, type: 2}
+  debug: 1
 --- !u!212 &4034440692333393130
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -108,7 +110,7 @@ Animator:
   m_GameObject: {fileID: 4087921919160918459}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5da15df973be0864380ba3044617eabf, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -127,7 +129,7 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -434,3 +436,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbed6b84f184dce4db10b4045aa38ce1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!50 &4002873607769898982
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4087921919160918459}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

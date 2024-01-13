@@ -35,8 +35,4 @@ public class AudioClipData : ScriptableObject
     public AudioClip aud_touch;
     [Space(1f), Header("Win music"), Space(1f)] 
     public AudioClip aud_win;
-    [Space(1f), Header("Laughter music"), Space(1f)]
-    public AudioClip laughter;
-    [Space(1f), Header("Welcom music"), Space(1f)]
-    public AudioClip welcom;
 }

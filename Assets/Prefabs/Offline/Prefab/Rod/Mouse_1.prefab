@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3892144802373480596}
   - component: {fileID: 2506294876822865077}
+  - component: {fileID: 6396475338014619872}
   m_Layer: 0
   m_Name: Mouse_1
   m_TagString: Rod
@@ -26,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 3892144802373480601}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_Children:
   - {fileID: 3892144802392360477}
   - {fileID: 3892144803330809205}
@@ -59,6 +60,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.0121417, y: 1}
   m_EdgeRadius: 0
+--- !u!50 &6396475338014619872
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3892144802373480601}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &3892144802392360476
 GameObject:
   m_ObjectHideFlags: 0
@@ -105,6 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rodData: {fileID: 11400000, guid: a54dab968ee179e40bd1293e94e1ff13, type: 2}
+  debug: 0
   _patrolPoints:
   - {fileID: 3892144803420660852}
   - {fileID: 3892144803024670256}
