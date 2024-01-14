@@ -41,7 +41,7 @@ namespace yuki
         #region Check
         public bool CheckIfOutOfScreen()
         {
-            return !this.GetComponent<Renderer>().isVisible;
+            return !Drag.GetComponent<Renderer>().isVisible;
         }
 
         public bool CheckIfDragFinish()

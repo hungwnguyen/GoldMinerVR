@@ -28,6 +28,7 @@ namespace yuki
             if (other.TryGetComponent(out IDragable dragable))
             {
                 _isDraged = true;
+                this.GetComponent<Animator>().SetBool("drag", true);
                 _rod = other.transform;
                 dragable.Draged(this, _transform);
                 this.GetComponent<BoxCollider2D>().enabled = false;
@@ -58,6 +59,7 @@ namespace yuki
                 randomBag.GetEffectRandomBag();
             }
             this.GetComponent<BoxCollider2D>().enabled = true;
+            this.GetComponent<Animator>().SetBool("drag", false);
             Player.Instance.Score += ValueEarn;
             _slowDown = 0;
             _valueEarn = 0;

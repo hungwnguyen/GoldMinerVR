@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3892144802373480596}
   - component: {fileID: 2506294876822865077}
-  - component: {fileID: 6396475338014619872}
+  - component: {fileID: 5281340838960770630}
   m_Layer: 0
   m_Name: Mouse_1
   m_TagString: Rod
@@ -44,7 +44,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.029940844, y: 0}
@@ -60,7 +60,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.0121417, y: 1}
   m_EdgeRadius: 0
---- !u!50 &6396475338014619872
+--- !u!50 &5281340838960770630
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -80,7 +80,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!1 &3892144802392360476
 GameObject:
   m_ObjectHideFlags: 0

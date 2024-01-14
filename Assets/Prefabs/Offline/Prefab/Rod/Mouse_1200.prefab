@@ -40,7 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2929492604366101058}
   - component: {fileID: 7541838103950183836}
-  - component: {fileID: 446954897402798676}
+  - component: {fileID: 499857453727613693}
   m_Layer: 0
   m_Name: Mouse_1200
   m_TagString: Rod
@@ -90,7 +90,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.055207, y: 1.1683826}
   m_EdgeRadius: 0
---- !u!50 &446954897402798676
+--- !u!50 &499857453727613693
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -110,7 +110,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!1 &2929492604380802250
 GameObject:
   m_ObjectHideFlags: 0

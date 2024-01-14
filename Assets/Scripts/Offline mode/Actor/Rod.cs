@@ -80,9 +80,9 @@ namespace yuki
             {
                 drag.ValueEarn = rodData.value;
             }
-            transform.SetParent(drag.transform);
             transform.position = new Vector3(drag.transform.position.x,
-                                         transform.position.y, -1);
+                                         drag.transform.position.y - (GetComponent<Collider2D>().bounds.size.y / 2), -1);
+            transform.SetParent(drag.transform);
         }
 
         public void DestroyRod()
