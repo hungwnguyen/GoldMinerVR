@@ -1899,6 +1899,7 @@ GameObject:
   - component: {fileID: 846888316}
   - component: {fileID: 846888317}
   - component: {fileID: 846888315}
+  - component: {fileID: 846888318}
   m_Layer: 0
   m_Name: Pod
   m_TagString: Untagged
@@ -1985,6 +1986,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   podData: {fileID: 11400000, guid: 3b0e967b7ee974442976a410be545200, type: 2}
   _originPos: {fileID: 732889921}
+--- !u!65 &846888318
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846888314}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.6322637, y: 0.25270033, z: 0.2}
+  m_Center: {x: -0.0061577857, y: -0.5052979, z: 0}
 --- !u!1 &959516084
 GameObject:
   m_ObjectHideFlags: 0
