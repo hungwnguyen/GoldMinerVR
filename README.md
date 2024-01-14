@@ -1,1 +1,1 @@
-# GoldMiner2Player
+# GoldMiner mix VR 
