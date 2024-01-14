@@ -25,7 +25,7 @@ namespace yuki
                     PopupTextContainer.Instance.ShowPopupText("++TNT");
                     break;
                 case RandomBagItem.STRENGTH_UP:
-                    Player.Instance.PowerBuff = 2;
+                    Player.Instance.PowerBuff = 10;
                     PopupTextContainer.Instance.ShowPopupText("++STRENGTH");
                     break;
                 case RandomBagItem.GOLD:

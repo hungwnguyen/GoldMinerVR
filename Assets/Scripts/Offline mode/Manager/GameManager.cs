@@ -102,7 +102,7 @@ namespace yuki
                         Player.Instance.UseItem(Item.ROCK_UP);
                         break;
                     case Item.POWER_UP:
-                        Player.Instance.PowerBuff = 2;
+                        Player.Instance.PowerBuff = 10;
                         Player.Instance.UseItem(Item.POWER_UP);
                         break;
                 }

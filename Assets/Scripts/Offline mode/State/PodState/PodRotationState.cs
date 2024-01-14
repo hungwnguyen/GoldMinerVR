@@ -29,11 +29,15 @@ namespace yuki
 
             if(!isExistingState)
             {
-                _angle += podData.rotationSpeed * _direction;
+                _angle += podData.rotationSpeed * _direction * Time.deltaTime;
 
-                if(_angle > podData.angleMax || _angle < -podData.angleMax)
+                if(_angle > podData.angleMax && this._direction == 1)
                 {
-                    _direction *= -1;
+                    _direction = -1;
+                }
+                else if (_angle < -podData.angleMax && this._direction == -1)
+                {
+                    _direction = 1;
                 }
 
                 pod.transform.rotation = Quaternion.AngleAxis(_angle, Vector3.forward);
