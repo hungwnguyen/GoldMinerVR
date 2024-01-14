@@ -31,4 +31,22 @@ namespace yuki
         PART_ONE_TWO,
         PART_TWO_THREE
     }
+
+    public enum RodType
+    {
+        GOLD_100,
+        GOLD_200,
+        GOLD_500,
+        DIAMOND_600,
+        DIAMOND_900,
+        DIAMOND_1200,
+        RANDOM_BAG,
+        MOUSE_1,
+        MOUSE_DIAMOND_600,
+        MOUSE_DIAMOND_900,
+        MOUSE_DIAMOND_1200,
+        MOUSE_GOLD,
+        ROCK,
+        BOOM
+    }
 }

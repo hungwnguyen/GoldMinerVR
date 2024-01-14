@@ -8,7 +8,7 @@ namespace yuki
     public class Pod : Actor
     {
         [SerializeField] private PodData podData;
-        [SerializeField] Transform _originPos;
+        [SerializeField] private Transform _originPos;
         public Transform OriginPos { get => _originPos; }
         #region State
         public PodRotationState RotationState { get; private set; }
@@ -18,6 +18,7 @@ namespace yuki
         public PodShootState ShootState { get; private set; }
         #endregion
         public Drag Drag { get; private set; }
+        public EventHandler EventHandler { get; private set; }
 
         protected override void Awake()
         {
@@ -34,6 +35,7 @@ namespace yuki
         {
             base.Start();
 
+            EventHandler = GetComponentInParent<EventHandler>();
             Drag = GetComponentInChildren<Drag>();
             FSM.Initialization(RotationState);
         }
@@ -41,7 +43,9 @@ namespace yuki
         #region Check
         public bool CheckIfOutOfScreen()
         {
-            return !Drag.GetComponent<Renderer>().isVisible;
+            return !(transform.position.x >= Screen.Instance.GameplayRect.xMin && 
+                transform.position.x <= Screen.Instance.GameplayRect.xMax &&
+                transform.position.y >= Screen.Instance.GameplayRect.yMin);
         }
 
         public bool CheckIfDragFinish()

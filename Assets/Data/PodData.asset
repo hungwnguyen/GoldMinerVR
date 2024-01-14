@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 088cffa103ca1a04b915fc53d621b7f0, type: 3}
   m_Name: PodData
   m_EditorClassIdentifier: 
-  angleMax: 70
-  rotationSpeed: 4
-  strength: 15
+  angleMax: 75
+  rotationSpeed: 200
+  strength: 10

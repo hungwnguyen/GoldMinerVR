@@ -2,21 +2,30 @@
 
 namespace yuki
 {
-    public class Boom : Rod
+    public class Boom : Rod, IExplodeable
     {
         [SerializeField] private GameObject boom;
-        [SerializeField] private Sprite boomTarget;
+
+        public Explode Explode { get; private set; }
 
         protected override void Start()
         {
             base.Start();
+
+            Explode = GetComponentInChildren<Explode>();
+        }
+
+        public void Exploded()
+        {
+            Instantiate(boom, transform.position, Quaternion.identity);
+            Explode.Exploding();
         }
 
         public override void Draged(Drag drag, Transform target)
         {
-            Destroy(Instantiate(boom, this.transform.position, Quaternion.identity), 0.833f);
-            this.GetComponent<SpriteRenderer>().sprite = boomTarget;
             base.Draged(drag, target);
+            Exploded();
         }
+
     }
 }

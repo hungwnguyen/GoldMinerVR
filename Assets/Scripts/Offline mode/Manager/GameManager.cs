@@ -12,8 +12,8 @@ namespace yuki
     {
         [SerializeField] private float _timeLevel;
         private int _level = 0; public int Level { get => _level; set => _level = value; }
-        private float _currentTime;
-        private float _targetScore;
+        private float _currentTime; 
+        private float _targetScore; public float TargetScore { get => _targetScore; set => _targetScore = value; }
         private float _offset = 0;
         public static GameManager Instance;
 

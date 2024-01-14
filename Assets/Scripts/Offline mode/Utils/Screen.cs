@@ -17,8 +17,11 @@ namespace yuki
         private float _width; public float Width { get => _width; set => _width = value; }
         public Rect PlayerRect { get; private set; }
         public Rect GameplayRect { get; private set; }
+        // Ở dưới cùng
         public Rect PartOneRect { get; private set; }
+        // Ở giữa
         public Rect PartTwoRect { get; private set; }
+        // Ở trên cùng
         public Rect PartThreeRect { get; private set; }
         public static Screen Instance;
 
@@ -49,18 +52,18 @@ namespace yuki
             float gameplayY = -_height / 2f;
             float playerY = gameplayY + gameplayHeight;
 
-            PlayerRect = new Rect(-_width / 2f + _offset.x, playerY + _offset.y, _width - 2 * _offset.x, playerHeight - 2 * _offset.y);
-            GameplayRect = new Rect(-_width / 2f + _offset.x, gameplayY + _offset.y, _width - 2 * _offset.x, gameplayHeight - 2 * _offset.y - _spaceBetweet);
+            PlayerRect = new Rect(-_width / 2f, playerY, _width, playerHeight );
+            GameplayRect = new Rect(-_width / 2f , gameplayY, _width, gameplayHeight);
 
-            float partHeight = _partRatio * GameplayRect.height;
+            float partHeight = _partRatio * (GameplayRect.height - 2 * _offset.y - _spaceBetweet);
 
-            float part1Y = GameplayRect.yMin;
+            float part1Y = GameplayRect.yMin + _offset.y;
             float part2Y = part1Y + partHeight;
             float part3Y = part2Y + partHeight;
 
-            PartOneRect = new Rect(GameplayRect.xMin, part1Y, GameplayRect.width, partHeight);
-            PartTwoRect = new Rect(GameplayRect.xMin, part2Y, GameplayRect.width, partHeight);
-            PartThreeRect = new Rect(GameplayRect.xMin, part3Y, GameplayRect.width, partHeight);
+            PartOneRect = new Rect(GameplayRect.xMin + _offset.x, part1Y, GameplayRect.width - 2 * _offset.x, partHeight);
+            PartTwoRect = new Rect(GameplayRect.xMin + _offset.x, part2Y, GameplayRect.width - 2 * _offset.x, partHeight);
+            PartThreeRect = new Rect(GameplayRect.xMin + _offset.x, part3Y, GameplayRect.width - 2 * _offset.x, partHeight);
         }
 
         void OnDrawGizmos()

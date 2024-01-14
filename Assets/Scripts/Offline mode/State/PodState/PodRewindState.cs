@@ -13,6 +13,13 @@ namespace yuki
         {
         }
 
+        public override void Enter()
+        {
+            base.Enter();
+
+            pod.Drag.GetComponent<BoxCollider2D>().enabled = false;
+        }
+
         public override void LogicUpdate()
         {
             base.LogicUpdate();

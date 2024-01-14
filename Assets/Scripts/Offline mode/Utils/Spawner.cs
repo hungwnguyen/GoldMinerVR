@@ -21,6 +21,7 @@ namespace yuki
     {
         [SerializeField] private List<RodGenerate> _rods = new List<RodGenerate>();
         [SerializeField] private int _numberOfRodGenerate;
+        [SerializeField] private Vector2 _sizeCheckMutiplier;
 
         public static Spawner Instance;
 
@@ -62,13 +63,13 @@ namespace yuki
                 while(count < randNumberOfRodGenerate)
                 {
                     i++;
-                    float minPos = Screen.Instance.GameplayRect.yMin;
-                    float maxPos = Screen.Instance.GameplayRect.yMax;
+                    float minPos = Screen.Instance.PartOneRect.yMin;
+                    float maxPos = Screen.Instance.PartThreeRect.yMax;
 
                     GetOrderPos(ref minPos, ref maxPos, rod);
 
-                    Vector2 randomPos = new Vector2(UnityEngine.Random.Range(Screen.Instance.GameplayRect.xMin, Screen.Instance.GameplayRect.xMax), UnityEngine.Random.Range(minPos, maxPos));
-                    if (CheckCollision(randomPos))
+                    Vector2 randomPos = new Vector2(UnityEngine.Random.Range(Screen.Instance.PartOneRect.xMin, Screen.Instance.PartOneRect.xMax), UnityEngine.Random.Range(minPos, maxPos));
+                    if (CheckCollision(randomPos, rod.prefab))
                     {
                         SpawnRandomRod(rod.prefab, randomPos);
                         count++;
@@ -99,26 +100,25 @@ namespace yuki
             }
         }
 
-        private bool CheckCollision(Vector2 pos)
+        private bool CheckCollision(Vector2 pos, GameObject rod)
         {
-            Collider2D[] hits = Physics2D.OverlapCircleAll(pos, 1.5f);
+            BoxCollider2D[] collider2Ds = rod.GetComponentsInChildren<BoxCollider2D>(true);
+            BoxCollider2D rodBox = collider2Ds[0];
+            Collider2D[] hits = Physics2D.OverlapBoxAll(pos, new Vector2(rodBox.size.x * _sizeCheckMutiplier.x, rodBox.size.y * _sizeCheckMutiplier.y), 0);
             return hits.Length < 1;
         }
 
-        private bool CheckColliderOutsideScreen(GameObject obj)
+        private bool CheckColliderOutsideScreen(GameObject rod)
         {
-            Collider2D[] cols = obj.GetComponentsInParent<Collider2D>(true);
-            Collider2D col = cols[cols.Length - 1];
-            
-            if (col != null)
+            BoxCollider2D[] collider2Ds = rod.GetComponentsInChildren<BoxCollider2D>(true);
+            BoxCollider2D rodBox = collider2Ds[0];
+
+            Bounds colBound = rodBox.bounds;
+            Vector2 boundMin = colBound.min;
+            Vector2 boundMax = colBound.max;
+            if (boundMin.x > Screen.Instance.PartOneRect.xMin && boundMin.y > Screen.Instance.PartOneRect.yMin && boundMax.x < Screen.Instance.PartThreeRect.xMax && boundMax.y < Screen.Instance.PartThreeRect.yMax)
             {
-                Bounds colBound = col.bounds;
-                Vector2 boundMin = colBound.min;
-                Vector2 boundMax = colBound.max;
-                if(boundMin.x > Screen.Instance.GameplayRect.xMin && boundMin.y < Screen.Instance.GameplayRect.yMax && boundMax.x < Screen.Instance.GameplayRect.xMax && boundMax.y > Screen.Instance.GameplayRect.yMin)
-                {
-                    return true;
-                }
+                return true;
             }
 
             return false;
@@ -129,8 +129,8 @@ namespace yuki
             switch (rod.order)
             {
                 case Order.ENTIRE:
-                    minPos = Screen.Instance.GameplayRect.yMin;
-                    maxPos = Screen.Instance.GameplayRect.yMax;
+                    minPos = Screen.Instance.PartOneRect.yMin;
+                    maxPos = Screen.Instance.PartThreeRect.yMax;
                     break;
                 case Order.PART_ONE:
                     minPos = Screen.Instance.PartOneRect.yMin;
@@ -145,12 +145,12 @@ namespace yuki
                     maxPos = Screen.Instance.PartThreeRect.yMax;
                     break;
                 case Order.PART_ONE_TWO:
-                    minPos = Screen.Instance.PartTwoRect.yMin;
-                    maxPos = Screen.Instance.PartOneRect.yMax;
+                    minPos = Screen.Instance.PartOneRect.yMin;
+                    maxPos = Screen.Instance.PartTwoRect.yMax;
                     break;
                 case Order.PART_TWO_THREE:
-                    minPos = Screen.Instance.PartThreeRect.yMin;
-                    maxPos = Screen.Instance.PartTwoRect.yMax;
+                    minPos = Screen.Instance.PartTwoRect.yMin;
+                    maxPos = Screen.Instance.PartThreeRect.yMax;
                     break;
             }
         }

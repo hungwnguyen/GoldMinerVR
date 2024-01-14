@@ -17,6 +17,10 @@ namespace yuki
             {
                 Anim = GetComponentInParent<Animator>();
             }
+            if(Anim == null)
+            {
+                Anim = GetComponentInChildren<Animator>();
+            }
         }
 
         protected virtual void Start()

@@ -41,10 +41,6 @@ namespace yuki
                 {
                     rod.FSM.ChangeState(rod.DragState);
                 }
-                else if (rod.IsDestroy)
-                {
-                    rod.FSM.ChangeState(rod.DestroyState);
-                }
             }
         }
     }

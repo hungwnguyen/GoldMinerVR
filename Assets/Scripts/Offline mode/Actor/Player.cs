@@ -25,12 +25,9 @@ namespace yuki
             }
             else
                 Instance = this;
-        }
-
-        void Start()
-        {
             Initializtion();
         }
+
 
         public float GetItemNumber(Item item)
         {
@@ -51,10 +48,14 @@ namespace yuki
 
         public void Initializtion()
         {
+            transform.position = new Vector3(Screen.Instance.PlayerRect.center.x, Screen.Instance.PlayerRect.yMin, 0);
             _powerBuff = 1;
             _diamondBuff = 1;
             _rockBuff = 1;
             _bag = new List<Item>();
+            _bag.Add(Item.TNT);
+            _bag.Add(Item.TNT);
+            _bag.Add(Item.TNT);
         }
     }
 }

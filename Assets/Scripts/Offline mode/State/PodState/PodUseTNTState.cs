@@ -16,7 +16,14 @@ namespace yuki
         {
             base.Enter();
 
-            
+            pod.EventHandler.OnAnimationFinished += OnAnimationFinished;
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+
+            pod.EventHandler.OnAnimationFinished -= OnAnimationFinished;
         }
 
         private void OnAnimationFinished()

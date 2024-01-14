@@ -18,9 +18,11 @@ namespace yuki
         {
             base.Enter();
 
+           
             _direction = 1;
             pod.transform.position = pod.OriginPos.position;
             pod.Drag.IsDraged = false;
+            pod.Drag.GetComponent<BoxCollider2D>().enabled = true;
         }
 
         public override void LogicUpdate()

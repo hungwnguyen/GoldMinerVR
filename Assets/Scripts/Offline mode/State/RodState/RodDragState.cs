@@ -13,17 +13,5 @@ namespace yuki
         {
         }
 
-        public override void LogicUpdate()
-        {
-            base.LogicUpdate();
-
-            if(!isExistingState)
-            {
-                if(rod.IsDestroy)
-                {
-                    rod.FSM.ChangeState(rod.DestroyState);
-                }
-            }
-        }
     }
 }

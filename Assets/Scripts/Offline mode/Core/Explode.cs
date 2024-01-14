@@ -7,28 +7,24 @@ using UnityEngine;
 
 namespace yuki
 {
-    public class Explode : MonoBehaviour, IExplodeable
+    public class Explode : MonoBehaviour
     {
+
         [SerializeField] private Transform _explodePoint;
         [SerializeField] private Vector2 _explodeSize;
         [SerializeField] private LayerMask _whatIsCanExplode;
 
-        void Start ()
-        {
-            Exploded();
-        }
-
-        public void Exploded()
+        public void Exploding()
         {
             Collider2D[] colliders = Physics2D.OverlapCapsuleAll(_explodePoint.position, _explodeSize, 0, _whatIsCanExplode);
 
-            foreach(Collider2D collider in colliders)
+            foreach (Collider2D collider in colliders)
             {
-                if(collider.TryGetComponent(out Rod rod))
+                if (collider.TryGetComponent(out Rod rod))
                 {
-                    if (!rod.IsDestroy)
+                    if (!rod.IsDraged)
                     {
-                        rod.IsDestroy = true;
+                        rod.Destroy();
                         if (collider.TryGetComponent(out IExplodeable exploreable))
                         {
                             exploreable.Exploded();
