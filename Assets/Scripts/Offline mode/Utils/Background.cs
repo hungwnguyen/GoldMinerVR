@@ -56,9 +56,12 @@ namespace yuki
 
         private void FitToRect()
         {
+            transform.localScale = new Vector3(1f, 1f, 1f);
+
             float rectWidth = _currentRect.width;
             float rectHeight = _currentRect.height;
 
+            
             float scaleX = rectWidth / SpriteRenderer.bounds.size.x;
             float scaleY = rectHeight / SpriteRenderer.bounds.size.y;
 
