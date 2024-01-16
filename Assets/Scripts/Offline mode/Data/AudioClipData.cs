@@ -11,18 +11,8 @@ public class AudioClipData : ScriptableObject
     public AudioClip aud_dongho;
     [Space(1f), Header("Gameover music"), Space(1f)] 
     public AudioClip aud_fail;
-    [Space(1f), Header("Get rock music"), Space(1f)] 
-    public AudioClip aud_getda;
-    [Space(1f), Header("Get diamon music"), Space(1f)] 
-    public AudioClip aud_getkimcuong;
-    [Space(1f), Header("Get bigest gold music"), Space(1f)] 
-    public AudioClip aud_getvanglon;
-    [Space(1f), Header("Get smallest gold music"), Space(1f)] 
-    public AudioClip aud_getvangnho;
     [Space(1f), Header("Pull the rope music"), Space(1f)] 
     public AudioClip aud_keoday;
-    [Space(1f), Header("Bomb music"), Space(1f)] 
-    public AudioClip aud_luudan;
     [Space(1f), Header("Background music"), Space(1f)] 
     public AudioClip BGMusic;
     [Space(1f), Header("Target music"), Space(1f)] 

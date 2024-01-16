@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 namespace yuki
 {
@@ -33,6 +34,18 @@ namespace yuki
             Initialization();
         }
 
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                StopAllCoroutines();
+            }
+            else if (Input.GetKeyDown(KeyCode.W))
+            {
+                StartCoroutine(Countdown());
+            }
+        }
+
         void Initialization()
         {
             _level++;
@@ -48,10 +61,9 @@ namespace yuki
             while (_currentTime > 0)
             {
                 _currentTime -= 1;
-
                 UIMain.Instance.SetTime(_currentTime);
-
                 yield return new WaitForSeconds(1.0f);
+                SoundManager.CreatePlayFXSound(SoundManager.Instance.audioClip.aud_dongho);
             }
             CheckIfCountdownEnd();
         }

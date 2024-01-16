@@ -29,7 +29,6 @@ namespace yuki
                 if (Input.GetMouseButtonDown(1) && Player.Instance.GetItemNumber(Item.TNT) > 0 && pod.Drag.IsDraged)
                 {
                     pod.FSM.ChangeState(pod.UseTNTState);
-
                 }
 
                 if (pod.CheckIfDragFinish())
@@ -39,6 +38,7 @@ namespace yuki
                         pod.Drag.FinishDrag();
                     }
                     pod.FSM.ChangeState(pod.RotationState);
+                    //fix
                 }
             }
         }

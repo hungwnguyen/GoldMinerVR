@@ -19,5 +19,6 @@ namespace yuki
         public float weight = 8;
         public float value = 100;
         public RodType type = RodType.GOLD_100;
+        public AudioClip audioClip;
     }
 }

@@ -16,3 +16,4 @@ MonoBehaviour:
   weight: 0
   value: 0
   type: 4
+  audioClip: {fileID: 8300000, guid: 06f633c28e6f54972b55b4665dae70a5, type: 3}

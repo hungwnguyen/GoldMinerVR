@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace yuki
 {
-    
+
 
     public class Rod : Actor, IDragable
     {
@@ -16,14 +16,16 @@ namespace yuki
         public RodUndragedState UndragedState { get; private set; }
         public RodDragState DragState { get; private set; }
         private bool _isDraged; public bool IsDraged { get => _isDraged; set => _isDraged = value; }
-        public string Type 
+        private Quaternion alpha;
+        public string Type
         {
-            get {
-                if(rodData.type.ToString().Contains("DIAMOND")) 
+            get
+            {
+                if (rodData.type.ToString().Contains("DIAMOND"))
                 {
                     return "DIAMOND";
                 }
-                else if(rodData.type.ToString().Contains("GOLD"))
+                else if (rodData.type.ToString().Contains("GOLD"))
                 {
                     return "GOLD";
                 }
@@ -56,25 +58,35 @@ namespace yuki
         public virtual void Draged(Drag drag, Transform target)
         {
             _isDraged = true;
+            float x, y;
             float angle = Vector3.Angle(drag.transform.parent.position - target.position, Vector3.down);
-            Quaternion tg = Quaternion.Euler(target.parent.transform.rotation.x,
-                                            target.parent.transform.rotation.y,
-                                            drag.transform.position.x > target.position.x ? angle : - angle);
-            
-            if(!(this is Mouse))
+            x = Mathf.Sin(angle * Mathf.PI / 180f) * 0.5f * GetComponent<Collider2D>().bounds.size.y / 2;
+            y = Mathf.Tan(angle * Mathf.PI / 180f) * x;
+            if (drag.transform.position.x > target.position.x)
             {
-                transform.rotation = Quaternion.Slerp(transform.rotation, tg, 0.5f);
+                this.alpha = Quaternion.Euler(target.parent.transform.rotation.x, target.parent.transform.rotation.y, angle);
             }
-            
+            else
+            {
+                x *= -1;
+                this.alpha = Quaternion.Euler(target.parent.transform.rotation.x, target.parent.transform.rotation.y, -angle);
+            }
+            if (!(this is Mouse))
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, alpha, 0.5f);
+            }
+            transform.position = new Vector3(drag.transform.GetChild(0).position.x + x,
+                                         drag.transform.GetChild(0).position.y - (GetComponent<Collider2D>().bounds.size.y / 2), -1);
+            Debug.Log(x + " " + y);
             drag.SlowDown = rodData.weight;
             GetValueEarn(drag);
-            transform.position = new Vector3(drag.transform.position.x,
-                                         drag.transform.position.y - (GetComponent<Collider2D>().bounds.size.y / 2), -1);
+            
             transform.SetParent(drag.transform);
         }
 
         private void GetValueEarn(Drag drag)
         {
+            SoundManager.CreatePlayFXSound(rodData.audioClip);
             if (Type == "DIAMOND")
             {
                 drag.ValueEarn = rodData.value * Player.Instance.DiamondBuff;
@@ -97,7 +109,7 @@ namespace yuki
 
         public void Destroy()
         {
-            if(Parent != null)
+            if (Parent != null)
             {
                 Destroy(Parent.gameObject);
             }
