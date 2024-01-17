@@ -30,6 +30,8 @@ namespace yuki
         {
             pod.Drag.UseTNT();
             pod.Drag.IsDraged = false;
+            pod.Drag.ValueEarn = 0;
+            pod.Drag.SlowDown = 0;
             Player.Instance.UseItem(Item.TNT);
             pod.FSM.ChangeState(pod.RewindLightState);
         }

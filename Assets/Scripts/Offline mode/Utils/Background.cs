@@ -15,7 +15,6 @@ namespace yuki
         
 
         private Rect _currentRect;
-        private Vector2 _previousScreenSize;
 
         void Awake()
         {
@@ -34,24 +33,13 @@ namespace yuki
             {
                 _currentRect = Screen.Instance.GameplayRect;
             }
-            _previousScreenSize = new Vector2(UnityEngine.Screen.width, UnityEngine.Screen.height);
             transform.position = _currentRect.center;
             FitToRect();
         }
 
         void Update()
         {
-            if (IsScreenSizeChanged())
-            {
-                _previousScreenSize.x = UnityEngine.Screen.width;
-                _previousScreenSize.y = UnityEngine.Screen.height;
-                FitToRect();
-            }
-        }
-
-        private bool IsScreenSizeChanged()
-        {
-            return (UnityEngine.Screen.width != _previousScreenSize.x) || (UnityEngine.Screen.height != _previousScreenSize.y);
+            Screen.Instance.ScreenSizeChanged(FitToRect);
         }
 
         private void FitToRect()

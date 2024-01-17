@@ -16,10 +16,12 @@ namespace yuki
         public PodRewindHeavyState RewindHeavyState { get; private set; }
         public PodUseTNTState UseTNTState { get; private set; }
         public PodShootState ShootState { get; private set; }
+        public PodRewardState RewardState { get; private set; }
+        public PodRewardStrengthState RewardStrengthState { get; private set; }
         #endregion
         public Drag Drag { get; private set; }
         public EventHandler EventHandler { get; private set; }
-
+        
         protected override void Awake()
         {
             base.Awake();
@@ -29,6 +31,8 @@ namespace yuki
             RewindHeavyState = new PodRewindHeavyState(this, podData, "rewindHeavy");
             UseTNTState = new PodUseTNTState(this, podData, "useTNT");
             ShootState = new PodShootState(this, podData, "shoot");
+            RewardState = new PodRewardState(this, podData, "reward");
+            RewardStrengthState = new PodRewardStrengthState(this, podData, "rewardStrength");
         }
 
         protected override void Start()

@@ -39,6 +39,7 @@ namespace yuki
         {
             if (GameManager.Instance.Level == 1)
             {
+                SortRodByValue();
                 SpawnRod();
             }
         }
@@ -155,5 +156,14 @@ namespace yuki
             }
         }
 
+        private void SortRodByValue()
+        {
+            _rods.Sort((rod1, rod2) =>
+            {
+                Rod r1 = rod1.prefab.GetComponentInChildren<Rod>(true);
+                Rod r2 = rod2.prefab.GetComponentInChildren<Rod>(true);
+                return r2.Value.CompareTo(r1.Value);
+            });
+        }
     }
 }

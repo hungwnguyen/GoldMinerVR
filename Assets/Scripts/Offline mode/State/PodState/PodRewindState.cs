@@ -35,10 +35,13 @@ namespace yuki
                 {
                     if (pod.Drag.IsDraged)
                     {
-                        pod.Drag.FinishDrag();
+                        //pod.Drag.FinishDrag();
+                        pod.FSM.ChangeState(pod.RewardState);
                     }
-                    pod.FSM.ChangeState(pod.RotationState);
-                    //fix
+                    else
+                    {
+                        pod.FSM.ChangeState(pod.RotationState);
+                    }
                 }
             }
         }

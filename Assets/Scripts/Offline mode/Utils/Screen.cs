@@ -13,6 +13,8 @@ namespace yuki
         [SerializeField] private float _partRatio = 1 / 3;
         [SerializeField] private Vector2 _offset = new Vector2(0.6f, 0.25f);
         [SerializeField, Tooltip("Space between player and game play screen")] private float _spaceBetweet;
+
+        private Vector2 _previousScreenSize;
         private float _height; public float Height { get => _height; set => _height = value; }
         private float _width; public float Width { get => _width; set => _width = value; }
         public Rect PlayerRect { get; private set; }
@@ -33,12 +35,22 @@ namespace yuki
 
         private void Start()
         {
-            
+            _previousScreenSize = new Vector2(UnityEngine.Screen.width, UnityEngine.Screen.height);
         }
  
         private void Update()
         {
-            CalculateScreenPart();
+            ScreenSizeChanged(CalculateScreenPart);
+        }
+
+        public void ScreenSizeChanged(Action action)
+        {
+            if ((UnityEngine.Screen.width != _previousScreenSize.x) || (UnityEngine.Screen.height != _previousScreenSize.y)) 
+            {
+                _previousScreenSize.x = UnityEngine.Screen.width;
+                _previousScreenSize.y = UnityEngine.Screen.height;
+                action();
+            }
         }
 
         public void CalculateScreenPart()

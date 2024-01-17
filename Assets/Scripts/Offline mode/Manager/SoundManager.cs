@@ -29,7 +29,7 @@ public class SoundManager : MonoBehaviour
         }
         fx = PlayerPrefs.GetFloat("fx", 1);
         bg = PlayerPrefs.GetFloat("bg", 0.4f);
-        CreatePlayBGMusic(audioClip.BGMusic);
+        //CreatePlayBGMusic(audioClip.BGMusic);
     }
 
     #region Create GameObject Music

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Timeline;
 
 namespace yuki
 {
@@ -16,6 +17,7 @@ namespace yuki
         [SerializeField] private TMP_Text _TNT;
         [SerializeField] private TMP_Text _time;
         [SerializeField] private TMP_Text _level;
+        
         public static UIMain Instance;
 
         void Awake()
@@ -36,11 +38,11 @@ namespace yuki
             _time.SetText(time.ToString());
         }
 
-
-
         public void SetStatus(bool status)
         {
             _element.SetActive(status);
         }
+
+        
     }
 }

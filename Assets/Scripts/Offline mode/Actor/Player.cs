@@ -14,6 +14,7 @@ namespace yuki
         private float _powerBuff; public float PowerBuff { get => _powerBuff; set => _powerBuff = value; }
         private float _diamondBuff; public float DiamondBuff { get => _diamondBuff; set => _diamondBuff = value; }
         private float _rockBuff; public float RockBuff { get => _rockBuff; set => _rockBuff = value; }
+        private bool _rewardFinished; public bool RewardFinished { get => _rewardFinished; set => _rewardFinished = value; }
 
         public static Player Instance;
 
@@ -28,7 +29,6 @@ namespace yuki
                 Instance = this;
             Initializtion();
         }
-
 
         public float GetItemNumber(Item item)
         {
@@ -50,6 +50,7 @@ namespace yuki
         public void Initializtion()
         {
             transform.position = new Vector3(Screen.Instance.PlayerRect.center.x, Screen.Instance.PlayerRect.yMin, 0);
+            _rewardFinished = false;
             _powerBuff = 1;
             _diamondBuff = 1;
             _rockBuff = 1;

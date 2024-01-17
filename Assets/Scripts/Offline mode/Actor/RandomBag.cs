@@ -15,25 +15,28 @@ namespace yuki
             return items[rand];
         }
 
-        public void GetEffectRandomBag()
+        public string GetEffectRandomBag()
         {
             RandomBagItem item = RandomItem();
             switch (item)
             {
                 case RandomBagItem.TNT:
                     Player.Instance.Bag.Add(Item.TNT);
-                    PopupTextContainer.Instance.ShowPopupText("++TNT");
-                    break;
+                    TextContainer.Instance.ShowPopupText("TNT");
+                    return RandomBagItem.TNT.ToString();
                 case RandomBagItem.STRENGTH_UP:
                     Player.Instance.PowerBuff = 10;
-                    PopupTextContainer.Instance.ShowPopupText("++STRENGTH");
-                    break;
+                    TextContainer.Instance.ShowPopupText("STRENGTH");
+                    return RandomBagItem.STRENGTH_UP.ToString();
                 case RandomBagItem.GOLD:
                     int randGoldReceive = UnityEngine.Random.Range(100, 300);
                     Player.Instance.Score += randGoldReceive * GameManager.Instance.Level;
-                    PopupTextContainer.Instance.ShowPopupText("++" + randGoldReceive + "$");
-                    break;
+                    TextContainer.Instance.ShowPopupText(randGoldReceive + "$");
+                    return RandomBagItem.GOLD.ToString();
             }
+            return "";
         }
+
+
     }
 }

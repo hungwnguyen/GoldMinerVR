@@ -9,16 +9,29 @@ namespace yuki
 {
     public class PopupText : MonoBehaviour
     {
-        private float _timeExist = 3;
+        public EventHandler EventHandler { get; private set; }
 
         void Awake()
         {
-            _timeExist = 3;
+            EventHandler = GetComponent<EventHandler>();
         }
 
-        void Start()
+        void OnEnable()
         {
-            Destroy(gameObject, _timeExist);
+            EventHandler.OnAnimationFinished += OnAnimationFinished;
         }
+
+        void OnDisable() 
+        {
+            EventHandler.OnAnimationFinished -= OnAnimationFinished;
+        }
+
+        private void OnAnimationFinished()
+        {
+            Player.Instance.RewardFinished = true;
+            Destroy(gameObject);
+        }
+
+        
     }
 }

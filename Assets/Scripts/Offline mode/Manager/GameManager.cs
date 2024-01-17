@@ -26,6 +26,7 @@ namespace yuki
             }
             else
                 Instance = this;
+            Application.targetFrameRate = 60;
             DontDestroyOnLoad(this);
         }
 
@@ -34,16 +35,14 @@ namespace yuki
             Initialization();
         }
 
-        void Update()
+        public void StopCountdown()
         {
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                StopAllCoroutines();
-            }
-            else if (Input.GetKeyDown(KeyCode.W))
-            {
-                StartCoroutine(Countdown());
-            }
+            StopAllCoroutines();
+        }
+
+        public void RestartCoundown()
+        {
+            StartCoroutine(Countdown());
         }
 
         void Initialization()

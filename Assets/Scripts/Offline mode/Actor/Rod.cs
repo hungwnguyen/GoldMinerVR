@@ -16,7 +16,8 @@ namespace yuki
         public RodUndragedState UndragedState { get; private set; }
         public RodDragState DragState { get; private set; }
         private bool _isDraged; public bool IsDraged { get => _isDraged; set => _isDraged = value; }
-        private Quaternion alpha;
+        public float Value { get => rodData.value; }
+        //private Quaternion alpha;
         public string Type
         {
             get
@@ -58,30 +59,55 @@ namespace yuki
         public virtual void Draged(Drag drag, Transform target)
         {
             _isDraged = true;
-            float x, y;
-            float angle = Vector3.Angle(drag.transform.parent.position - target.position, Vector3.down);
-            x = Mathf.Sin(angle * Mathf.PI / 180f) * 0.5f * GetComponent<Collider2D>().bounds.size.y / 2;
-            y = Mathf.Tan(angle * Mathf.PI / 180f) * x;
-            if (drag.transform.position.x > target.position.x)
-            {
-                this.alpha = Quaternion.Euler(target.parent.transform.rotation.x, target.parent.transform.rotation.y, angle);
-            }
-            else
-            {
-                x *= -1;
-                this.alpha = Quaternion.Euler(target.parent.transform.rotation.x, target.parent.transform.rotation.y, -angle);
-            }
-            if (!(this is Mouse))
-            {
-                transform.rotation = Quaternion.Slerp(transform.rotation, alpha, 0.5f);
-            }
-            transform.position = new Vector3(drag.transform.GetChild(0).position.x + x,
-                                         drag.transform.GetChild(0).position.y - (GetComponent<Collider2D>().bounds.size.y / 2), -1);
-            Debug.Log(x + " " + y);
+            //float x, y;
+            //float angle = Vector3.Angle(drag.transform.parent.position - target.position, Vector3.down);
+            //x = Mathf.Sin(angle * Mathf.PI / 180f) * 0.5f * GetComponent<Collider2D>().bounds.size.y / 2;
+            //y = Mathf.Tan(angle * Mathf.PI / 180f) * x;
+            //if (drag.transform.position.x > target.position.x)
+            //{
+            //    this.alpha = Quaternion.Euler(target.parent.transform.rotation.x, target.parent.transform.rotation.y, angle);
+            //}
+            //else
+            //{
+            //    x *= -1;
+            //    this.alpha = Quaternion.Euler(target.parent.transform.rotation.x, target.parent.transform.rotation.y, -angle);
+            //}
+            //if (!(this is Mouse))
+            //{
+            //    transform.rotation = Quaternion.Slerp(transform.rotation, alpha, 0.5f);
+            //}
+            //transform.position = new Vector3(drag.transform.GetChild(0).position.x + x,
+            //                             drag.transform.GetChild(0).position.y - (GetComponent<Collider2D>().bounds.size.y / 2), -1);
+            //Debug.Log(x + " " + y);
+            GetDragPosition(drag, target);
             drag.SlowDown = rodData.weight;
             GetValueEarn(drag);
             
             transform.SetParent(drag.transform);
+        }
+
+        private void GetDragPosition(Drag drag, Transform other)
+        {
+            transform.SetParent(drag.transform);
+
+            float yScale = 1 / drag.Bound.y;
+            float yOffset = GetComponent<Renderer>().bounds.size.y;
+            
+            if (rodData.type == RodType.GOLD_500)
+            {
+                transform.localPosition = new Vector3(0, -yOffset / 2 + 0.4f, 0);
+            }
+            else if (rodData.type == RodType.ROCK)
+            {
+                transform.localPosition = new Vector3(0, -yOffset / 2 + 0.1f, 0);
+            }
+            else
+            {
+                transform.localPosition = new Vector3(0, -yOffset / 2 * yScale, 0);
+            }
+
+            float angle = other.transform.rotation.eulerAngles.z;
+            transform.rotation = Quaternion.Euler(0f, 0f, angle);
         }
 
         private void GetValueEarn(Drag drag)
