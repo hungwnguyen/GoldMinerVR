@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 namespace yuki
 {
@@ -59,10 +53,12 @@ namespace yuki
         {
             while (_currentTime > 0)
             {
+                if (this._currentTime < 12f){
+                    SoundManager.CreatePlayFXSound(SoundManager.Instance.audioClip.aud_dongho);
+                }
                 _currentTime -= 1;
                 UIMain.Instance.SetTime(_currentTime);
                 yield return new WaitForSeconds(1.0f);
-                SoundManager.CreatePlayFXSound(SoundManager.Instance.audioClip.aud_dongho);
             }
             CheckIfCountdownEnd();
         }
@@ -71,10 +67,7 @@ namespace yuki
         {
             if (Player.Instance.Score >= _targetScore)
             {
-                UIMain.Instance.SetStatus(false);
-                Spawner.Instance.DestroyAllRod();
                 UIShop.Instance.SetStatus(true);
-                UIShop.Instance.AddItemToShop();
             }
             else
             {
@@ -91,7 +84,7 @@ namespace yuki
             }
             else
             {
-                _offset += 200;
+                _offset += 68;
                 _targetScore += _level * (_targetScore + _offset);
             }
             return (int) _targetScore;
@@ -119,7 +112,7 @@ namespace yuki
                 }
             }
             UIShop.Instance.SetStatus(false);
-            UIMain.Instance.SetStatus(true);
+            Debug.Log("new level");
             Spawner.Instance.SpawnRod();
         }
     }

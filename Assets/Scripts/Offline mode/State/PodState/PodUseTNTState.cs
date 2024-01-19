@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using UnityEngine;
 
 namespace yuki
 {
@@ -15,7 +11,7 @@ namespace yuki
         public override void Enter()
         {
             base.Enter();
-
+            SoundManager.CreatePlayFXSound(SoundManager.Instance.audioClip.aud_notnt);
             pod.EventHandler.OnAnimationFinished += OnAnimationFinished;
         }
 

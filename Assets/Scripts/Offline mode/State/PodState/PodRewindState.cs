@@ -33,6 +33,7 @@ namespace yuki
 
                 if (pod.CheckIfDragFinish())
                 {
+                    SoundManager.Instance.StopFXLoop(SoundManager.Instance.audioClip.aud_keoday);
                     if (pod.Drag.IsDraged)
                     {
                         //pod.Drag.FinishDrag();

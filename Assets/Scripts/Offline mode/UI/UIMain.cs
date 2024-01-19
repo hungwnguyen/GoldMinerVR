@@ -11,38 +11,50 @@ namespace yuki
 {
     public class UIMain : MonoBehaviour
     {
-        [SerializeField] private GameObject _element;
         [SerializeField] private TMP_Text _target;
         [SerializeField] private TMP_Text _score;
         [SerializeField] private TMP_Text _TNT;
         [SerializeField] private TMP_Text _time;
         [SerializeField] private TMP_Text _level;
+
+        public delegate void OnSetUI();
+        public OnSetUI onSetUI;
         
         public static UIMain Instance;
 
         void Awake()
         {
-            Instance = this;
+            if (Instance != null){
+                Destroy(this);
+            }
+            else{
+                Instance = this;
+            }
+            onSetUI += SetScore;
+            onSetUI += SetLevel;
+            onSetUI += SetTarget;
+            onSetUI += SetTNTCount;
         }
 
-        void Update()
-        {
+        public void SetScore(){
             _score.SetText(Player.Instance.Score.ToString());
+        }
+
+        public void SetTNTCount(){
             _TNT.SetText(Player.Instance.GetItemNumber(Item.TNT).ToString());
+        }
+
+        public void SetLevel(){
             _level.SetText(GameManager.Instance.Level.ToString());
+        }
+
+        public void SetTarget(){
             _target.SetText(GameManager.Instance.TargetScore.ToString());
         }
 
-        public void SetTime(float time)
+        public void SetTime(float time = 90)
         {
             _time.SetText(time.ToString());
         }
-
-        public void SetStatus(bool status)
-        {
-            _element.SetActive(status);
-        }
-
-        
     }
 }

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace yuki
 {
@@ -21,6 +19,8 @@ namespace yuki
                 if (pod.CheckIfOutOfScreen() || pod.Drag.IsDraged)
                 {
                     pod.FSM.ChangeState(pod.RewindLightState);
+                    SoundManager.Instance.StopFXLoop(SoundManager.Instance.audioClip.aud_thaday);
+                    SoundManager.CreatePlayFXLoop(SoundManager.Instance.audioClip.aud_keoday);
                 }
             }
         }

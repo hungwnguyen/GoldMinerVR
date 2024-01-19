@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using UnityEngine;
 
 namespace yuki
 {
@@ -11,7 +8,7 @@ namespace yuki
         private RandomBagItem RandomItem()
         {
             RandomBagItem[] items = (RandomBagItem[]) Enum.GetValues(typeof(RandomBagItem));
-            int rand = new Random().Next(items.Length);
+            int rand = new System.Random().Next(items.Length);
             return items[rand];
         }
 
@@ -26,17 +23,16 @@ namespace yuki
                     return RandomBagItem.TNT.ToString();
                 case RandomBagItem.STRENGTH_UP:
                     Player.Instance.PowerBuff = 10;
-                    TextContainer.Instance.ShowPopupText("STRENGTH");
+                    
+                    SoundManager.CreatePlayFXSound(SoundManager.Instance.audioClip.aud_strength);
                     return RandomBagItem.STRENGTH_UP.ToString();
                 case RandomBagItem.GOLD:
                     int randGoldReceive = UnityEngine.Random.Range(100, 300);
                     Player.Instance.Score += randGoldReceive * GameManager.Instance.Level;
-                    TextContainer.Instance.ShowPopupText(randGoldReceive + "$");
+                    TextContainer.Instance.ShowFloatingText(randGoldReceive + "$");
                     return RandomBagItem.GOLD.ToString();
             }
             return "";
         }
-
-
-    }
+    }   
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections;
 using UnityEngine;
 
 namespace yuki
@@ -10,10 +6,15 @@ namespace yuki
     public class PopupText : MonoBehaviour
     {
         public EventHandler EventHandler { get; private set; }
+        private Animator animator;
 
+        private int lastIndex, currentIndex;
         void Awake()
         {
             EventHandler = GetComponent<EventHandler>();
+            lastIndex = 1;
+            // Lấy Animator component từ GameObject
+            animator = GetComponent<Animator>();
         }
 
         void OnEnable()
@@ -28,10 +29,18 @@ namespace yuki
 
         private void OnAnimationFinished()
         {
-            Player.Instance.RewardFinished = true;
-            Destroy(gameObject);
+            currentIndex = this.animator.GetCurrentAnimatorClipInfoCount(0);
+            if (currentIndex == 1 && lastIndex == 0){
+                Player.Instance.RewardFinished = true;
+                StartCoroutine(UpdateScore());
+            }
+            lastIndex = currentIndex;
         }
 
-        
+        IEnumerator UpdateScore(){
+            yield return new WaitForSeconds(0.68f);
+            UIMain.Instance.SetScore();
+            UIMain.Instance.SetTNTCount();
+        }
     }
 }

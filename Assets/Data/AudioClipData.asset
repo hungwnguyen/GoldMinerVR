@@ -16,15 +16,11 @@ MonoBehaviour:
   aud_congtien: {fileID: 8300000, guid: 16ea18dac623840e083745c0c8da9108, type: 3}
   aud_dongho: {fileID: 8300000, guid: da4ce5bf6d19a4ca5bd9882e004dc974, type: 3}
   aud_fail: {fileID: 8300000, guid: 17d99f747fab542d895698ef724ef111, type: 3}
-  aud_getda: {fileID: 8300000, guid: a7d4e09902aea415690a251960cd9b02, type: 3}
-  aud_getkimcuong: {fileID: 8300000, guid: 9a56a41ef0ad3419a8f2d374010e840d, type: 3}
-  aud_getvanglon: {fileID: 8300000, guid: ebaf2358b7aa9476482999d58689016f, type: 3}
-  aud_getvangnho: {fileID: 8300000, guid: 06f633c28e6f54972b55b4665dae70a5, type: 3}
   aud_keoday: {fileID: 8300000, guid: ea7782147e82e4b8d9d13629f7ecfa8d, type: 3}
-  aud_luudan: {fileID: 8300000, guid: d09c3148a70e94bc5b1f8a61186b4377, type: 3}
   BGMusic: {fileID: 8300000, guid: 77fc5fc4481503b40ad854f19c73c4b1, type: 3}
   aud_muctieu: {fileID: 8300000, guid: bf7edc55135f641d8997c57b7337c4d1, type: 3}
   aud_notnt: {fileID: 8300000, guid: 005ae45c9c59c4b26ad7c3f23b02a3f2, type: 3}
   aud_thaday: {fileID: 8300000, guid: 9aa7f3703f1834e1ea16983262d1d779, type: 3}
   aud_touch: {fileID: 8300000, guid: 8aeb971e73d3a5044bdae1d3bc03ebe9, type: 3}
   aud_win: {fileID: 8300000, guid: f72fe81c904274c81bf1c9e266ed5c15, type: 3}
+  aud_strength: {fileID: 8300000, guid: ebaf2358b7aa9476482999d58689016f, type: 3}

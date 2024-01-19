@@ -4,18 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace yuki
 {
     public class Player : MonoBehaviour
     {
+        [SerializeField] private Button input;
         [SerializeField] private float _score = 0; public float Score { get => _score; set => _score = value; }
         private List<Item> _bag; public List<Item> Bag { get => _bag; set => _bag = value; }
         private float _powerBuff; public float PowerBuff { get => _powerBuff; set => _powerBuff = value; }
         private float _diamondBuff; public float DiamondBuff { get => _diamondBuff; set => _diamondBuff = value; }
         private float _rockBuff; public float RockBuff { get => _rockBuff; set => _rockBuff = value; }
         private bool _rewardFinished; public bool RewardFinished { get => _rewardFinished; set => _rewardFinished = value; }
-
+        public bool isClick;
         public static Player Instance;
 
         void Awake()
@@ -27,7 +29,12 @@ namespace yuki
             }
             else
                 Instance = this;
-            Initializtion();
+            isClick = false;
+            input.onClick.AddListener(OnCLick);
+        }
+
+        public void OnCLick(){
+            isClick = true;
         }
 
         public float GetItemNumber(Item item)
@@ -58,6 +65,7 @@ namespace yuki
             _bag.Add(Item.TNT);
             _bag.Add(Item.TNT);
             _bag.Add(Item.TNT);
+            UIMain.Instance.onSetUI();
         }
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,15 +6,28 @@ namespace yuki
 {
     public class UIShop : MonoBehaviour
     {
-        [SerializeField] private GameObject _element;
         [SerializeField] private Button _nextLevelButton;
-        [SerializeField] private Transform _content;
-        [SerializeField] private List<GameObject> _prefab;
+        [SerializeField] private TMP_Text description;
+        [SerializeField] GameObject _uiShop;
         public static UIShop Instance;
+
+        void OnEnable()
+        {
+            AddItemToShop();
+            _uiShop.GetComponent<CanvasGroup>().alpha = 1;
+        }
+
+        void OnDisable()
+        {
+            for (int i = 0; i < transform.childCount; i++){
+                this.transform.GetChild(i).gameObject.SetActive(true);
+            }
+        }
 
         void Awake()
         {
             Instance = this;
+            SetStatus(false);
         }
 
         void Start()
@@ -29,25 +37,26 @@ namespace yuki
 
         private void NextLevel() 
         {
+            Spawner.Instance.DestroyAllRod();
             GameManager.Instance.NextLevel();
         }
 
-        public void AddItemToShop()
+        private void AddItemToShop()
         {
-            int rand = UnityEngine.Random.Range(0, _prefab.Count);
-            for (int i = 0; i < _prefab.Count; i++)
+            int rand = UnityEngine.Random.Range(0, this.transform.childCount);
+            for (int i = 0; i < rand; i++)
             {
-                if (i == rand)
-                    continue;
-                Instantiate(_prefab[i], _content);
+                this.transform.GetChild(Random.Range(0, this.transform.childCount)).gameObject.SetActive(false);
             }
         }
 
-        public void SetStatus(bool status)
-        {
-            _element.SetActive(status);
+        public void SetStatus(bool status){
+            this._uiShop.SetActive(status);
         }
 
-        
+        public void SetDescription(string value){
+            description.text = value;
+        }
+
     }
 }

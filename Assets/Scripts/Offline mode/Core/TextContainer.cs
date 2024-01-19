@@ -5,7 +5,7 @@ namespace yuki
 {
     public class TextContainer : MonoBehaviour
     {
-        [SerializeField] private GameObject _popupText;
+        [SerializeField] private GameObject _popupTNT;
         [SerializeField] private GameObject _floatingText;
         public static TextContainer Instance;
 
@@ -21,14 +21,13 @@ namespace yuki
 
         public void ShowPopupText(string content)
         {
-            var go = Instantiate(_popupText, transform.position, Quaternion.identity, transform);
-            go.GetComponent<TMP_Text>().SetText(content);
+            _popupTNT.GetComponent<Animator>().SetTrigger("show");
         }
 
         public void ShowFloatingText(string content)
         {
-            var go = Instantiate(_floatingText, transform.position, Quaternion.identity, transform);
-            go.GetComponent<TMP_Text>().SetText(content);
+            _floatingText.GetComponent<TMP_Text>().SetText(content);
+            _floatingText.GetComponent<Animator>().SetTrigger("show");
         }
     }
 }

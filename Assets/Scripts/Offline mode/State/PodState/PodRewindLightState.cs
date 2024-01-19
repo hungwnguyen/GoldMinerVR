@@ -11,7 +11,6 @@ namespace yuki
         {
         }
 
-
         public override void LogicUpdate()
         {
             base.LogicUpdate();

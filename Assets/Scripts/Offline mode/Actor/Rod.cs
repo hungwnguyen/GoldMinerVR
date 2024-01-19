@@ -59,26 +59,6 @@ namespace yuki
         public virtual void Draged(Drag drag, Transform target)
         {
             _isDraged = true;
-            //float x, y;
-            //float angle = Vector3.Angle(drag.transform.parent.position - target.position, Vector3.down);
-            //x = Mathf.Sin(angle * Mathf.PI / 180f) * 0.5f * GetComponent<Collider2D>().bounds.size.y / 2;
-            //y = Mathf.Tan(angle * Mathf.PI / 180f) * x;
-            //if (drag.transform.position.x > target.position.x)
-            //{
-            //    this.alpha = Quaternion.Euler(target.parent.transform.rotation.x, target.parent.transform.rotation.y, angle);
-            //}
-            //else
-            //{
-            //    x *= -1;
-            //    this.alpha = Quaternion.Euler(target.parent.transform.rotation.x, target.parent.transform.rotation.y, -angle);
-            //}
-            //if (!(this is Mouse))
-            //{
-            //    transform.rotation = Quaternion.Slerp(transform.rotation, alpha, 0.5f);
-            //}
-            //transform.position = new Vector3(drag.transform.GetChild(0).position.x + x,
-            //                             drag.transform.GetChild(0).position.y - (GetComponent<Collider2D>().bounds.size.y / 2), -1);
-            //Debug.Log(x + " " + y);
             GetDragPosition(drag, target);
             drag.SlowDown = rodData.weight;
             GetValueEarn(drag);
@@ -95,15 +75,15 @@ namespace yuki
             
             if (rodData.type == RodType.GOLD_500)
             {
-                transform.localPosition = new Vector3(0, -yOffset / 2 + 0.4f, 0);
+                transform.localPosition = new Vector3(0, -yOffset / 2 + 0.4f, -1);
             }
             else if (rodData.type == RodType.ROCK)
             {
-                transform.localPosition = new Vector3(0, -yOffset / 2 + 0.1f, 0);
+                transform.localPosition = new Vector3(0, -yOffset / 2 + 0.1f, -1);
             }
             else
             {
-                transform.localPosition = new Vector3(0, -yOffset / 2 * yScale, 0);
+                transform.localPosition = new Vector3(0, -yOffset / 2 * yScale, -1);
             }
 
             float angle = other.transform.rotation.eulerAngles.z;

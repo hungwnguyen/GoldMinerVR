@@ -31,6 +31,12 @@ namespace yuki
 
             if(!isExistingState)
             {
+                if (Player.Instance.isClick)
+                {
+                    Player.Instance.isClick = false;
+                    pod.FSM.ChangeState(pod.ShootState);
+                    SoundManager.CreatePlayFXLoop(SoundManager.Instance.audioClip.aud_thaday);
+                }
                 _angle += podData.rotationSpeed * _direction * Time.deltaTime;
 
                 if(_angle > podData.angleMax && this._direction == 1)
@@ -43,11 +49,6 @@ namespace yuki
                 }
 
                 pod.transform.rotation = Quaternion.AngleAxis(_angle, Vector3.forward);
-
-                if (Input.GetMouseButtonDown(0))
-                {
-                    pod.FSM.ChangeState(pod.ShootState);
-                }
             }
         }
     }

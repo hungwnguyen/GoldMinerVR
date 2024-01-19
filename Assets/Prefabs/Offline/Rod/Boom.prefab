@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rodData: {fileID: 11400000, guid: cb4ff090574264d4691e668c7c947ec0, type: 2}
-  debug: 0
+  _destroyByTNT: {fileID: 0}
   boom: {fileID: 7665837914065915487, guid: e9486949d6552304cb0d8f69d515ae09, type: 3}
 --- !u!212 &8700349776536639317
 SpriteRenderer:
