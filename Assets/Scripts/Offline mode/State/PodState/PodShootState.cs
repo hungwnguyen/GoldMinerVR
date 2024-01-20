@@ -8,13 +8,20 @@ namespace yuki
         {
         }
 
+        public override void Enter()
+        {
+            base.Enter();
+
+            pod.transform.Translate(Vector3.down * podData.strength * Time.deltaTime);
+        }
+
         public override void LogicUpdate()
         {
             base.LogicUpdate();
 
             if(!isExistingState)
             {
-                pod.transform.Translate(Vector3.down * podData.strength * Time.deltaTime);
+                pod.transform.Translate(Vector3.down * podData.strength * 2 * Time.deltaTime);
 
                 if (pod.CheckIfOutOfScreen() || pod.Drag.IsDraged)
                 {

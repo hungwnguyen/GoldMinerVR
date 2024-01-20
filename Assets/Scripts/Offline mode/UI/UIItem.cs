@@ -18,10 +18,10 @@ namespace yuki
 
         public void BuyItem()
         {
-            if(Player.Instance.Score >= _priceItem)
+            if(Player.Instance.playerData.Score >= _priceItem)
             {
-                Player.Instance.Bag.Add(_itemData.type);
-                Player.Instance.Score -= _priceItem;
+                Player.Instance.playerData.Bag.Add(_itemData.type);
+                Player.Instance.playerData.Score -= _priceItem;
                 this.gameObject.SetActive(false);
             }
             else
@@ -36,7 +36,7 @@ namespace yuki
 
         private int CalculateItemPrice()
         {
-            int _price = Random.Range(_itemData.minValue, _itemData.maxValue) * Random.Range(1,  GameManager.Instance.Level);
+            int _price = Random.Range(_itemData.minValue, _itemData.maxValue) * Random.Range(1, LevelManager.Instance.Level);
             return _price;
         }
 

@@ -18,8 +18,8 @@ namespace yuki
         {
             base.Enter();
 
-           
             _direction = 1;
+            Player.Instance.isClick = false;
             pod.transform.position = pod.OriginPos.position;
             pod.Drag.IsDraged = false;
             pod.Drag.GetComponent<BoxCollider2D>().enabled = true;
@@ -33,7 +33,6 @@ namespace yuki
             {
                 if (Player.Instance.isClick)
                 {
-                    Player.Instance.isClick = false;
                     pod.FSM.ChangeState(pod.ShootState);
                     SoundManager.CreatePlayFXLoop(SoundManager.Instance.audioClip.aud_thaday);
                 }

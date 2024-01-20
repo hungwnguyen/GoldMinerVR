@@ -14,7 +14,7 @@
             {
                 if (Player.Instance.RewardFinished)
                 {
-                    GameManager.Instance.RestartCoundown();
+                    LevelManager.Instance.RestartCoundown();
                     Player.Instance.RewardFinished = false;
                     pod.Drag.GetStrength = false;
                     pod.FSM.ChangeState(pod.RotationState);
