@@ -8,6 +8,7 @@ using UnityEngine;
 namespace yuki
 {
     [CreateAssetMenu(fileName = "Player", menuName = "Data/Player")]
+    [System.Serializable]
     public class PlayerData : ScriptableObject
     {
         private int _level = 0; public int Level { get => _level; set => _level = value; }
