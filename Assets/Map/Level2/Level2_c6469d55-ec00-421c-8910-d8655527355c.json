@@ -1,0 +1,204 @@
+﻿{
+    "level": 2,
+    "id": "c6469d55-ec00-421c-8910-d8655527355c",
+    "prefabDataList": [
+        {
+            "go": {
+                "instanceID": -10888
+            },
+            "prefabPath": "Assets/Prefabs/Offline/Rod/Boom.prefab",
+            "position": {
+                "x": -6.659999847412109,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "go": {
+                "instanceID": -10916
+            },
+            "prefabPath": "Assets/Prefabs/Offline/Rod/Boom.prefab",
+            "position": {
+                "x": 10.039999961853028,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "go": {
+                "instanceID": -10944
+            },
+            "prefabPath": "Assets/Prefabs/Offline/Rod/Boom.prefab",
+            "position": {
+                "x": 4.789999961853027,
+                "y": -4.150000095367432,
+                "z": 0.0
+            }
+        },
+        {
+            "go": {
+                "instanceID": -10972
+            },
+            "prefabPath": "Assets/Prefabs/Offline/Rod/Boom.prefab",
+            "position": {
+                "x": -13.039999961853028,
+                "y": -1.9299999475479127,
+                "z": 0.0
+            }
+        },
+        {
+            "go": {
+                "instanceID": -11000
+            },
+            "prefabPath": "Assets/Prefabs/Offline/Rod/Boom.prefab",
+            "position": {
+                "x": -11.109999656677246,
+                "y": 3.0399999618530275,
+                "z": 0.0
+            }
+        },
+        {
+            "go": {
+                "instanceID": -11028
+            },
+            "prefabPath": "Assets/Prefabs/Offline/Rod/Diamond_600.prefab",
+            "position": {
+                "x": -4.239999771118164,
+                "y": -5.75,
+                "z": 0.0
+            }
+        },
+        {
+            "go": {
+                "instanceID": -11046
+            },
+            "prefabPath": "Assets/Prefabs/Offline/Rod/Diamond_600.prefab",
+            "position": {
+                "x": -10.1899995803833,
+                "y": -5.519999980926514,
+                "z": 0.0
+            }
+        },
+        {
+            "go": {
+                "instanceID": -11064
+            },
+            "prefabPath": "Assets/Prefabs/Offline/Rod/Diamond_600.prefab",
+            "position": {
+                "x": -1.0399999618530274,
+                "y": -6.360000133514404,
+                "z": 0.0
+            }
+        },
+        {
+            "go": {
+                "instanceID": -11082
+            },
+            "prefabPath": "Assets/Prefabs/Offline/Rod/Diamond_600.prefab",
+            "position": {
+                "x": -6.75,
+                "y": -7.139999866485596,
+                "z": 0.0
+            }
+        },
+        {
+            "go": {
+                "instanceID": -11100
+            },
+            "prefabPath": "Assets/Prefabs/Offline/Rod/Diamond_600.prefab",
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "go": {
+                "instanceID": -11118
+            },
+            "prefabPath": "Assets/Prefabs/Offline/Rod/Diamond_600.prefab",
+            "position": {
+                "x": -1.190000057220459,
+                "y": -3.259999990463257,
+                "z": 0.0
+            }
+        },
+        {
+            "go": {
+                "instanceID": -11136
+            },
+            "prefabPath": "Assets/Prefabs/Offline/Rod/Diamond_900.prefab",
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "go": {
+                "instanceID": -11154
+            },
+            "prefabPath": "Assets/Prefabs/Offline/Rod/Diamond_900.prefab",
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "go": {
+                "instanceID": -11172
+            },
+            "prefabPath": "Assets/Prefabs/Offline/Rod/Diamond_900.prefab",
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "go": {
+                "instanceID": -11190
+            },
+            "prefabPath": "Assets/Prefabs/Offline/Rod/Diamond_900.prefab",
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "go": {
+                "instanceID": -11208
+            },
+            "prefabPath": "Assets/Prefabs/Offline/Rod/Diamond_900.prefab",
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "go": {
+                "instanceID": -11226
+            },
+            "prefabPath": "Assets/Prefabs/Offline/Rod/Diamond_900.prefab",
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "go": {
+                "instanceID": -11244
+            },
+            "prefabPath": "Assets/Prefabs/Offline/Rod/Diamond_900.prefab",
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        }
+    ]
+}

@@ -111,7 +111,10 @@ namespace yuki
                 Rod rod = go.GetComponentInChildren<Rod>(true);
                 if(rod != null)
                 {
-                    Player.Instance.playerData.AllRodPositionInScreen.Add(rod.CurrentPosition, rod.rodData.type);
+                    if(!Player.Instance.playerData.AllRodPositionInScreen.ContainsKey(rod.CurrentPosition))
+                    {
+                        Player.Instance.playerData.AllRodPositionInScreen.Add(rod.CurrentPosition, rod.rodData.type);
+                    }
                 }
             }
         }
