@@ -12,7 +12,7 @@ namespace yuki
         {
             base.Enter();
             pod.Drag.FinishDrag();
-            LevelManager.Instance.StopCountdown();
+            GameManager.Instance.StopCountdown();
             SoundManager.CreatePlayFXSound(SoundManager.Instance.audioClip.aud_congqua);
             //Debug.Log(pod.Drag.GetStrength);
         }
@@ -29,7 +29,7 @@ namespace yuki
                 }
                 else if (Player.Instance.RewardFinished)
                 {
-                    LevelManager.Instance.RestartCoundown();
+                    GameManager.Instance.RestartCoundown();
                     if (!pod.Drag.GetTNT){
                         SoundManager.CreatePlayFXSound(SoundManager.Instance.audioClip.aud_congtien);
                     }

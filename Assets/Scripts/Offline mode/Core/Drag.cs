@@ -26,14 +26,6 @@ namespace yuki
             GetStrength = false;
         }
 
-        void Update()
-        {
-            if(LevelManager.Instance.IsLevelEnd)
-            {
-                this.GetComponent<Animator>().SetBool("drag", false);
-            }
-        }
-
         void OnTriggerEnter2D(Collider2D other)
         {
             if(_isDraged)
@@ -69,7 +61,7 @@ namespace yuki
             }
             this.GetComponent<BoxCollider2D>().enabled = true;
             this.GetComponent<Animator>().SetBool("drag", false);
-            Player.Instance.playerData.Score += ValueEarn;
+            Player.Instance.Score += ValueEarn;
             _slowDown = 0;
             _valueEarn = 0;
             _rod.GetComponent<Rod>().Destroy();

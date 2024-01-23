@@ -37,7 +37,7 @@ namespace yuki
 
         void Start ()
         {
-            if (LevelManager.Instance.Level == 1)
+            if (GameManager.Instance.Level == 1)
             {
                 SortRodByValue();
                 SpawnRod();
@@ -49,7 +49,7 @@ namespace yuki
             
             if(Input.GetKeyDown(KeyCode.Space))
             {
-                LevelManager.Instance.DestroyAllRod();
+                DestroyAllRod();
                 SpawnRod();
             }
         }
@@ -83,22 +83,21 @@ namespace yuki
 
         }
 
-        
+        public void DestroyAllRod()
+        {
+            GameObject[] gos = GameObject.FindGameObjectsWithTag("Rod");
+            foreach (GameObject go in gos)
+            {
+                Destroy(go);
+            }
+        }
 
         private void SpawnRandomRod(GameObject go, Vector2 position)
         {
             GameObject prefabIns = Instantiate(go, position, Quaternion.identity);
-            if (IsColliderOutsideScreen(prefabIns))
+            if (!CheckColliderOutsideScreen(prefabIns))
             {
                 Destroy(prefabIns);
-            }
-            else
-            {
-                Rod rod = prefabIns.GetComponentInChildren<Rod>(true);
-                if (rod != null)
-                {
-                    rod.CurrentPosition = position;
-                }
             }
         }
 
@@ -110,7 +109,7 @@ namespace yuki
             return hits.Length < 1;
         }
 
-        private bool IsColliderOutsideScreen(GameObject rod)
+        private bool CheckColliderOutsideScreen(GameObject rod)
         {
             BoxCollider2D[] collider2Ds = rod.GetComponentsInChildren<BoxCollider2D>(true);
             BoxCollider2D rodBox = collider2Ds[0];
@@ -120,10 +119,10 @@ namespace yuki
             Vector2 boundMax = colBound.max;
             if (boundMin.x > Screen.Instance.PartOneRect.xMin && boundMin.y > Screen.Instance.PartOneRect.yMin && boundMax.x < Screen.Instance.PartThreeRect.xMax && boundMax.y < Screen.Instance.PartThreeRect.yMax)
             {
-                return false;
+                return true;
             }
 
-            return true;
+            return false;
         }
 
         private void GetOrderPos(ref float minPos, ref float maxPos, RodGenerate rod)

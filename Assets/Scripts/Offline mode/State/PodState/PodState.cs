@@ -15,15 +15,5 @@ namespace yuki
             pod = (Pod)actor;
             podData = (PodData)data;
         }
-
-        public override void LogicUpdate()
-        {
-            base.LogicUpdate();
-
-            if (LevelManager.Instance.IsLevelEnd && this != pod.RotationState)
-            {
-                pod.FSM.ChangeState(pod.RotationState);
-            }
-        }
     }
 }

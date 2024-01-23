@@ -6,7 +6,7 @@ namespace yuki
 {
     public class ActorData : ScriptableObject
     {
-        
+
     }
 
 }

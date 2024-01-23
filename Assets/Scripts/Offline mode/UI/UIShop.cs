@@ -37,8 +37,8 @@ namespace yuki
 
         private void NextLevel() 
         {
-            //Spawner.Instance.DestroyAllRod();
-            LevelManager.Instance.NextLevel();
+            Spawner.Instance.DestroyAllRod();
+            GameManager.Instance.NextLevel();
         }
 
         private void AddItemToShop()

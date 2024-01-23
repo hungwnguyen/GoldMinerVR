@@ -17,7 +17,7 @@ MonoBehaviour:
   aud_dongho: {fileID: 8300000, guid: da4ce5bf6d19a4ca5bd9882e004dc974, type: 3}
   aud_fail: {fileID: 8300000, guid: 17d99f747fab542d895698ef724ef111, type: 3}
   aud_keoday: {fileID: 8300000, guid: ea7782147e82e4b8d9d13629f7ecfa8d, type: 3}
-  BGMusic: {fileID: 8300000, guid: d42248ee7c9534244a008154f1b063b9, type: 3}
+  BGMusic: {fileID: 8300000, guid: 77fc5fc4481503b40ad854f19c73c4b1, type: 3}
   aud_muctieu: {fileID: 8300000, guid: bf7edc55135f641d8997c57b7337c4d1, type: 3}
   aud_notnt: {fileID: 8300000, guid: 005ae45c9c59c4b26ad7c3f23b02a3f2, type: 3}
   aud_thaday: {fileID: 8300000, guid: 9aa7f3703f1834e1ea16983262d1d779, type: 3}

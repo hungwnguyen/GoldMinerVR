@@ -37,7 +37,7 @@ namespace yuki
         }
 
         public void SetScore(){
-            _score.SetText(Player.Instance.playerData.Score.ToString());
+            _score.SetText(Player.Instance.Score.ToString());
         }
 
         public void SetTNTCount(){
@@ -45,11 +45,11 @@ namespace yuki
         }
 
         public void SetLevel(){
-            _level.SetText(LevelManager.Instance.Level.ToString());
+            _level.SetText(GameManager.Instance.Level.ToString());
         }
 
         public void SetTarget(){
-            _target.SetText(LevelManager.Instance.TargetScore.ToString());
+            _target.SetText(GameManager.Instance.TargetScore.ToString());
         }
 
         public void SetTime(float time = 90)

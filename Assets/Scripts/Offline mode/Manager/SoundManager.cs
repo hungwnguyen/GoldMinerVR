@@ -33,8 +33,8 @@ public class SoundManager : MonoBehaviour
         FXLoop = new Dictionary<string, AudioSource>();
         Instance._pool.OnSpawned += Instance.CustomSpawnHandler;
         fx = PlayerPrefs.GetFloat("fx", 1);
-        bg = PlayerPrefs.GetFloat("bg", 0.25f);
-        CreatePlayBGMusic(audioClip.BGMusic);
+        bg = PlayerPrefs.GetFloat("bg", 0.4f);
+        //CreatePlayBGMusic(audioClip.BGMusic);
     }
 
     #region Create GameObject Music
@@ -78,14 +78,6 @@ public class SoundManager : MonoBehaviour
         if (this.FXLoop != null){
             if (this.FXLoop.ContainsKey(aClip.name))
                 this.FXLoop[aClip.name].Stop();
-        }
-    }
-
-    public void StopAllFXLoop()
-    {
-        foreach(var key in FXLoop.Keys)
-        {
-            FXLoop[key].Stop();
         }
     }
 

@@ -17,9 +17,9 @@ namespace yuki
 
             if(!isExistingState)
             {
-                pod.transform.Translate(Vector3.up * (podData.strength - pod.Drag.SlowDown + Player.Instance.playerData.PowerBuff) * Time.deltaTime);
+                pod.transform.Translate(Vector3.up * (podData.strength - pod.Drag.SlowDown + Player.Instance.PowerBuff) * Time.deltaTime);
 
-                if(pod.Drag.SlowDown >= podData.strength / 2 && Player.Instance.playerData.PowerBuff == 0)
+                if(pod.Drag.SlowDown >= podData.strength / 2)
                 {
                     pod.FSM.ChangeState(pod.RewindHeavyState);
                 }

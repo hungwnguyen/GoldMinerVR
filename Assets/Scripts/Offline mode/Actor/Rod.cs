@@ -11,9 +11,8 @@ namespace yuki
 
     public class Rod : Actor, IDragable
     {
-        [SerializeField] public RodData rodData;
+        [SerializeField] protected RodData rodData;
         [SerializeField] private GameObject _destroyByTNT;
-        private Vector2 _currentPosition; public Vector2 CurrentPosition { get => _currentPosition; set => _currentPosition = value; }
         public RodUndragedState UndragedState { get; private set; }
         public RodDragState DragState { get; private set; }
         private bool _isDraged; public bool IsDraged { get => _isDraged; set => _isDraged = value; }
@@ -78,10 +77,6 @@ namespace yuki
             {
                 transform.localPosition = new Vector3(0, -yOffset / 2 + 0.4f, -1);
             }
-            else if (rodData.type == RodType.GOLD_200)
-            {
-                transform.localPosition = new Vector3(0, -yOffset / 2 + 0.05f, -1);
-            }
             else if (rodData.type == RodType.ROCK)
             {
                 transform.localPosition = new Vector3(0, -yOffset / 2 + 0.1f, -1);
@@ -100,11 +95,11 @@ namespace yuki
             SoundManager.CreatePlayFXSound(rodData.audioClip);
             if (Type == "DIAMOND")
             {
-                drag.ValueEarn = rodData.value * Player.Instance.playerData.DiamondBuff;
+                drag.ValueEarn = rodData.value * Player.Instance.DiamondBuff;
             }
             else if (Type == "ROCK")
             {
-                drag.ValueEarn = rodData.value * Player.Instance.playerData.RockBuff;
+                drag.ValueEarn = rodData.value * Player.Instance.RockBuff;
             }
             else
             {
@@ -125,7 +120,6 @@ namespace yuki
                 Destroy(Parent.gameObject);
             }
             Destroy(gameObject);
-            Player.Instance.playerData.AllRodPositionInScreen.Remove(CurrentPosition);
         }
     }
 }

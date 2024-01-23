@@ -11,7 +11,6 @@ namespace yuki
     [CreateAssetMenu(fileName = "RodData", menuName = "Data/Rod")]
     public class RodData : ActorData
     {
-
         [Header("Mouse"), Tooltip("For mouse")]
         public float speed = 6.0f;
 
