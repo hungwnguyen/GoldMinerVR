@@ -14,7 +14,7 @@ namespace yuki
 
             if(!isExistingState)
             {
-                pod.transform.Translate(Vector3.down * podData.strength * Time.deltaTime);
+                pod.transform.Translate(Vector3.down * (podData.strength + Player.Instance.PowerBuff) * Time.deltaTime);
 
                 if (pod.CheckIfOutOfScreen() || pod.Drag.IsDraged)
                 {

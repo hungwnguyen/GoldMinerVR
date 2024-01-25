@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   angleMax: 75
   rotationSpeed: 200
-  strength: 10
+  strength: 11

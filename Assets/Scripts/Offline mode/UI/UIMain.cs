@@ -16,6 +16,7 @@ namespace yuki
         [SerializeField] private TMP_Text _TNT;
         [SerializeField] private TMP_Text _time;
         [SerializeField] private TMP_Text _level;
+        [SerializeField] private Animator coundown;
 
         public delegate void OnSetUI();
         public OnSetUI onSetUI;
@@ -34,6 +35,10 @@ namespace yuki
             onSetUI += SetLevel;
             onSetUI += SetTarget;
             onSetUI += SetTNTCount;
+        }
+
+        public void Coundown(){
+            this.coundown.SetBool("countdown", true);
         }
 
         public void SetScore(){

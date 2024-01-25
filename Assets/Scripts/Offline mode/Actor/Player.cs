@@ -12,6 +12,7 @@ namespace yuki
     {
         [SerializeField] private Button input;
         [SerializeField] private float _score = 0; public float Score { get => _score; set => _score = value; }
+        [SerializeField] private Actor actor;
         private List<Item> _bag; public List<Item> Bag { get => _bag; set => _bag = value; }
         private float _powerBuff; public float PowerBuff { get => _powerBuff; set => _powerBuff = value; }
         private float _diamondBuff; public float DiamondBuff { get => _diamondBuff; set => _diamondBuff = value; }
@@ -31,10 +32,14 @@ namespace yuki
                 Instance = this;
             isClick = false;
             input.onClick.AddListener(OnCLick);
+            _bag = new List<Item>();
+            _bag.Add(Item.TNT);
+            _bag.Add(Item.TNT);
+            _bag.Add(Item.TNT);
         }
 
         public void OnCLick(){
-            isClick = true;
+            isClick = actor.FSM.CurrentState.anim.Equals("rotate");
         }
 
         public float GetItemNumber(Item item)
@@ -61,10 +66,6 @@ namespace yuki
             _powerBuff = 1;
             _diamondBuff = 1;
             _rockBuff = 1;
-            _bag = new List<Item>();
-            _bag.Add(Item.TNT);
-            _bag.Add(Item.TNT);
-            _bag.Add(Item.TNT);
             UIMain.Instance.onSetUI();
         }
     }

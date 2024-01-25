@@ -55,6 +55,7 @@ namespace yuki
             {
                 if (this._currentTime < 12f){
                     SoundManager.CreatePlayFXSound(SoundManager.Instance.audioClip.aud_dongho);
+                    UIMain.Instance.Coundown();
                 }
                 _currentTime -= 1;
                 UIMain.Instance.SetTime(_currentTime);

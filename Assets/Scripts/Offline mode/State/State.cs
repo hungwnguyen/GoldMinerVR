@@ -8,7 +8,7 @@ namespace yuki
     {
         protected Actor actor;
         protected ActorData data;
-        protected string anim;
+        public string anim;
         protected bool isExistingState;
 
         public State(Actor actor, ActorData data, string anim)

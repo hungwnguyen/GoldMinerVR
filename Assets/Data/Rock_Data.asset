@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Rock_Data
   m_EditorClassIdentifier: 
   speed: 6
-  weight: 9
+  weight: 10
   value: 10
   type: 12
   audioClip: {fileID: 8300000, guid: a7d4e09902aea415690a251960cd9b02, type: 3}
