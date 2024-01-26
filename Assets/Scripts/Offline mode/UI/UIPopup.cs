@@ -1,55 +1,67 @@
-﻿using UnityEngine;
-using UnityEngine.EventSystems;
-using yuki;
+﻿using System;
+using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class UIPopup : MonoBehaviour
 {
-    [SerializeField] private GameObject pause;
-    [SerializeField] private GameObject win;
-    [SerializeField] private GameObject lost;
-    [SerializeField] private GameObject target;
-    [SerializeField] private GameObject messenger;
-    public UIPopup Instance {get; private set;}
+    [Serializable]
+    public class MyEvent : UnityEvent { }
+    
+    [Space(5f), Header("Run when end game"), Space(5f)]
+    [FormerlySerializedAs("CustomEvent")]
+    [SerializeField] private MyEvent _customEvent = new MyEvent();
+    /// <summary>
+    /// Run when end game
+    /// </summary>
+    /// <value></value>
+    public MyEvent CustomEvent
+    {
+        get => _customEvent;
+        set { _customEvent = value; }
+    }
+    
+    public static UIPopup Instance {get; private set;}
 
     void Awake()
     {
         if (Instance != null){
             Destroy(this);
         } else {
-            this.Instance = this;
+            Instance = this;
         }
     }
 
-    private void PlayContinue(){
-        pause.SetActive(false);
+    private void EventEndGame()
+    {
+        UISystemProfilerApi.AddMarker("MyEvent.CustomEvent", this);
+        _customEvent.Invoke();
+        Time.timeScale = 0;
+        SoundManager.DisableAllMusic();
     }
 
     public void PauseGame(){
         Time.timeScale = 0;
-        pause.SetActive(true);
         SoundManager.PauseAllMusic();
     }
 
     public void ContinueGame(){
-        Time.timeScale = 1;
         SoundManager.ContinuePlayAllMusic();
-        Invoke("PlayContinue", 0.2f);
+        Time.timeScale = 1;
     }
 
     public void WinAppear(){
-        win.SetActive(true);
+        EventEndGame();
     }
 
     public void LostAppear(){
-        lost.SetActive(true);
+        EventEndGame();
     }
 
     public void TargetAppear(){
-        target.SetActive(true);
     }
 
     public void MessengerAppear(){
-        messenger.SetActive(true);
     }
 
 }

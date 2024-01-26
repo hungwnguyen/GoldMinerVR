@@ -27,4 +27,10 @@ public class AudioClipData : ScriptableObject
     public AudioClip aud_win;
     [Space(1f), Header("Strength music"), Space(1f)] 
     public AudioClip aud_strength;
+    [Space(1f), Header("background music"), Space(1f)] 
+    public AudioClip [] aud_bgMusic;
+    [Space(1f), Header("game play music"), Space(1f)] 
+    public AudioClip [] aud_gamePlayMusic;
+    [Space(1f), Header("Shop music"), Space(1f)] 
+    public AudioClip aud_shop;
 }

@@ -41,6 +41,7 @@ namespace yuki
 
         void Initialization()
         {
+            SoundManager.CreatePlayBgMusic(SoundManager.Instance.audioClip.aud_bgMusic[Random.Range(0, 2)]);
             _level++;
             _currentTime = _timeLevel;
             CalcualateTargetScore();
@@ -53,13 +54,13 @@ namespace yuki
         {
             while (_currentTime > 0)
             {
-                if (this._currentTime < 12f){
+                if (this._currentTime <= 10){
                     SoundManager.CreatePlayFXSound(SoundManager.Instance.audioClip.aud_dongho);
                     UIMain.Instance.Coundown();
                 }
+                yield return new WaitForSeconds(1.0f);
                 _currentTime -= 1;
                 UIMain.Instance.SetTime(_currentTime);
-                yield return new WaitForSeconds(1.0f);
             }
             CheckIfCountdownEnd();
         }
@@ -69,11 +70,15 @@ namespace yuki
             if (Player.Instance.Score >= _targetScore)
             {
                 UIShop.Instance.SetStatus(true);
+                SoundManager.DisableAllMusic();
+                Pod.Instance.FSM.ChangeState(Pod.Instance.PodIdleState);
+                Spawner.Instance.DestroyAllRod();
             }
             else
             {
                 //TODO: Add gameover 
                 Debug.Log("Game Over!!");
+                UIPopup.Instance.LostAppear();
             }
         }
 
@@ -85,8 +90,8 @@ namespace yuki
             }
             else
             {
-                _offset += 68;
-                _targetScore += _level * (_targetScore + _offset);
+                _offset += 1;
+                _targetScore += _level * _offset + _targetScore;
             }
             return (int) _targetScore;
         }
@@ -94,6 +99,7 @@ namespace yuki
         public void NextLevel()
         {
             Initialization();
+            Pod.Instance.FSM.ChangeState(Pod.Instance.RotationState);
             foreach (Item item in Player.Instance.Bag)
             {
                 switch (item)

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace yuki
 {
@@ -36,7 +31,6 @@ namespace yuki
                     SoundManager.Instance.StopFXLoop(SoundManager.Instance.audioClip.aud_keoday);
                     if (pod.Drag.IsDraged)
                     {
-                        //pod.Drag.FinishDrag();
                         pod.FSM.ChangeState(pod.RewardState);
                     }
                     else

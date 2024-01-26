@@ -37,7 +37,6 @@ namespace yuki
 
         private void NextLevel() 
         {
-            Spawner.Instance.DestroyAllRod();
             GameManager.Instance.NextLevel();
         }
 

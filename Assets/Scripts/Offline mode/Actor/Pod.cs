@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace yuki
 {
@@ -18,9 +15,12 @@ namespace yuki
         public PodShootState ShootState { get; private set; }
         public PodRewardState RewardState { get; private set; }
         public PodRewardStrengthState RewardStrengthState { get; private set; }
+        public PodIdleState PodIdleState { get; private set; }
         #endregion
         public Drag Drag { get; private set; }
         public EventHandler EventHandler { get; private set; }
+
+        public static Pod Instance { get; private set; }
         
         protected override void Awake()
         {
@@ -33,6 +33,12 @@ namespace yuki
             ShootState = new PodShootState(this, podData, "shoot");
             RewardState = new PodRewardState(this, podData, "reward");
             RewardStrengthState = new PodRewardStrengthState(this, podData, "rewardStrength");
+            PodIdleState = new PodIdleState(this, podData);
+            if (Instance != null){
+                Destroy(this);
+            } else {
+                Instance = this;
+            }
         }
 
         protected override void Start()

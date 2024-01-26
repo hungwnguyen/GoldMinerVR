@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
-using UnityEngine.Timeline;
 
 namespace yuki
 {
@@ -38,7 +32,7 @@ namespace yuki
         }
 
         public void Coundown(){
-            this.coundown.SetBool("countdown", true);
+            this.coundown.SetTrigger("countdown");
         }
 
         public void SetScore(){

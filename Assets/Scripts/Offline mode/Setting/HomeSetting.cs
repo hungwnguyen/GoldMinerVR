@@ -18,26 +18,6 @@ public class HomeSetting : Setting
         usernameSetting.text = PlayerPrefs.GetString("Player name", "");
     }
 
-    public override void SaveChangeSetting()
-    {
-        /*if (!AccountController.userName.Equals("Guest"))
-        {
-            base.SaveChangeSetting();
-        }*/
-        base.SaveChangeSetting();
-        string s = changeUsername.text;
-        try
-        {
-            int.Parse(s + "0");
-        }
-        catch
-        {
-            s = s[0].ToString().ToUpper() + (s.Length > 1 ? s.Substring(1) : "");
-            usernameSetting.text = s;
-            PlayerPrefs.SetString("Player name", s);
-        }
-    }
-
     public void SignOutGame()
     {
 

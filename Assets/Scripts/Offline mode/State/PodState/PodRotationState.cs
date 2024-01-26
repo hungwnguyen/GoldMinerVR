@@ -14,8 +14,6 @@ namespace yuki
         public override void Enter()
         {
             base.Enter();
-
-           
             _direction = 1;
             pod.transform.position = pod.OriginPos.position;
             pod.Drag.IsDraged = false;

@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-
-
 public class ObjectPooler<T>
 {
     public delegate GameObject SpawnerDelegate(T instance);
@@ -15,7 +13,6 @@ public class ObjectPooler<T>
         poolDictionary = new Dictionary<T, GameObject>();
     }
 
-    public delegate void Spawner();
     public void SpawnFromPool(T instance)
     {
         if (!poolDictionary.ContainsKey(instance))

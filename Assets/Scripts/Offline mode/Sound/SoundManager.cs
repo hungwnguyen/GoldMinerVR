@@ -15,6 +15,8 @@ public class SoundManager : MonoBehaviour
     public float fx, bg;
 
     private Dictionary<string, AudioSource> FXLoop;
+    private Dictionary<string, AudioSource> BgMusic;
+    private AudioSource UI;
     #endregion
 
     private void Awake()
@@ -30,18 +32,37 @@ public class SoundManager : MonoBehaviour
         }
         _pool = new ObjectPooler<AudioClip>();
         FXLoop = new Dictionary<string, AudioSource>();
+        BgMusic = new Dictionary<string, AudioSource>();
         Instance._pool.OnSpawned += Instance.CustomSpawnHandler;
         fx = PlayerPrefs.GetFloat("fx", 1);
-        bg = PlayerPrefs.GetFloat("bg", 0.4f);
+        bg = PlayerPrefs.GetFloat("bg", 1);
+        CreateUISound();
         //CreatePlayBGMusic(audioClip.BGMusic);
     }
 
     #region Create GameObject Music
     
+    private void CreateUISound(){
+        if (Instance.UI == null){
+            GameObject m_currentAudioFXSound = new GameObject(Instance.audioClip.aud_touch.name);
+            m_currentAudioFXSound.AddComponent<AudioSource>();
+            Instance.UI = m_currentAudioFXSound.GetComponent<AudioSource>();
+            CopyProperties(_instance.FXSound, Instance.UI, Instance.audioClip.aud_touch, Instance.fx);
+            DontDestroyOnLoad(m_currentAudioFXSound);
+        } 
+    }
+
     public static void CreatePlayFXSound(AudioClip aClip)
     {
         if (_instance.fx > 0)
             Instance._pool.SpawnFromPool(aClip);
+    }
+
+    public static void CreatePlayFXSound()
+    {
+        if (_instance.fx > 0){
+            Instance.UI.Play();
+        }
     }
 
     public static void CreatePlayFXLoop(AudioClip aClip)
@@ -52,25 +73,61 @@ public class SoundManager : MonoBehaviour
             obj.AddComponent<AudioSource>();
             Instance.FXLoop.Add(aClip.name, obj.GetComponent<AudioSource>());
             CopyProperties(Instance.BGMusic, Instance.FXLoop[aClip.name], aClip, Instance.fx);
-            Instance.PlayFXLoop(aClip);
             DontDestroyOnLoad(obj);
         }
-        else{
-            Instance.PlayFXLoop(aClip);
+        Instance.PlayFXLoop(aClip);
+    }
+
+    public static void CreatePlayBgMusic(AudioClip aClip)
+    {
+        if (!Instance.BgMusic.ContainsKey(aClip.name)){
+            GameObject obj = new GameObject(aClip.name);
+            obj.transform.position = Vector3.zero;
+            obj.AddComponent<AudioSource>();
+            Instance.BgMusic.Add(aClip.name, obj.GetComponent<AudioSource>());
+            CopyProperties(Instance.BGMusic, Instance.BgMusic[aClip.name], aClip, Instance.bg);
+            DontDestroyOnLoad(obj);
+        }
+        Instance.PlayBgMusic(aClip);
+    }
+
+    private void PlayBgMusic(AudioClip aClip){
+        if (bg > 0){
+            Instance.BgMusic[aClip.name].gameObject.SetActive(true);
+            Instance.BgMusic[aClip.name].volume = bg;
+            Instance.BgMusic[aClip.name].Play();
+            if (Time.timeScale == 0){
+                Instance.BgMusic[aClip.name].Pause();
+            }
         }
     }
 
     private void PlayFXLoop(AudioClip aClip){
-        if (bg > 0){
-            Instance.FXLoop[aClip.name].volume = bg;
+        if (fx > 0){
+            Instance.FXLoop[aClip.name].gameObject.SetActive(true);
+            Instance.FXLoop[aClip.name].volume = fx;
             Instance.FXLoop[aClip.name].Play();
+            if (Time.timeScale == 0){
+                Instance.FXLoop[aClip.name].Pause();
+            }
         }
     }
 
     public void StopFXLoop(AudioClip aClip){
         if (this.FXLoop != null){
-            if (this.FXLoop.ContainsKey(aClip.name))
+            if (this.FXLoop.ContainsKey(aClip.name)){
                 this.FXLoop[aClip.name].Stop();
+                this.FXLoop[aClip.name].gameObject.SetActive(false);
+            }
+        }
+    }
+
+    public void StopBgMusic(AudioClip aClip){
+        if (this.BgMusic != null){
+            if (this.BgMusic.ContainsKey(aClip.name)){
+                this.BgMusic[aClip.name].Stop();
+                this.BgMusic[aClip.name].gameObject.SetActive(false);
+            }
         }
     }
 
@@ -114,6 +171,11 @@ public class SoundManager : MonoBehaviour
     #region Sound Setting
 
     public static void PauseAllMusic(){
+        foreach(AudioSource audioSource in _instance.BgMusic.Values){
+            if (audioSource.gameObject.activeSelf){
+                audioSource.Pause();
+            }
+        }
         foreach(AudioSource audioSource in _instance.FXLoop.Values){
             if (audioSource.gameObject.activeSelf){
                 audioSource.Pause();
@@ -127,14 +189,59 @@ public class SoundManager : MonoBehaviour
     }
 
     public static void ContinuePlayAllMusic(){
+        if (Instance.bg > 0){
+            foreach(AudioSource audioSource in _instance.BgMusic.Values){
+                if (audioSource.gameObject.activeSelf){
+                    audioSource.Play();
+                }
+            }
+        } else {
+            foreach(AudioSource audioSource in _instance.BgMusic.Values){
+                if (audioSource.gameObject.activeSelf){
+                    audioSource.Stop();
+                }
+            }
+        }
+        if (Instance.fx > 0){
+            foreach(AudioSource audioSource in _instance.FXLoop.Values){
+                if (audioSource.gameObject.activeSelf){
+                    audioSource.Play();
+                }
+            }
+            foreach(GameObject go in _instance._pool.poolDictionary.Values){
+                if (go.activeSelf){
+                    go.GetComponent<AudioSource>().Play();
+                }
+            }
+        } else {
+            foreach(AudioSource audioSource in _instance.FXLoop.Values){
+                if (audioSource.gameObject.activeSelf){
+                    audioSource.Stop();
+                }
+            }
+            foreach(GameObject go in _instance._pool.poolDictionary.Values){
+                if (go.activeSelf){
+                    go.GetComponent<AudioSource>().Stop();
+                }
+            }
+        }
+        
+    }
+
+    public static void DisableAllMusic(){
+        foreach(AudioSource audioSource in _instance.BgMusic.Values){
+            if (audioSource.gameObject.activeSelf){
+                audioSource.Stop();
+            }
+        }
         foreach(AudioSource audioSource in _instance.FXLoop.Values){
             if (audioSource.gameObject.activeSelf){
-                audioSource.Play();
+                audioSource.Stop();
             }
         }
         foreach(GameObject go in _instance._pool.poolDictionary.Values){
             if (go.activeSelf){
-                go.GetComponent<AudioSource>().Play();
+                go.GetComponent<AudioSource>().Stop();
             }
         }
     }
@@ -142,7 +249,7 @@ public class SoundManager : MonoBehaviour
     public static void DisableBGMusic()
     {
         _instance.bg = 0;
-        foreach(AudioSource audioSource in _instance.FXLoop.Values){
+        foreach(AudioSource audioSource in _instance.BgMusic.Values){
             if (audioSource.gameObject.activeSelf){
                 audioSource.Stop();
             }
@@ -154,14 +261,6 @@ public class SoundManager : MonoBehaviour
         _instance.fx = 0;
     }
 
-    public static void EnableBGMusic(string name)
-    {
-        _instance.bg = 1;
-        if (Instance.FXLoop.ContainsKey(name)){
-            Instance.FXLoop[name].Play();
-        }
-    }
-
     public static void EnableFXSound()
     {
         _instance.fx = 1;
@@ -169,16 +268,22 @@ public class SoundManager : MonoBehaviour
 
     public static void ChangeVolumeBGMusic(float value)
     {
+        
+        PlayerPrefs.SetFloat("bg", value);
         _instance.bg = value;
-        foreach(AudioSource audioSource in _instance.FXLoop.Values){
+        foreach(AudioSource audioSource in _instance.BgMusic.Values){
             audioSource.volume = value;
         }
-        
     }
 
     public static void ChangeVolumeFXSound(float value)
     {
+        PlayerPrefs.SetFloat("fx", value);
         _instance.fx = value;
+        _instance.UI.volume = value;
+        foreach(AudioSource audioSource in _instance.FXLoop.Values){
+            audioSource.volume = value;
+        }
     }
     #endregion
     

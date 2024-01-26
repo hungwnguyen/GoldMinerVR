@@ -36,6 +36,12 @@ namespace yuki
             _bag.Add(Item.TNT);
             _bag.Add(Item.TNT);
             _bag.Add(Item.TNT);
+             _bag.Add(Item.TNT);
+            _bag.Add(Item.TNT);
+            _bag.Add(Item.TNT);
+             _bag.Add(Item.TNT);
+            _bag.Add(Item.TNT);
+            _bag.Add(Item.TNT);
         }
 
         public void OnCLick(){
