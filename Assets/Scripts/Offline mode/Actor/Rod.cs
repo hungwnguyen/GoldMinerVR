@@ -8,6 +8,7 @@ namespace yuki
     {
         [SerializeField] protected RodData rodData;
         [SerializeField] private GameObject _destroyByTNT;
+        private Rigidbody2D rb;
         public RodUndragedState UndragedState { get; private set; }
         public RodDragState DragState { get; private set; }
         private bool _isDraged; public bool IsDraged { get => _isDraged; set => _isDraged = value; }
@@ -37,7 +38,7 @@ namespace yuki
         protected override void Awake()
         {
             base.Awake();
-
+            rb = this.GetComponentInChildren<Rigidbody2D>();
             UndragedState = new RodUndragedState(this, rodData, "undraged");
             DragState = new RodDragState(this, rodData, "drag");
         }
@@ -70,19 +71,25 @@ namespace yuki
             
             if (rodData.type == RodType.GOLD_500)
             {
-                transform.localPosition = new Vector3(0, -yOffset / 2 + 0.4f, -1);
+                transform.localPosition = new Vector2(0, -yOffset / 2 + 0.4f);
             }
             else if (rodData.type == RodType.ROCK)
             {
-                transform.localPosition = new Vector3(0, -yOffset / 2 + 0.1f, -1);
+                transform.localPosition = new Vector2(0, -yOffset / 2 + 0.1f);
             }
             else
             {
-                transform.localPosition = new Vector3(0, -yOffset / 2 * yScale, -1);
+                transform.localPosition = new Vector2(0, -yOffset / 2 * yScale);
             }
-
+            LockRotationAndPosition();
             float angle = other.transform.rotation.eulerAngles.z;
             transform.rotation = Quaternion.Euler(0f, 0f, angle);
+        }
+
+        void LockRotationAndPosition()
+        {
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation | 
+            RigidbodyConstraints2D.FreezePosition;
         }
 
         private void GetValueEarn(Drag drag)

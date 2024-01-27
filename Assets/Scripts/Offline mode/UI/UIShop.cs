@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,8 +8,9 @@ namespace yuki
     public class UIShop : MonoBehaviour
     {
         [SerializeField] private Button _nextLevelButton;
-        [SerializeField] private TMP_Text description;
+        [SerializeField] private TMP_Text description, messenger;
         [SerializeField] GameObject _uiShop;
+        [SerializeField] private Animator saler;
         public static UIShop Instance;
 
         void OnEnable()
@@ -37,7 +39,22 @@ namespace yuki
 
         private void NextLevel() 
         {
+            StartCoroutine(Transition());
+        }
+
+        IEnumerator Transition(){
+            float time = 1;
+            if (!UIItem.isBuy){
+                saler.SetTrigger("unsold");
+                SoundManager.CreatePlayFXSound(SoundManager.Instance.audioClip.aud_UnBuy);
+                time = SoundManager.Instance.audioClip.aud_UnBuy.length;
+            } else {
+                SoundManager.CreatePlayFXSound(SoundManager.Instance.audioClip.aud_touch);
+                saler.SetTrigger("saled");
+            }
+            yield return new WaitForSeconds(time);
             GameManager.Instance.NextLevel();
+            SoundManager.Instance.StopBgMusic(SoundManager.Instance.audioClip.aud_shop);
         }
 
         private void AddItemToShop()
@@ -55,6 +72,11 @@ namespace yuki
 
         public void SetDescription(string value){
             description.text = value;
+        }
+
+        public void SetMessenger(string value){
+            messenger.text = value;
+            saler.SetTrigger("talk");
         }
 
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -21,7 +22,10 @@ public class UIPopup : MonoBehaviour
         get => _customEvent;
         set { _customEvent = value; }
     }
-    
+
+    [SerializeField] private yuki.EventHandler popupTarget, popupCongat;
+    [SerializeField] private TMP_Text targetScore;
+    private Animator animatorPopUp, animatorPopUpShop;
     public static UIPopup Instance {get; private set;}
 
     void Awake()
@@ -31,6 +35,34 @@ public class UIPopup : MonoBehaviour
         } else {
             Instance = this;
         }
+        SoundManager.CreatePlayFXSound(SoundManager.Instance.audioClip.aud_muctieu);
+        popupTarget.OnAnimationFinished += Initializtion;
+        popupCongat.OnAnimationFinished += ShowShop;
+        animatorPopUp = popupTarget.GetComponent<Animator>();
+        animatorPopUpShop = popupCongat.GetComponent<Animator>();
+    }
+
+    public void PlayPopUpCongat(){
+        animatorPopUpShop.SetTrigger("newGame");
+    }
+    private void ShowShop(){
+        SoundManager.CreatePlayBgMusic(SoundManager.Instance.audioClip.aud_shop);
+        UIShop.Instance.SetStatus(true);
+    }
+
+    public void SetTargetSocre(string value){
+        targetScore.text = value;
+    }
+
+    public void ReSetAmin(){
+        UIMain.Instance.onSetUI();
+        SoundManager.CreatePlayFXSound(SoundManager.Instance.audioClip.aud_muctieu);
+        animatorPopUp.SetTrigger("newGame");
+    }
+
+    private void Initializtion(){
+        UIMain.Instance.onSetUI();
+        UIMain.Instance.EnventStartGame();
     }
 
     private void EventEndGame()
@@ -45,6 +77,7 @@ public class UIPopup : MonoBehaviour
         Time.timeScale = 1;
         SoundManager.DisableAllMusic();
         GameManager.Instance.CheckIfCountdownEnd();
+        GameManager.Instance.StopCountdown();
     }
 
     public void PauseGame(){

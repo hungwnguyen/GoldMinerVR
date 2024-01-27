@@ -4,7 +4,7 @@ namespace yuki
 {
     public class PodRotationState : PodState
     {
-        private float _angle;
+        public float _angle {private get; set;}
         private float _direction;
 
         public PodRotationState(Actor actor, ActorData data, string anim) : base(actor, data, anim)

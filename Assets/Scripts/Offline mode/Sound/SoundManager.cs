@@ -287,6 +287,9 @@ public class SoundManager : MonoBehaviour
         foreach(AudioSource audioSource in _instance.FXLoop.Values){
             audioSource.volume = value;
         }
+        foreach(GameObject go in _instance._pool.poolDictionary.Values){
+            go.GetComponent<AudioSource>().volume = value;
+        }
     }
     #endregion
     

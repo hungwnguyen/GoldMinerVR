@@ -31,3 +31,4 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ff8b8def4ccae37419822252e234bc0e, type: 3}
   - {fileID: 8300000, guid: 2fcb1675aca7a4949929887f1337c566, type: 3}
   aud_shop: {fileID: 8300000, guid: e7bc104c5e9f5a84daa76155b17573b2, type: 3}
+  aud_UnBuy: {fileID: 8300000, guid: a7d4e09902aea415690a251960cd9b02, type: 3}

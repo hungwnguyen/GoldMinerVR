@@ -18,16 +18,20 @@ namespace yuki
             switch (item)
             {
                 case RandomBagItem.TNT:
-                    Player.Instance.Bag.Add(Item.TNT);
+                    Player.Instance.TNTCount++;
                     TextContainer.Instance.ShowPopupText("TNT");
                     return RandomBagItem.TNT.ToString();
                 case RandomBagItem.STRENGTH_UP:
                     Player.Instance.PowerBuff = 10;
-                    
                     SoundManager.CreatePlayFXSound(SoundManager.Instance.audioClip.aud_strength);
                     return RandomBagItem.STRENGTH_UP.ToString();
                 case RandomBagItem.GOLD:
-                    int randGoldReceive = UnityEngine.Random.Range(100, 300);
+                    int randGoldReceive;
+                    if (Player.Instance.isLucky){
+                        randGoldReceive = UnityEngine.Random.Range(600, 1000);
+                    } else {
+                        randGoldReceive = UnityEngine.Random.Range(100, 300);
+                    }
                     Player.Instance.Score += randGoldReceive * GameManager.Instance.Level;
                     TextContainer.Instance.ShowFloatingText(randGoldReceive + "$");
                     return RandomBagItem.GOLD.ToString();

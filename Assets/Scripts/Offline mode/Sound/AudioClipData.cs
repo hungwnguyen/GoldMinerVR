@@ -33,4 +33,6 @@ public class AudioClipData : ScriptableObject
     public AudioClip [] aud_gamePlayMusic;
     [Space(1f), Header("Shop music"), Space(1f)] 
     public AudioClip aud_shop;
+    [Space(1f), Header("UnBuy music"), Space(1f)] 
+    public AudioClip aud_UnBuy;
 }

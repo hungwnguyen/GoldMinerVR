@@ -20,6 +20,7 @@ public class PodIdleState : PodState
         pod.Anim.SetBool("rewardStrength", false);
         pod.Drag.GetComponent<Animator>().SetBool("drag", false);
         pod.Drag.SlowDown = 0;
+        pod.RotationState._angle = 0;
     }
 
     public override void Exit()

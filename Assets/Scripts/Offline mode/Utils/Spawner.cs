@@ -1,10 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace yuki
 {
@@ -21,11 +18,14 @@ namespace yuki
     {
         [SerializeField] private List<RodGenerate> _rods = new List<RodGenerate>();
         [SerializeField] private Vector2 _sizeCheckMutiplier;
+
+        private List<GameObject> gos;
     
         public static Spawner Instance;
 
         void Awake()
         {
+            gos = new List<GameObject>();
             if (Instance != null && Instance != this)
             {
                 Destroy(this);
@@ -38,7 +38,6 @@ namespace yuki
         {
             if (GameManager.Instance.Level == 1)
             {
-                SortRodByValue();
                 SpawnRod();
             }
         }
@@ -55,40 +54,58 @@ namespace yuki
 
         public void SpawnRod()
         {
+            SortRodByValue();
             foreach(RodGenerate rod in _rods)
             {
-                int randNumberOfRodGenerate = UnityEngine.Random.Range(rod.min, rod.max);
-                int count = 0;
-                int i = 0;
-                while(count < randNumberOfRodGenerate)
-                {
-                    i++;
-                    float minPos = Screen.Instance.PartOneRect.yMin;
-                    float maxPos = Screen.Instance.PartThreeRect.yMax;
-
-                    GetOrderPos(ref minPos, ref maxPos, rod);
-
-                    Vector2 randomPos = new Vector2(UnityEngine.Random.Range(Screen.Instance.PartOneRect.xMin, Screen.Instance.PartOneRect.xMax), UnityEngine.Random.Range(minPos, maxPos));
-                    if (CheckCollision(randomPos, rod.prefab))
-                    {
-                        SpawnRandomRod(rod.prefab, randomPos);
-                        count++;
-                    }
-                    if (i == 1000)
-                        break;
-                }
-
+                StartCoroutine(Spaw(rod));
             }
+            CalcualateTargetScore();
+        }
 
+        public void CalcualateTargetScore(){
+            gos.Sort((go1, go2) =>
+            {
+                return go2.GetComponentInChildren<Rod>(true).Value
+                .CompareTo(go1.GetComponentInChildren<Rod>(true).Value);
+            });
+            int targetScore = 0;
+            for (int i = 0; i < gos.Count / 3; i++){
+                targetScore += (int) gos[i].GetComponentInChildren<Rod>(true).Value;
+            }
+            GameManager.Instance.TargetScore += targetScore;
+            UIPopup.Instance.SetTargetSocre(GameManager.Instance.TargetScore + "$");
+        }
+        
+        IEnumerator Spaw(RodGenerate rod){
+            int randNumberOfRodGenerate = UnityEngine.Random.Range(rod.min, rod.max);
+            int count = 0;
+            int i = 0;
+            while(count < randNumberOfRodGenerate)
+            {
+                i++;
+                float minPos = Screen.Instance.PartOneRect.yMin;
+                float maxPos = Screen.Instance.PartThreeRect.yMax;
+
+                GetOrderPos(ref minPos, ref maxPos, rod);
+
+                Vector2 randomPos = new Vector2(UnityEngine.Random.Range(Screen.Instance.PartOneRect.xMin, Screen.Instance.PartOneRect.xMax), UnityEngine.Random.Range(minPos, maxPos));
+                if (CheckCollision(randomPos, rod.prefab))
+                {
+                    SpawnRandomRod(rod.prefab, randomPos);
+                    count++;
+                }
+                if (i == 1000)
+                    yield break;
+            }
         }
 
         public void DestroyAllRod()
         {
-            GameObject[] gos = GameObject.FindGameObjectsWithTag("Rod");
             foreach (GameObject go in gos)
             {
                 Destroy(go);
             }
+            gos.Clear();
         }
 
         private void SpawnRandomRod(GameObject go, Vector2 position)
@@ -130,6 +147,7 @@ namespace yuki
                 rod.transform.position = 
                 new Vector3(rod.transform.position.x, rod.transform.position.y - colBound.size.y / 2, rod.transform.position.z);
             }
+            gos.Add(rod);
         }
 
         private void GetOrderPos(ref float minPos, ref float maxPos, RodGenerate rod)
@@ -167,9 +185,8 @@ namespace yuki
         {
             _rods.Sort((rod1, rod2) =>
             {
-                Rod r1 = rod1.prefab.GetComponentInChildren<Rod>(true);
-                Rod r2 = rod2.prefab.GetComponentInChildren<Rod>(true);
-                return r2.Value.CompareTo(r1.Value);
+                return rod2.min > rod1.min ? 1 : 
+                rod2.min == rod1.min ? 0 : -1;
             });
         }
     }

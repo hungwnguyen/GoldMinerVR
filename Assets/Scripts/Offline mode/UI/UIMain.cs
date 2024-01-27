@@ -1,16 +1,36 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace yuki
 {
     public class UIMain : MonoBehaviour
     {
+        [Serializable]
+        public class MyEvent : UnityEvent { }
+        
+        [Header("Run when start game"), Space(5f)]
+        [FormerlySerializedAs("CustomEvent")]
+        [SerializeField] private MyEvent _customEvent = new MyEvent();
+        /// <summary>
+        /// Run when end game
+        /// </summary>
+        /// <value></value>
+        public MyEvent CustomEvent
+        {
+            get => _customEvent;
+            set { _customEvent = value; }
+        }
+
         [SerializeField] private TMP_Text _target;
         [SerializeField] private TMP_Text _score;
         [SerializeField] private TMP_Text _TNT;
         [SerializeField] private TMP_Text _time;
         [SerializeField] private TMP_Text _level;
         [SerializeField] private Animator coundown;
+        [SerializeField] private EventHandler startGame;
 
         public delegate void OnSetUI();
         public OnSetUI onSetUI;
@@ -25,10 +45,22 @@ namespace yuki
             else{
                 Instance = this;
             }
+            startGame.OnAnimationFinished += Initializtion;
             onSetUI += SetScore;
             onSetUI += SetLevel;
             onSetUI += SetTarget;
             onSetUI += SetTNTCount;
+        }
+
+        public void EnventStartGame()
+        {
+            UISystemProfilerApi.AddMarker("MyEvent.CustomEvent", this);
+            _customEvent.Invoke();
+            SoundManager.CreatePlayBgMusic(SoundManager.Instance.audioClip.aud_bgMusic[UnityEngine.Random.Range(0, 2)]);
+        }
+
+        private void Initializtion(){
+            GameManager.Instance.Initialization();
         }
 
         public void Coundown(){
@@ -40,7 +72,7 @@ namespace yuki
         }
 
         public void SetTNTCount(){
-            _TNT.SetText(Player.Instance.GetItemNumber(Item.TNT).ToString());
+            _TNT.SetText(Player.Instance.TNTCount.ToString());
         }
 
         public void SetLevel(){

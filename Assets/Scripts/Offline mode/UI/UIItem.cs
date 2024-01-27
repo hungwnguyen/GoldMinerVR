@@ -9,9 +9,12 @@ namespace yuki
         [SerializeField] private TMP_Text _itemPrice;
         
         private float _priceItem;
+
+        public static bool isBuy;
        
         void OnEnable()
         {
+            isBuy = false;
             _priceItem = CalculateItemPrice();
             _itemPrice.SetText("$" +  _priceItem);
         }
@@ -20,13 +23,33 @@ namespace yuki
         {
             if(Player.Instance.Score >= _priceItem)
             {
-                Player.Instance.Bag.Add(_itemData.type);
+                isBuy = true;
+                switch (_itemData.type)
+                {
+                    case Item.DIAMOND_UP:
+                        Player.Instance.DiamondBuff = 2;
+                        break;
+                    case Item.ROCK_UP:
+                        Player.Instance.RockBuff = 5;
+                        break;
+                    case Item.POWER_UP:
+                        Player.Instance.PowerBuff = 10;
+                        break;
+                    case Item.TNT:
+                        Player.Instance.TNTCount++;
+                        break;
+                    case Item.LUCKY_UP:
+                        Player.Instance.isLucky = true;
+                        break;
+
+                }
+                
                 Player.Instance.Score -= _priceItem;
                 this.gameObject.SetActive(false);
             }
             else
             {
-                Debug.Log("Not enough $$$");
+                UIShop.Instance.SetMessenger("Not enough $$$");
             }
         }
 
@@ -36,7 +59,7 @@ namespace yuki
 
         private int CalculateItemPrice()
         {
-            int _price = Random.Range(_itemData.minValue, _itemData.maxValue) * Random.Range(1,  GameManager.Instance.Level);
+            int _price = Random.Range(_itemData.minValue, _itemData.maxValue) + Random.Range(1,  GameManager.Instance.Level);
             return _price;
         }
 

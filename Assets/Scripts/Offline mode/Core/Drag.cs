@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace yuki
 {
@@ -38,28 +39,32 @@ namespace yuki
 
         public void FinishDrag()
         {
-            if (_rod.gameObject.TryGetComponent(out RandomBag randomBag))
-            {
-                string randBagItem = randomBag.GetEffectRandomBag();
-                if (randBagItem.Equals(RandomBagItem.STRENGTH_UP.ToString()))
+            try {
+                if (_rod.gameObject.TryGetComponent(out RandomBag randomBag))
                 {
-                    _getStrength = true;
-                    Invoke("StrengthCoundown", 0.8f);
+                    string randBagItem = randomBag.GetEffectRandomBag();
+                    if (randBagItem.Equals(RandomBagItem.STRENGTH_UP.ToString()))
+                    {
+                        _getStrength = true;
+                        Invoke("StrengthCoundown", 0.8f);
+                    }
+                    else if (randBagItem == RandomBagItem.TNT.ToString()){
+                        GetTNT = true;
+                    }
                 }
-                else if (randBagItem == RandomBagItem.TNT.ToString()){
-                    GetTNT = true;
+                else
+                {
+                    TextContainer.Instance.ShowFloatingText(_valueEarn + "$");
                 }
+                this.GetComponent<BoxCollider2D>().enabled = true;
+                this.GetComponent<Animator>().SetBool("drag", false);
+                Player.Instance.Score += ValueEarn;
+                _slowDown = 0;
+                _valueEarn = 0;
+                _rod.GetComponent<Rod>().Destroy();
+            } catch (Exception ex) {
+                Debug.Log(ex.Message);
             }
-            else
-            {
-                TextContainer.Instance.ShowFloatingText(_valueEarn + "$");
-            }
-            this.GetComponent<BoxCollider2D>().enabled = true;
-            this.GetComponent<Animator>().SetBool("drag", false);
-            Player.Instance.Score += ValueEarn;
-            _slowDown = 0;
-            _valueEarn = 0;
-            _rod.GetComponent<Rod>().Destroy();
         }
 
         void StrengthCoundown(){

@@ -34,6 +34,8 @@ namespace yuki
             RewardState = new PodRewardState(this, podData, "reward");
             RewardStrengthState = new PodRewardStrengthState(this, podData, "rewardStrength");
             PodIdleState = new PodIdleState(this, podData);
+            Drag = GetComponentInChildren<Drag>();
+            FSM.Initialization(PodIdleState);
             if (Instance != null){
                 Destroy(this);
             } else {
@@ -44,10 +46,7 @@ namespace yuki
         protected override void Start()
         {
             base.Start();
-
             EventHandler = GetComponentInParent<EventHandler>();
-            Drag = GetComponentInChildren<Drag>();
-            FSM.Initialization(RotationState);
         }
 
         #region Check

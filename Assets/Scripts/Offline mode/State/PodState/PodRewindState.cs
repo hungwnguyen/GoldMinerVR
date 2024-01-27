@@ -21,8 +21,9 @@ namespace yuki
 
             if(!isExistingState)
             {
-                if (Input.GetMouseButtonDown(1) && Player.Instance.GetItemNumber(Item.TNT) > 0 && pod.Drag.IsDraged)
+                if (Player.Instance.isUseTNT && Player.Instance.TNTCount > 0 && pod.Drag.IsDraged)
                 {
+                    Player.Instance.isUseTNT = false;
                     pod.FSM.ChangeState(pod.UseTNTState);
                 }
 
