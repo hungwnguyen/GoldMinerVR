@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 namespace yuki
@@ -65,7 +66,7 @@ namespace yuki
             CheckIfCountdownEnd();
         }
 
-        private void CheckIfCountdownEnd()
+        public void CheckIfCountdownEnd()
         {
             if (Player.Instance.Score >= _targetScore)
             {
@@ -100,7 +101,7 @@ namespace yuki
         {
             Initialization();
             Pod.Instance.FSM.ChangeState(Pod.Instance.RotationState);
-            foreach (Item item in Player.Instance.Bag)
+            foreach (Item item in Player.Instance.Bag.ToList())
             {
                 switch (item)
                 {

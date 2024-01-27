@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,7 +10,7 @@ namespace yuki
         [SerializeField] private Button input;
         [SerializeField] private float _score = 0; public float Score { get => _score; set => _score = value; }
         [SerializeField] private Actor actor;
-        private List<Item> _bag; public List<Item> Bag { get => _bag; set => _bag = value; }
+        public List<Item> Bag;
         private float _powerBuff; public float PowerBuff { get => _powerBuff; set => _powerBuff = value; }
         private float _diamondBuff; public float DiamondBuff { get => _diamondBuff; set => _diamondBuff = value; }
         private float _rockBuff; public float RockBuff { get => _rockBuff; set => _rockBuff = value; }
@@ -32,16 +29,15 @@ namespace yuki
                 Instance = this;
             isClick = false;
             input.onClick.AddListener(OnCLick);
-            _bag = new List<Item>();
-            _bag.Add(Item.TNT);
-            _bag.Add(Item.TNT);
-            _bag.Add(Item.TNT);
-             _bag.Add(Item.TNT);
-            _bag.Add(Item.TNT);
-            _bag.Add(Item.TNT);
-             _bag.Add(Item.TNT);
-            _bag.Add(Item.TNT);
-            _bag.Add(Item.TNT);
+            Bag = new List<Item>();
+            
+            Bag.Add(Item.TNT);
+            Bag.Add(Item.TNT);
+            Bag.Add(Item.TNT);
+            Bag.Add(Item.TNT);
+            Bag.Add(Item.TNT);
+            Bag.Add(Item.TNT);
+            Bag.Add(Item.TNT);
         }
 
         public void OnCLick(){
@@ -50,16 +46,16 @@ namespace yuki
 
         public float GetItemNumber(Item item)
         {
-            return _bag.Count(i => i == item);
+            return Bag.Count(i => i == item);
         }
 
         public void UseItem(Item item)
         {
-            for (int i = 0; i < _bag.Count; i++)
+            for (int i = 0; i < Bag.Count; i++)
             {
-                if (_bag[i] == item)
+                if (Bag[i] == item)
                 {
-                    _bag.RemoveAt(i);
+                    Bag.RemoveAt(i);
                     break;
                 }
             }

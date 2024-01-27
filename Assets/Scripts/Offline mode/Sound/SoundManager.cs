@@ -232,16 +232,19 @@ public class SoundManager : MonoBehaviour
         foreach(AudioSource audioSource in _instance.BgMusic.Values){
             if (audioSource.gameObject.activeSelf){
                 audioSource.Stop();
+                audioSource.gameObject.SetActive(false);
             }
         }
         foreach(AudioSource audioSource in _instance.FXLoop.Values){
             if (audioSource.gameObject.activeSelf){
                 audioSource.Stop();
+                audioSource.gameObject.SetActive(false);
             }
         }
         foreach(GameObject go in _instance._pool.poolDictionary.Values){
             if (go.activeSelf){
                 go.GetComponent<AudioSource>().Stop();
+                go.gameObject.SetActive(false);
             }
         }
     }

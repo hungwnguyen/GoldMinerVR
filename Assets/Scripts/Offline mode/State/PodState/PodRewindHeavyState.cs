@@ -15,8 +15,7 @@ namespace yuki
             if (!isExistingState)
             {
                 pod.transform.Translate(Vector3.up * (podData.strength - pod.Drag.SlowDown + Player.Instance.PowerBuff) * Time.deltaTime);
-
-                if (pod.Drag.SlowDown < podData.strength / 2)
+                if (podData.strength - pod.Drag.SlowDown + Player.Instance.PowerBuff > 3)
                 {
                     pod.FSM.ChangeState(pod.RewindLightState);
                 }

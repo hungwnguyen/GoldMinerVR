@@ -20,9 +20,8 @@ namespace yuki
     public class Spawner : MonoBehaviour
     {
         [SerializeField] private List<RodGenerate> _rods = new List<RodGenerate>();
-        [SerializeField] private int _numberOfRodGenerate;
         [SerializeField] private Vector2 _sizeCheckMutiplier;
-
+    
         public static Spawner Instance;
 
         void Awake()
@@ -75,7 +74,7 @@ namespace yuki
                         SpawnRandomRod(rod.prefab, randomPos);
                         count++;
                     }
-                    if (i == 2000)
+                    if (i == 1000)
                         break;
                 }
 
@@ -95,21 +94,19 @@ namespace yuki
         private void SpawnRandomRod(GameObject go, Vector2 position)
         {
             GameObject prefabIns = Instantiate(go, position, Quaternion.identity);
-            if (!CheckColliderOutsideScreen(prefabIns))
-            {
-                Destroy(prefabIns);
-            }
+            CheckColliderOutsideScreen(prefabIns);
         }
 
         private bool CheckCollision(Vector2 pos, GameObject rod)
         {
             BoxCollider2D[] collider2Ds = rod.GetComponentsInChildren<BoxCollider2D>(true);
             BoxCollider2D rodBox = collider2Ds[0];
-            Collider2D[] hits = Physics2D.OverlapBoxAll(pos, new Vector2(rodBox.size.x * _sizeCheckMutiplier.x, rodBox.size.y * _sizeCheckMutiplier.y), 0);
-            return hits.Length < 1;
+            Collider2D[] hits = new Collider2D[2];
+            int count = Physics2D.OverlapBoxNonAlloc(pos, new Vector2(rodBox.size.x * _sizeCheckMutiplier.x, rodBox.size.y * _sizeCheckMutiplier.y), 0, hits);
+            return count < 1;
         }
 
-        private bool CheckColliderOutsideScreen(GameObject rod)
+        private void CheckColliderOutsideScreen(GameObject rod)
         {
             BoxCollider2D[] collider2Ds = rod.GetComponentsInChildren<BoxCollider2D>(true);
             BoxCollider2D rodBox = collider2Ds[0];
@@ -117,12 +114,22 @@ namespace yuki
             Bounds colBound = rodBox.bounds;
             Vector2 boundMin = colBound.min;
             Vector2 boundMax = colBound.max;
-            if (boundMin.x > Screen.Instance.PartOneRect.xMin && boundMin.y > Screen.Instance.PartOneRect.yMin && boundMax.x < Screen.Instance.PartThreeRect.xMax && boundMax.y < Screen.Instance.PartThreeRect.yMax)
-            {
-                return true;
+            if (boundMin.x < Screen.Instance.PartOneRect.xMin){
+                rod.transform.position = 
+                new Vector3(rod.transform.position.x + colBound.size.x / 2, rod.transform.position.y, rod.transform.position.z);
             }
-
-            return false;
+            if ( boundMin.y < Screen.Instance.PartOneRect.yMin){
+                rod.transform.position = 
+                new Vector3(rod.transform.position.x, rod.transform.position.y + colBound.size.y / 2, rod.transform.position.z);
+            }
+            if (boundMax.x > Screen.Instance.PartThreeRect.xMax){
+                rod.transform.position = 
+                new Vector3(rod.transform.position.x - colBound.size.x / 2, rod.transform.position.y, rod.transform.position.z);
+            }
+            if (boundMax.y > Screen.Instance.PartThreeRect.yMax){
+                rod.transform.position = 
+                new Vector3(rod.transform.position.x, rod.transform.position.y - colBound.size.y / 2, rod.transform.position.z);
+            }
         }
 
         private void GetOrderPos(ref float minPos, ref float maxPos, RodGenerate rod)

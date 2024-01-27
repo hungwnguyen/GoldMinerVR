@@ -24,3 +24,10 @@ MonoBehaviour:
   aud_touch: {fileID: 8300000, guid: 8aeb971e73d3a5044bdae1d3bc03ebe9, type: 3}
   aud_win: {fileID: 8300000, guid: f72fe81c904274c81bf1c9e266ed5c15, type: 3}
   aud_strength: {fileID: 8300000, guid: ebaf2358b7aa9476482999d58689016f, type: 3}
+  aud_bgMusic:
+  - {fileID: 8300000, guid: a6c0f4b729165a246a52bd031e256053, type: 3}
+  - {fileID: 8300000, guid: 50066c3b7c1fdd24f9616d0ca1c08d4e, type: 3}
+  aud_gamePlayMusic:
+  - {fileID: 8300000, guid: ff8b8def4ccae37419822252e234bc0e, type: 3}
+  - {fileID: 8300000, guid: 2fcb1675aca7a4949929887f1337c566, type: 3}
+  aud_shop: {fileID: 8300000, guid: e7bc104c5e9f5a84daa76155b17573b2, type: 3}

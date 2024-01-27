@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
+using yuki;
 
 public class UIPopup : MonoBehaviour
 {
@@ -38,6 +39,12 @@ public class UIPopup : MonoBehaviour
         _customEvent.Invoke();
         Time.timeScale = 0;
         SoundManager.DisableAllMusic();
+    }
+
+    public void NextLevel(){
+        Time.timeScale = 1;
+        SoundManager.DisableAllMusic();
+        GameManager.Instance.CheckIfCountdownEnd();
     }
 
     public void PauseGame(){
