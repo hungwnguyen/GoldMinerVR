@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606fa210fd468944db8521e824e2d7a2, type: 3}
+  m_Name: MapDataSO 9
+  m_EditorClassIdentifier: 
+  _rods:
+  - order: 0
+    min: 10
+    max: 24
+    name: ROCK
+  - order: 4
+    min: 18
+    max: 55
+    name: DIAMOND_600
+  - order: 5
+    min: 10
+    max: 23
+    name: Boom
+  - order: 4
+    min: 12
+    max: 25
+    name: DIAMOND_1200
+  - order: 4
+    min: 16
+    max: 26
+    name: DIAMOND_900
+  - order: 0
+    min: 0
+    max: 0
+    name: RANDOMBAG
+  - order: 0
+    min: 0
+    max: 0
+    name: GOLD_500
+  - order: 0
+    min: 0
+    max: 0
+    name: MOUSE_GOLD
+  - order: 0
+    min: 0
+    max: 0
+    name: GOLD_100
+  - order: 0
+    min: 0
+    max: 0
+    name: GOLD_200
+  - order: 0
+    min: 0
+    max: 0
+    name: MOUSE_1
+  - order: 0
+    min: 0
+    max: 0
+    name: MOUSE_900
+  - order: 0
+    min: 0
+    max: 0
+    name: MOUSE_600
+  - order: 0
+    min: 0
+    max: 0
+    name: MOUSE_1200
+  _sizeCheck: 0.21

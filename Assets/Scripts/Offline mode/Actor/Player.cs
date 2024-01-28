@@ -31,7 +31,7 @@ namespace yuki
                 Instance = this;
             isClick = false;
             isUseTNT = false;
-            TNTCount = 9;
+            TNTCount = 2;
             ResetLevel();
             input.onClick.AddListener(OnCLick);
         }

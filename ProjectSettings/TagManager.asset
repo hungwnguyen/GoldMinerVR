@@ -12,6 +12,7 @@ TagManager:
   - input
   - PopupTextCointainer
   - Rod
+  - Lobby
   layers:
   - Default
   - TransparentFX

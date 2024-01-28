@@ -24,7 +24,7 @@ public class UIPopup : MonoBehaviour
     }
 
     [SerializeField] private yuki.EventHandler popupTarget, popupCongat;
-    [SerializeField] private TMP_Text targetScore;
+    [SerializeField] private TMP_Text targetScore, hightScore, currentScore;
     private Animator animatorPopUp, animatorPopUpShop;
     public static UIPopup Instance {get; private set;}
 
@@ -35,11 +35,12 @@ public class UIPopup : MonoBehaviour
         } else {
             Instance = this;
         }
-        SoundManager.CreatePlayFXSound(SoundManager.Instance.audioClip.aud_muctieu);
+        
         popupTarget.OnAnimationFinished += Initializtion;
         popupCongat.OnAnimationFinished += ShowShop;
         animatorPopUp = popupTarget.GetComponent<Animator>();
         animatorPopUpShop = popupCongat.GetComponent<Animator>();
+        SoundManager.CreatePlayFXSound(SoundManager.Instance.audioClip.aud_muctieu);
     }
 
     public void PlayPopUpCongat(){
@@ -52,6 +53,19 @@ public class UIPopup : MonoBehaviour
 
     public void SetTargetSocre(string value){
         targetScore.text = value;
+    }
+
+    public void SetCurrentSocre(){
+        currentScore.text = ((int) Player.Instance.Score) + "";
+    }
+
+    public void SetHightSocre(){
+        int hight = PlayerPrefs.GetInt("hight score", 0);
+        if (hight < Player.Instance.Score){
+            hight = (int) Player.Instance.Score;
+            PlayerPrefs.SetInt("hight score", hight);
+        }
+        hightScore.text = hight + "";
     }
 
     public void ReSetAmin(){

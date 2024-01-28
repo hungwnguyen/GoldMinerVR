@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Linq;
 using UnityEngine;
 
 namespace yuki
@@ -18,13 +17,12 @@ namespace yuki
         {
             if (Instance != null && Instance != this)
             {
-                Destroy(this);
+                Destroy(this.gameObject);
             }
             else
                 Instance = this;
-            DontDestroyOnLoad(this);
         }
-
+       
         public void StopCountdown()
         {
             StopAllCoroutines();
@@ -81,7 +79,7 @@ namespace yuki
         {
             UIShop.Instance.SetStatus(false);
             UIPopup.Instance.ReSetAmin();
-            Spawner.Instance.SpawnRod();
+            Spawner.Instance.SpawnRodLevel(Level);
         }
     }
 }

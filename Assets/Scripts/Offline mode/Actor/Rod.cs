@@ -58,14 +58,12 @@ namespace yuki
             GetDragPosition(drag, target);
             drag.SlowDown = rodData.weight;
             GetValueEarn(drag);
-            
-            transform.SetParent(drag.transform);
         }
 
         private void GetDragPosition(Drag drag, Transform other)
         {
             transform.SetParent(drag.transform);
-
+            this.GetComponent<Renderer>().sortingOrder = 1;
             float yScale = 1 / drag.Bound.y;
             float yOffset = GetComponent<Renderer>().bounds.size.y;
             
@@ -81,15 +79,8 @@ namespace yuki
             {
                 transform.localPosition = new Vector2(0, -yOffset / 2 * yScale);
             }
-            LockRotationAndPosition();
             float angle = other.transform.rotation.eulerAngles.z;
             transform.rotation = Quaternion.Euler(0f, 0f, angle);
-        }
-
-        void LockRotationAndPosition()
-        {
-            rb.constraints = RigidbodyConstraints2D.FreezeRotation | 
-            RigidbodyConstraints2D.FreezePosition;
         }
 
         private void GetValueEarn(Drag drag)

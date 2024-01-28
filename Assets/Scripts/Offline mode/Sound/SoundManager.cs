@@ -21,9 +21,9 @@ public class SoundManager : MonoBehaviour
 
     private void Awake()
     {
-        if (_instance != null && _instance != this)
+        if (_instance != null)
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
         else
         {
@@ -95,7 +95,8 @@ public class SoundManager : MonoBehaviour
         if (bg > 0){
             Instance.BgMusic[aClip.name].gameObject.SetActive(true);
             Instance.BgMusic[aClip.name].volume = bg;
-            Instance.BgMusic[aClip.name].Play();
+            if (!Instance.BgMusic[aClip.name].isPlaying)
+                Instance.BgMusic[aClip.name].Play();
             if (Time.timeScale == 0){
                 Instance.BgMusic[aClip.name].Pause();
             }
@@ -106,7 +107,9 @@ public class SoundManager : MonoBehaviour
         if (fx > 0){
             Instance.FXLoop[aClip.name].gameObject.SetActive(true);
             Instance.FXLoop[aClip.name].volume = fx;
-            Instance.FXLoop[aClip.name].Play();
+            if (!Instance.FXLoop[aClip.name].isPlaying)
+                Instance.FXLoop[aClip.name].Play();
+            
             if (Time.timeScale == 0){
                 Instance.FXLoop[aClip.name].Pause();
             }
@@ -131,7 +134,7 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public GameObject CustomSpawnHandler(AudioClip aClip){
+    private GameObject CustomSpawnHandler(AudioClip aClip){
         GameObject m_currentAudioFXSound = new GameObject(aClip.name);
         m_currentAudioFXSound.AddComponent<AudioSource>();
         m_currentAudioFXSound.AddComponent<Sound>();
@@ -188,11 +191,18 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public static void ContinuePlayAllMusic(){
+    /// <summary>
+    /// Return true if can play music
+    /// </summary>
+    /// <returns></returns>
+    public static bool ContinuePlayAllMusic(){
+        bool check = false;
         if (Instance.bg > 0){
             foreach(AudioSource audioSource in _instance.BgMusic.Values){
                 if (audioSource.gameObject.activeSelf){
-                    audioSource.Play();
+                    check = true;
+                    if (!audioSource.isPlaying)
+                        audioSource.Play();
                 }
             }
         } else {
@@ -205,7 +215,9 @@ public class SoundManager : MonoBehaviour
         if (Instance.fx > 0){
             foreach(AudioSource audioSource in _instance.FXLoop.Values){
                 if (audioSource.gameObject.activeSelf){
-                    audioSource.Play();
+                    check = true;
+                    if (!audioSource.isPlaying)
+                        audioSource.Play();
                 }
             }
             foreach(GameObject go in _instance._pool.poolDictionary.Values){
@@ -225,7 +237,7 @@ public class SoundManager : MonoBehaviour
                 }
             }
         }
-        
+        return check;
     }
 
     public static void DisableAllMusic(){
@@ -251,10 +263,10 @@ public class SoundManager : MonoBehaviour
 
     public static void DisableBGMusic()
     {
-        _instance.bg = 0;
         foreach(AudioSource audioSource in _instance.BgMusic.Values){
             if (audioSource.gameObject.activeSelf){
                 audioSource.Stop();
+                audioSource.gameObject.SetActive(false);
             }
         }
     }

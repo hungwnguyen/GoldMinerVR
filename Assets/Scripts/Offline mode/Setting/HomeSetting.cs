@@ -1,31 +1,25 @@
-﻿#if UNITY_EDITOR
-using UnityEditor;
-#endif
-using TMPro;
-using UnityEngine;
-
 public class HomeSetting : Setting
 {
-    [SerializeField] private TextMeshProUGUI usernameSetting;
-
-    [SerializeField] private TMP_InputField changeUsername;
-
-    // Start is called before the first frame update
     protected override void Start()
     {
+        SoundManager.CreatePlayBgMusic(SoundManager.Instance.audioClip.aud_bgMusic[UnityEngine.Random.Range(0, 2)]);
         base.Start();
-        //usernameSetting.text = AccountController.usernameDisplay;
-        usernameSetting.text = PlayerPrefs.GetString("Player name", "");
     }
 
-    public void SignOutGame()
+    public override void LoadScene(string name)
     {
+        base.LoadScene(name);
+        SoundManager.DisableBGMusic();
+    }
 
-#if UNITY_EDITOR
-        EditorApplication.isPlaying = false;
-#else
-        Application.Quit();
-#endif
+    public override void ChangeBGMS()
+    {
+        base.ChangeBGMS();
+        if (bgmusic.value > 0){
+            if (!SoundManager.ContinuePlayAllMusic()){
+                SoundManager.CreatePlayBgMusic(SoundManager.Instance.audioClip.aud_bgMusic[UnityEngine.Random.Range(0, 2)]);
+            }
+        }
     }
 
 }

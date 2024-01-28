@@ -56,7 +56,7 @@ namespace yuki
         {
             UISystemProfilerApi.AddMarker("MyEvent.CustomEvent", this);
             _customEvent.Invoke();
-            SoundManager.CreatePlayBgMusic(SoundManager.Instance.audioClip.aud_bgMusic[UnityEngine.Random.Range(0, 2)]);
+            SoundManager.CreatePlayBgMusic(SoundManager.Instance.audioClip.aud_gamePlayMusic[UnityEngine.Random.Range(0, 2)]);
         }
 
         private void Initializtion(){

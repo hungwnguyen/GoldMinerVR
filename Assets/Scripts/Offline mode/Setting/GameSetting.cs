@@ -1,37 +1,44 @@
-﻿using System;
-using System.Collections;
-using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
+﻿using UnityEngine;
+using UnityEngine.UI;
+using yuki;
 
 public class GameSetting : Setting
 {
-    [Serializable]
-    public class MyEvent : UnityEvent { }
-    [Space(2f), Header("Event Surrender"), Tooltip("Call when player click surrender"), Space(2f)]
-    [FormerlySerializedAs("CustomEvent0")]
-    [SerializeField] private MyEvent _customEvent0 = new MyEvent();
-    public MyEvent CustomEvent0
+    [SerializeField] protected Sprite fxloop, fxSound;
+    private Sprite fxloopOrigin, fxSoundOrigin;
+    [SerializeField] protected Image fxloopImage, fxSoundImage;
+
+    protected override void Start()
     {
-        get => _customEvent0;
-        set { _customEvent0 = value; }
+        fxloopOrigin = fxloopImage.sprite;
+        fxSoundOrigin = fxSoundImage.sprite;
+        base.Start();
     }
 
-    private void EventActive0()
+    public override void LoadScene(string name)
     {
-        UISystemProfilerApi.AddMarker("MyEvent.CustomEvent0", this);
-        _customEvent0.Invoke();
+        base.LoadScene(name);
+        Time.timeScale = 1;
+        SoundManager.DisableAllMusic();
     }
 
-    public void BackHome()
+    public override void ChangeBGMS()
     {
-        
+        if (bgmusic.value == 0){
+            fxloopImage.sprite = fxloop;
+        } else {
+            fxloopImage.sprite = fxloopOrigin;
+        }
+        base.ChangeBGMS();
     }
 
-    private IEnumerator LoadScene(string scene)
+    public override void ChangeFXMS()
     {
-        yield return new WaitForSeconds(0.25f);
-        SceneManager.LoadScene(scene);
+        if (fxsound.value == 0){
+            fxSoundImage.sprite = fxSound;
+        } else {
+            fxSoundImage.sprite = fxSoundOrigin;
+        }
+        base.ChangeFXMS();
     }
 }
