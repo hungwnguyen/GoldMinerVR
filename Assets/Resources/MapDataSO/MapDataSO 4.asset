@@ -22,7 +22,7 @@ MonoBehaviour:
     max: 0
     name: DIAMOND_600
   - order: 0
-    min: 9
+    min: 10
     max: 18
     name: Boom
   - order: 0
