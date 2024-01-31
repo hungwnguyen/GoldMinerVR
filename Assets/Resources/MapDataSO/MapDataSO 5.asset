@@ -23,7 +23,7 @@ MonoBehaviour:
     name: DIAMOND_600
   - order: 0
     min: 2
-    max: 7
+    max: 5
     name: Boom
   - order: 0
     min: 0
@@ -34,14 +34,14 @@ MonoBehaviour:
     max: 0
     name: DIAMOND_900
   - order: 0
-    min: 4
-    max: 6
+    min: 10
+    max: 15
     name: RANDOMBAG
   - order: 0
     min: 3
     max: 5
     name: GOLD_500
-  - order: 0
+  - order: 4
     min: 8
     max: 22
     name: MOUSE_GOLD
@@ -53,7 +53,7 @@ MonoBehaviour:
     min: 15
     max: 26
     name: GOLD_200
-  - order: 0
+  - order: 4
     min: 4
     max: 8
     name: MOUSE_1

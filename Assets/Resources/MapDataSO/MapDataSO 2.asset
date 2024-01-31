@@ -18,8 +18,8 @@ MonoBehaviour:
     max: 14
     name: ROCK
   - order: 0
-    min: 15
-    max: 55
+    min: 20
+    max: 30
     name: DIAMOND_600
   - order: 0
     min: 4
@@ -46,14 +46,14 @@ MonoBehaviour:
     max: 0
     name: MOUSE_GOLD
   - order: 0
-    min: 0
-    max: 0
+    min: 4
+    max: 7
     name: GOLD_100
   - order: 0
-    min: 0
-    max: 0
+    min: 2
+    max: 7
     name: GOLD_200
-  - order: 0
+  - order: 4
     min: 5
     max: 9
     name: MOUSE_1
@@ -61,9 +61,9 @@ MonoBehaviour:
     min: 0
     max: 0
     name: MOUSE_900
-  - order: 0
-    min: 8
-    max: 19
+  - order: 4
+    min: 5
+    max: 10
     name: MOUSE_600
   - order: 0
     min: 0

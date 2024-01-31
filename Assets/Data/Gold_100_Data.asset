@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Gold_100_Data
   m_EditorClassIdentifier: 
   speed: 6
-  weight: 4
+  weight: 2
   value: 100
   type: 0
   audioClip: {fileID: 8300000, guid: 06f633c28e6f54972b55b4665dae70a5, type: 3}

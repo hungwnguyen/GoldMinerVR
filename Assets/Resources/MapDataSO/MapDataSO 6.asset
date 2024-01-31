@@ -13,23 +13,23 @@ MonoBehaviour:
   m_Name: MapDataSO 6
   m_EditorClassIdentifier: 
   _rods:
-  - order: 0
-    min: 20
-    max: 38
+  - order: 5
+    min: 5
+    max: 10
     name: ROCK
-  - order: 0
-    min: 15
-    max: 55
+  - order: 4
+    min: 6
+    max: 10
     name: DIAMOND_600
-  - order: 0
-    min: 10
-    max: 23
+  - order: 5
+    min: 5
+    max: 8
     name: Boom
-  - order: 0
+  - order: 4
     min: 3
     max: 5
     name: DIAMOND_1200
-  - order: 0
+  - order: 4
     min: 3
     max: 8
     name: DIAMOND_900
@@ -37,11 +37,11 @@ MonoBehaviour:
     min: 4
     max: 6
     name: RANDOMBAG
-  - order: 0
+  - order: 1
     min: 3
     max: 7
     name: GOLD_500
-  - order: 0
+  - order: 4
     min: 3
     max: 7
     name: MOUSE_GOLD
@@ -53,19 +53,19 @@ MonoBehaviour:
     min: 2
     max: 5
     name: GOLD_200
-  - order: 0
+  - order: 4
     min: 4
     max: 8
     name: MOUSE_1
-  - order: 0
+  - order: 4
     min: 1
     max: 5
     name: MOUSE_900
-  - order: 0
+  - order: 4
     min: 2
     max: 5
     name: MOUSE_600
-  - order: 0
+  - order: 4
     min: 3
     max: 7
     name: MOUSE_1200

@@ -85,6 +85,7 @@ public class UIPopup : MonoBehaviour
         _customEvent.Invoke();
         Time.timeScale = 0;
         SoundManager.DisableAllMusic();
+        SoundManager.CreatePlayFXSound(SoundManager.Instance.audioClip.aud_fail);
     }
 
     public void NextLevel(){

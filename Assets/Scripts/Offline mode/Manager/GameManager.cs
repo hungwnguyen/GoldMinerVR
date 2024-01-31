@@ -22,6 +22,11 @@ namespace yuki
             else
                 Instance = this;
         }
+
+        public void ResetGame(){
+            Level = 1;
+            TargetScore = 0;
+        }
        
         public void StopCountdown()
         {
@@ -70,7 +75,6 @@ namespace yuki
             }
             else
             {
-                SoundManager.CreatePlayFXSound(SoundManager.Instance.audioClip.aud_fail);
                 UIPopup.Instance.LostAppear();
             }
         }

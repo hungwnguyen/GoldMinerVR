@@ -128,13 +128,15 @@ namespace yuki
         }
 
         public void CalcualateTargetScore(){
-            gos.Sort((go1, go2) =>
-            {
-                return go2.GetComponentInChildren<Rod>(true).Value
-                .CompareTo(go1.GetComponentInChildren<Rod>(true).Value);
-            });
+            try{
+                gos.Sort((go1, go2) =>
+                {
+                    return go2.GetComponentInChildren<Rod>(true).Value
+                    .CompareTo(go1.GetComponentInChildren<Rod>(true).Value);
+                });
+            } catch {}
             int targetScore = 0;
-            int size = gos.Count / 3 < 10 ? gos.Count / 3 : UnityEngine.Random.Range(8, 12);
+            int size = gos.Count / 3 < 13 ? gos.Count / 3 : 13;
             for (int i = 0; i < size; i++){
                 targetScore += (int) gos[i].GetComponentInChildren<Rod>(true).Value;
             }

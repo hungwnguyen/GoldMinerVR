@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e005d612188fe444ab3b997a8663503b, type: 3}
   m_Name: Mouse_Gold_Data
   m_EditorClassIdentifier: 
-  speed: 6
+  speed: 4
   weight: 5
   value: 200
   type: 11

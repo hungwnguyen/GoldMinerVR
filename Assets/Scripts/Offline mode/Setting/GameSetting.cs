@@ -41,4 +41,17 @@ public class GameSetting : Setting
         }
         base.ChangeFXMS();
     }
+
+    public void RePlayGame(){
+        Pod.Instance.FSM.ChangeState(Pod.Instance.PodIdleState);
+        Spawner.Instance.DestroyAllRod();
+        Time.timeScale = 1;
+        GameManager.Instance.ResetGame();
+        Player.Instance.Score = 0;
+        Player.Instance.TNTCount = 2;
+        Player.Instance.ResetLevel();
+        UIShop.Instance.SetStatus(false);
+        UIPopup.Instance.ReSetAmin();
+        Spawner.Instance.SpawnRodLevel(1);
+    }
 }

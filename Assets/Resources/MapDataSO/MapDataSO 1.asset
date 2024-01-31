@@ -41,7 +41,7 @@ MonoBehaviour:
     min: 25
     max: 63
     name: GOLD_500
-  - order: 0
+  - order: 5
     min: 0
     max: 0
     name: MOUSE_GOLD
@@ -53,7 +53,7 @@ MonoBehaviour:
     min: 11
     max: 19
     name: GOLD_200
-  - order: 0
+  - order: 5
     min: 0
     max: 0
     name: MOUSE_1

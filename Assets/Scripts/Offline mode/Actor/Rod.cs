@@ -20,6 +20,9 @@ namespace yuki
             {
                 if (rodData.type.ToString().Contains("DIAMOND"))
                 {
+                    if (rodData.type.ToString().Contains("MOUSE")){
+                        return "MOUSE_DIAMOND";
+                    }
                     return "DIAMOND";
                 }
                 else if (rodData.type.ToString().Contains("GOLD"))
@@ -88,7 +91,10 @@ namespace yuki
             SoundManager.CreatePlayFXSound(rodData.audioClip);
             if (Type == "DIAMOND")
             {
-                drag.ValueEarn = rodData.value * Player.Instance.DiamondBuff;
+                drag.ValueEarn = rodData.value / 2 * Player.Instance.DiamondBuff + rodData.value / 2;
+            }
+            else if (Type == "MOUSE_DIAMOND"){
+                drag.ValueEarn = rodData.value / 2 * Player.Instance.DiamondBuff + rodData.value / 2 + 2;
             }
             else if (Type == "ROCK")
             {

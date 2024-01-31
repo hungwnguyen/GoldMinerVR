@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e005d612188fe444ab3b997a8663503b, type: 3}
   m_Name: Mouse_900_Data
   m_EditorClassIdentifier: 
-  speed: 6
+  speed: 2
   weight: 3
   value: 900
   type: 9
