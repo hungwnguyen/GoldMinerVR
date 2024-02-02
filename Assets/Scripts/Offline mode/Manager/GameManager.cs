@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace yuki
@@ -12,6 +13,8 @@ namespace yuki
         private float _targetScore; public float TargetScore { get => _targetScore; 
         set => _targetScore = value > 999999 ? 999999 : value; }
         public static GameManager Instance;
+        [SerializeField] private List<Background> bgs;
+
 
         void Awake()
         {
@@ -23,9 +26,16 @@ namespace yuki
                 Instance = this;
         }
 
+        private void ChangeBG(){
+            foreach(Background bg in bgs){
+                bg.SetBG();
+            }
+        }
+
         public void ResetGame(){
             Level = 1;
             TargetScore = 0;
+            ChangeBG();
         }
        
         public void StopCountdown()
@@ -40,6 +50,7 @@ namespace yuki
 
         public void Initialization()
         {
+            Player.Instance.RewardFinished = false;
             Pod.Instance.FSM.ChangeState(Pod.Instance.RotationState);
             _level++;
             _currentTime = _timeLevel;
@@ -65,8 +76,10 @@ namespace yuki
         public void CheckIfCountdownEnd()
         {
             Player.Instance.ResetLevel();
-            if (Player.Instance.Score >= _targetScore)
+            float score = Player.Instance.Score;
+            if (score >= _targetScore)
             {
+                _targetScore = score;
                 SoundManager.DisableAllMusic();
                 UIPopup.Instance.PlayPopUpCongat();
                 SoundManager.CreatePlayFXSound(SoundManager.Instance.audioClip.aud_muctieu);
@@ -81,6 +94,7 @@ namespace yuki
 
         public void NextLevel()
         {
+            ChangeBG();
             UIShop.Instance.SetStatus(false);
             UIPopup.Instance.ReSetAmin();
             Spawner.Instance.SpawnRodLevel(Level);

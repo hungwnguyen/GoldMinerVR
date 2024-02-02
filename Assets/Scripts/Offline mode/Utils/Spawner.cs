@@ -116,7 +116,7 @@ namespace yuki
         }
 
         IEnumerator Freeze(){
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(1.8f);
             foreach(GameObject go in gos.ToList()){
                 try {
                     go.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation | 
@@ -136,7 +136,7 @@ namespace yuki
                 });
             } catch {}
             int targetScore = 0;
-            int size = gos.Count / 3 < 13 ? gos.Count / 3 : 13;
+            int size = gos.Count / 3 < 12 ? gos.Count / 3 : 12;
             for (int i = 0; i < size; i++){
                 targetScore += (int) gos[i].GetComponentInChildren<Rod>(true).Value;
             }

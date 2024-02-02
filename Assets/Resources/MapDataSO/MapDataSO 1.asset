@@ -46,7 +46,7 @@ MonoBehaviour:
     max: 0
     name: MOUSE_GOLD
   - order: 0
-    min: 22
+    min: 0
     max: 41
     name: GOLD_100
   - order: 0

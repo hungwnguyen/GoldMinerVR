@@ -13,8 +13,6 @@ public class AudioClipData : ScriptableObject
     public AudioClip aud_fail;
     [Space(1f), Header("Pull the rope music"), Space(1f)] 
     public AudioClip aud_keoday;
-    [Space(1f), Header("Background music"), Space(1f)] 
-    public AudioClip BGMusic;
     [Space(1f), Header("Target music"), Space(1f)] 
     public AudioClip aud_muctieu;
     [Space(1f), Header("TNT music"), Space(1f)] 

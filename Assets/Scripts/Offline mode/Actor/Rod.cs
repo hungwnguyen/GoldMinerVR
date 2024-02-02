@@ -59,7 +59,12 @@ namespace yuki
         {
             _isDraged = true;
             GetDragPosition(drag, target);
-            drag.SlowDown = rodData.weight;
+            if (rodData.type == RodType.RANDOM_BAG)
+            {
+                drag.SlowDown = Random.Range(1, 10);
+            } else {
+                drag.SlowDown = rodData.weight;
+            }
             GetValueEarn(drag);
         }
 
@@ -77,6 +82,10 @@ namespace yuki
             else if (rodData.type == RodType.ROCK)
             {
                 transform.localPosition = new Vector2(0, -yOffset / 2 + 0.1f);
+            }
+            else if (rodData.type == RodType.GOLD_200)
+            {
+                transform.localPosition = new Vector2(0, -0.8f);
             }
             else
             {

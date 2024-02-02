@@ -30,8 +30,8 @@ MonoBehaviour:
     max: 0
     name: DIAMOND_1200
   - order: 0
-    min: 14
-    max: 21
+    min: 20
+    max: 30
     name: DIAMOND_900
   - order: 0
     min: 4

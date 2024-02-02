@@ -1,10 +1,14 @@
 ﻿using System;
-using UnityEngine;
 
 namespace yuki
 {
     public class RandomBag : Rod
     {
+        protected override void Start()
+        {
+            base.Start();
+        }
+
         private RandomBagItem RandomItem()
         {
             RandomBagItem[] items = (RandomBagItem[]) Enum.GetValues(typeof(RandomBagItem));

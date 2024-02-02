@@ -46,7 +46,6 @@ namespace yuki
                     if (randBagItem.Equals(RandomBagItem.STRENGTH_UP.ToString()))
                     {
                         _getStrength = true;
-                        Invoke("StrengthCoundown", 0.8f);
                     }
                     else if (randBagItem == RandomBagItem.TNT.ToString()){
                         GetTNT = true;
@@ -65,10 +64,6 @@ namespace yuki
             } catch (Exception ex) {
                 Debug.Log(ex.Message);
             }
-        }
-
-        void StrengthCoundown(){
-            Player.Instance.RewardFinished = true;
         }
         
         public void UseTNT()

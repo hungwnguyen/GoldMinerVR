@@ -8,33 +8,19 @@ namespace yuki
         public EventHandler EventHandler { get; private set; }
         private Animator animator;
 
-        private int lastIndex, currentIndex;
         void Awake()
         {
             EventHandler = GetComponent<EventHandler>();
-            lastIndex = 1;
             // Lấy Animator component từ GameObject
             animator = GetComponent<Animator>();
-        }
-
-        void OnEnable()
-        {
             EventHandler.OnAnimationFinished += OnAnimationFinished;
-        }
-
-        void OnDisable() 
-        {
-            EventHandler.OnAnimationFinished -= OnAnimationFinished;
         }
 
         private void OnAnimationFinished()
         {
-            currentIndex = this.animator.GetCurrentAnimatorClipInfoCount(0);
-            if (currentIndex == 1 && lastIndex == 0){
-                Player.Instance.RewardFinished = true;
-                StartCoroutine(UpdateScore());
-            }
-            lastIndex = currentIndex;
+            Player.Instance.RewardFinished = true;
+            StartCoroutine(UpdateScore());
+            animator.Play("Zoom out");
         }
 
         IEnumerator UpdateScore(){

@@ -26,8 +26,8 @@ MonoBehaviour:
     max: 10
     name: Boom
   - order: 0
-    min: 13
-    max: 18
+    min: 20
+    max: 30
     name: DIAMOND_1200
   - order: 0
     min: 0
