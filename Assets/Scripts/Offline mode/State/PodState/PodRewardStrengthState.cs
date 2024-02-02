@@ -6,20 +6,25 @@
         {
         }
 
-        public override void LogicUpdate()
+        public override void Enter()
         {
-            base.LogicUpdate();
-
-            if(!isExistingState)
-            {
-                if (Player.Instance.RewardFinished)
-                {
-                    GameManager.Instance.RestartCoundown();
-                    Player.Instance.RewardFinished = false;
-                    pod.Drag.GetStrength = false;
-                    pod.FSM.ChangeState(pod.RotationState);
-                }
-            }
+            base.Enter();
+            pod.EventHandler.OnAnimationFinished += OnAnimationFinished;
         }
+
+        public override void Exit()
+        {
+            base.Exit();
+            pod.EventHandler.OnAnimationFinished -= OnAnimationFinished;
+        }
+
+        private void OnAnimationFinished()
+        {
+            GameManager.Instance.RestartCoundown();
+            Player.Instance.RewardFinished = false;
+            pod.Drag.GetStrength = false;
+            pod.FSM.ChangeState(pod.RotationState);
+        }
+       
     }
 }

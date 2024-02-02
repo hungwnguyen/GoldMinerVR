@@ -14,7 +14,6 @@ namespace yuki
             pod.Drag.FinishDrag();
             GameManager.Instance.StopCountdown();
             SoundManager.CreatePlayFXSound(SoundManager.Instance.audioClip.aud_congqua);
-            //Debug.Log(pod.Drag.GetStrength);
         }
 
         public override void LogicUpdate()
