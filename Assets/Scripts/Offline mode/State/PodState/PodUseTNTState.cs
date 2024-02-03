@@ -16,7 +16,6 @@
         public override void Exit()
         {
             base.Exit();
-
             pod.EventHandler.OnAnimationFinished -= OnAnimationFinished;
         }
 

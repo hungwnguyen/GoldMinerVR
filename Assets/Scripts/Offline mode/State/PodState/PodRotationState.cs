@@ -16,6 +16,7 @@ namespace yuki
             base.Enter();
             _direction = 1;
             pod.transform.position = pod.OriginPos.position;
+            Player.Instance.isDragBoom = false;
             pod.Drag.IsDraged = false;
             pod.Drag.GetComponent<BoxCollider2D>().enabled = true;
         }

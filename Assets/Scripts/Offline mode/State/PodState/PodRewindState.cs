@@ -21,7 +21,7 @@ namespace yuki
 
             if(!isExistingState)
             {
-                if (Player.Instance.isUseTNT && Player.Instance.TNTCount > 0 && pod.Drag.IsDraged)
+                if (Player.Instance.isUseTNT && Player.Instance.TNTCount > 0 && pod.Drag.IsDraged && !Player.Instance.isDragBoom)
                 {
                     Player.Instance.isUseTNT = false;
                     pod.FSM.ChangeState(pod.UseTNTState);

@@ -24,6 +24,7 @@ namespace yuki
         public override void Draged(Drag drag, Transform target)
         {
             base.Draged(drag, target);
+            Player.Instance.isDragBoom = true;
             Exploded();
         }
 

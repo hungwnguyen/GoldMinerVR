@@ -51,6 +51,7 @@ namespace yuki
         public void Initialization()
         {
             Player.Instance.RewardFinished = false;
+            Player.Instance.isDragBoom = false;
             Pod.Instance.FSM.ChangeState(Pod.Instance.RotationState);
             _level++;
             _currentTime = _timeLevel;
