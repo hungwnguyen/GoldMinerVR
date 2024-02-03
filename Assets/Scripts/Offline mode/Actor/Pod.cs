@@ -59,7 +59,7 @@ namespace yuki
 
         public bool CheckIfDragFinish()
         {
-            return _originPos.position.y - transform.position.y < 0.2f;
+            return Vector2.Distance(_originPos.position, transform.position) == 0;
         }
         #endregion
     }

@@ -21,12 +21,12 @@ namespace yuki
 
             if(!isExistingState)
             {
-                if (Player.Instance.isUseTNT && Player.Instance.TNTCount > 0 && pod.Drag.IsDraged && !Player.Instance.isDragBoom)
+                if (Player.Instance.isUseTNT && Player.Instance.TNTCount > 0 && pod.Drag.IsDraged)
                 {
                     Player.Instance.isUseTNT = false;
                     pod.FSM.ChangeState(pod.UseTNTState);
                 }
-
+                
                 if (pod.CheckIfDragFinish())
                 {
                     SoundManager.Instance.StopFXLoop(SoundManager.Instance.audioClip.aud_keoday);
@@ -38,6 +38,8 @@ namespace yuki
                     {
                         pod.FSM.ChangeState(pod.RotationState);
                     }
+                } else {
+                    pod.transform.position = Vector2.MoveTowards(pod.transform.position, pod.OriginPos.position, (podData.strength - pod.Drag.SlowDown + Player.Instance.PowerBuff) * Time.deltaTime);
                 }
             }
         }

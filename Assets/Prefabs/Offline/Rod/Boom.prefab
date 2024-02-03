@@ -132,7 +132,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rodData: {fileID: 11400000, guid: cb4ff090574264d4691e668c7c947ec0, type: 2}
-  _destroyByTNT: {fileID: 0}
+  _destroyByTNT: {fileID: 1901459388619290925, guid: 416a9528ea9c5f64f97937c0a9a18573,
+    type: 3}
   boom: {fileID: 7665837914065915487, guid: e9486949d6552304cb0d8f69d515ae09, type: 3}
 --- !u!212 &8700349776536639317
 SpriteRenderer:
@@ -249,7 +250,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 7.9, y: 10}
+    oldSize: {x: 7.9, y: 10.011881}
     newSize: {x: 7.9, y: 10}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

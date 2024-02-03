@@ -57,6 +57,8 @@ namespace yuki
 
         public virtual void Draged(Drag drag, Transform target)
         {
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation | 
+                    RigidbodyConstraints2D.FreezePosition;
             _isDraged = true;
             GetDragPosition(drag, target);
             if (rodData.type == RodType.RANDOM_BAG)

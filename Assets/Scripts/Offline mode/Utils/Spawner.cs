@@ -152,7 +152,7 @@ namespace yuki
                 StartCoroutine(Spaw(rod));
             }
             CalcualateTargetScore();
-            StartCoroutine(Freeze());
+            // StartCoroutine(Freeze());
         }
 
         public void SpawnRodLevel(int level){

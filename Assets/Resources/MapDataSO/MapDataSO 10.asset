@@ -18,8 +18,8 @@ MonoBehaviour:
     max: 24
     name: ROCK
   - order: 4
-    min: 0
-    max: 0
+    min: 16
+    max: 20
     name: DIAMOND_600
   - order: 5
     min: 3

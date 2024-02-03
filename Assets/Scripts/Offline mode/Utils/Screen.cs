@@ -73,6 +73,7 @@ namespace yuki
             PartTwoRect = new Rect(GameplayRect.xMin + _offset.x, part2Y, GameplayRect.width - 2 * _offset.x, partHeight);
             PartThreeRect = new Rect(GameplayRect.xMin + _offset.x, part3Y, GameplayRect.width - 2 * _offset.x, partHeight);
         }
+        #if UNITY_EDITOR
 
         void OnDrawGizmos()
         {
@@ -98,5 +99,6 @@ namespace yuki
             Vector3 size = new Vector3(rect.width, rect.height, 0f);
             Gizmos.DrawWireCube(center, size);
         }
+        #endif
     }
 }

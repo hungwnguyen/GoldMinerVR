@@ -17,7 +17,7 @@ namespace yuki
         private float _rockBuff; public float RockBuff { get => _rockBuff; set => _rockBuff = value; }
         public bool isLucky;
         private bool _rewardFinished; public bool RewardFinished { get => _rewardFinished; set => _rewardFinished = value; }
-        public bool isClick, isUseTNT, isDragBoom;
+        public bool isClick, isUseTNT;
         public static Player Instance;
 
         void Awake()
