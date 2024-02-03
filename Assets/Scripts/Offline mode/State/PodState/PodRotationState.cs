@@ -31,19 +31,19 @@ namespace yuki
                     Player.Instance.isClick = false;
                     pod.FSM.ChangeState(pod.ShootState);
                     SoundManager.CreatePlayFXLoop(SoundManager.Instance.audioClip.aud_thaday);
+                } else {
+                    _angle += podData.rotationSpeed * _direction * Time.deltaTime;
+                    if(_angle > podData.angleMax && this._direction == 1)
+                    {
+                        _direction = -1;
+                    }
+                    else if (_angle < -podData.angleMax && this._direction == -1)
+                    {
+                        _direction = 1;
+                    }
+                    pod.transform.rotation = Quaternion.AngleAxis(_angle, Vector3.forward);
                 }
-                _angle += podData.rotationSpeed * _direction * Time.deltaTime;
-
-                if(_angle > podData.angleMax && this._direction == 1)
-                {
-                    _direction = -1;
-                }
-                else if (_angle < -podData.angleMax && this._direction == -1)
-                {
-                    _direction = 1;
-                }
-
-                pod.transform.rotation = Quaternion.AngleAxis(_angle, Vector3.forward);
+                
             }
         }
     }
