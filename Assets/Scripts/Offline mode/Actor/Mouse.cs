@@ -7,10 +7,13 @@ namespace yuki
         [SerializeField] private Transform[] _patrolPoints;
         private int _patrolDestination;
         bool isFlip;
+        int speedRan;
         
         protected override void Start()
         {
             base.Start();
+            speedRan = Random.Range(10, 20);
+            Invoke("Repair", Random.Range(0, 2f));
             _patrolDestination = 1;
             Rotate();
             isFlip = false;
@@ -25,9 +28,13 @@ namespace yuki
             }
         }
 
+        private void Repair(){
+            speedRan = 0;
+        }
+
         public void Move()
         {
-            transform.position = Vector2.MoveTowards(transform.position, _patrolPoints[_patrolDestination].position, rodData.speed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, _patrolPoints[_patrolDestination].position, (rodData.speed + speedRan) * Time.deltaTime);
             if(transform.position == _patrolPoints[_patrolDestination].position)
             {
                 if (_patrolDestination == _patrolPoints.Length - 1 || _patrolDestination == 0){

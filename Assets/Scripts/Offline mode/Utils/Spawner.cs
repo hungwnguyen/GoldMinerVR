@@ -136,8 +136,7 @@ namespace yuki
                 });
             } catch {}
             int targetScore = 0;
-            int size = gos.Count / 3 < 12 ? gos.Count / 3 : 12;
-            for (int i = 0; i < size; i++){
+            for (int i = 0; i < 10; i++){
                 targetScore += (int) gos[i].GetComponentInChildren<Rod>(true).Value;
             }
             GameManager.Instance.TargetScore += targetScore;

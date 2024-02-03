@@ -89,6 +89,9 @@ namespace yuki
             {
                 transform.localPosition = new Vector2(0, -0.8f);
             }
+            else if (rodData.type == RodType.MOUSE_DIAMOND_1200 || rodData.type == RodType.MOUSE_DIAMOND_600 || rodData.type == RodType.MOUSE_DIAMOND_900 || rodData.type == RodType.MOUSE_GOLD){
+                transform.localPosition = new Vector2(0, -0.51f);
+            }
             else
             {
                 transform.localPosition = new Vector2(0, -yOffset / 2 * yScale);

@@ -44,6 +44,7 @@ namespace yuki
 
         IEnumerator Transition(){
             float time = 1;
+            SoundManager.Instance.StopBgMusic(SoundManager.Instance.audioClip.aud_shop);
             if (!UIItem.isBuy){
                 saler.SetTrigger("unsold");
                 SoundManager.CreatePlayFXSound(SoundManager.Instance.audioClip.aud_UnBuy);
@@ -54,7 +55,6 @@ namespace yuki
             }
             yield return new WaitForSeconds(time);
             GameManager.Instance.NextLevel();
-            SoundManager.Instance.StopBgMusic(SoundManager.Instance.audioClip.aud_shop);
         }
 
         private void AddItemToShop()
