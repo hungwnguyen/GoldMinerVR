@@ -1,13 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 namespace yuki
 {
     public class Player : MonoBehaviour
     {
-        [SerializeField] private Button input;
         [SerializeField] private float _score = 0; public float Score { get => _score; 
         set => _score = value > 999999 ? 999999 : value; }
         [SerializeField] private Actor actor;
@@ -19,6 +15,8 @@ namespace yuki
         private bool _rewardFinished; public bool RewardFinished { get => _rewardFinished; set => _rewardFinished = value; }
         public bool isClick, isUseTNT;
         public static Player Instance;
+        private bool canClick;
+        [SerializeField] private bool isDebug;
 
         void Awake()
         {
@@ -32,14 +30,22 @@ namespace yuki
             isClick = false;
             isUseTNT = false;
             TNTCount = 2;
+            canClick = false;
             ResetLevel();
-            input.onClick.AddListener(OnCLick);
         }
 
-        public void OnCLick(){
-            string value = actor.FSM.CurrentState.anim;
-            isClick = value.Equals("rotate");
-            isUseTNT = value.Length > 5 ? value.Substring(0, 6).Equals("rewind") : false;
+        public void ChangeStatusClick(bool value = false){
+            canClick = value;
+        }
+
+        public void OnPointerDown(){
+            if (canClick){
+                string value = actor.FSM.CurrentState.anim;
+                isClick = value.Equals("rotate");
+                isUseTNT = value.Length > 5 ? value.Substring(0, 6).Equals("rewind") : false;
+            } else {
+                if(isDebug) Debug.Log("Can't click");
+            }
         }
 
         public void ResetLevel()

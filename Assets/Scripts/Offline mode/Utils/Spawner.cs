@@ -136,8 +136,12 @@ namespace yuki
                 });
             } catch {}
             int targetScore = 0;
-            for (int i = 0; i < 10; i++){
-                targetScore += (int) gos[i].GetComponentInChildren<Rod>(true).Value;
+            if (GameManager.Instance.Level == 1){
+                targetScore = 2500;
+            } else {
+                for (int i = 0; i < 10; i++){
+                    targetScore += (int) gos[i].GetComponentInChildren<Rod>(true).Value;
+                }
             }
             GameManager.Instance.TargetScore += targetScore;
             UIPopup.Instance.SetTargetSocre(GameManager.Instance.TargetScore + "$");

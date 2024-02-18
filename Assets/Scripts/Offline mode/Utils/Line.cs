@@ -11,17 +11,25 @@ namespace yuki
     {
         [SerializeField] private Transform _origin;
         [SerializeField] private Transform _target;
-        public LineRenderer LineRenderer { get; private set; }
+        private bool isReady;
+        private LineRenderer lineRenderer;
 
         void Awake()
         {
-            LineRenderer = GetComponent<LineRenderer>();
+            lineRenderer = GetComponent<LineRenderer>();
+            isReady = false;
         }
 
         void Update()
         {
-		    LineRenderer.SetPosition(0, _origin.position);
-            LineRenderer.SetPosition(1, _target.position);
+            if (isReady){
+                lineRenderer.SetPosition(0, _origin.position);
+                lineRenderer.SetPosition(1, _target.position);
+            }   
+        }
+
+        public void ChangeStatus(bool value = true){
+            isReady = value;
         }
     }
 }

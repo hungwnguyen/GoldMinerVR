@@ -59,7 +59,7 @@ namespace yuki
 
         private int CalculateItemPrice()
         {
-            int _price = Random.Range(_itemData.minValue, _itemData.maxValue) + Random.Range(1,  GameManager.Instance.Level);
+            int _price = Random.Range(_itemData.minValue, _itemData.maxValue) + Random.Range(0,  20) * GameManager.Instance.Level % 200;
             return _price;
         }
 

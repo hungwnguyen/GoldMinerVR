@@ -7,7 +7,7 @@ AnimationClip:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: BigGoldUndraged
-  serializedVersion: 6
+  serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
   m_UseHighQualityCurve: 1
@@ -18,9 +18,10 @@ AnimationClip:
   m_ScaleCurves: []
   m_FloatCurves: []
   m_PPtrCurves:
-  - curve:
+  - serializedVersion: 2
+    curve:
     - time: 0
-      value: {fileID: 21300000, guid: dcafab69b54cdf74ba46efdc6e21d6e0, type: 3}
+      value: {fileID: 21300000, guid: b628497431cca6544b8e7d4e9dbd2b57, type: 3}
     - time: 0.41666666
       value: {fileID: 21300000, guid: ad0604096d00c7c48b0739d1c4cb6ced, type: 3}
     - time: 0.5
@@ -33,6 +34,7 @@ AnimationClip:
     path: 
     classID: 212
     script: {fileID: 0}
+    flags: 2
   m_SampleRate: 12
   m_WrapMode: 0
   m_Bounds:
@@ -47,8 +49,10 @@ AnimationClip:
       typeID: 212
       customType: 23
       isPPtrCurve: 1
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 21300000, guid: dcafab69b54cdf74ba46efdc6e21d6e0, type: 3}
+    - {fileID: 21300000, guid: b628497431cca6544b8e7d4e9dbd2b57, type: 3}
     - {fileID: 21300000, guid: ad0604096d00c7c48b0739d1c4cb6ced, type: 3}
     - {fileID: 21300000, guid: 24c8ecb5f80b9f44895adca4c9355f85, type: 3}
     - {fileID: 21300000, guid: 7ffe6de37eaaa9e4c9330932158ebf0f, type: 3}
