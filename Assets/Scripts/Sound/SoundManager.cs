@@ -17,6 +17,7 @@ public class SoundManager : MonoBehaviour
     private Dictionary<string, AudioSource> FXLoop;
     private Dictionary<string, AudioSource> BgMusic;
     private AudioSource UI;
+    Database firebase;
     #endregion
 
     private void Awake()
@@ -37,19 +38,21 @@ public class SoundManager : MonoBehaviour
         fx = PlayerPrefs.GetFloat("fx", 1);
         bg = PlayerPrefs.GetFloat("bg", 1);
         CreateUISound();
-        //CreatePlayBGMusic(audioClip.BGMusic);
+        firebase = GameObject.FindWithTag("firebase").GetComponent<Database>();
     }
 
     #region Create GameObject Music
-    
-    private void CreateUISound(){
-        if (Instance.UI == null){
+
+    private void CreateUISound()
+    {
+        if (Instance.UI == null)
+        {
             GameObject m_currentAudioFXSound = new GameObject(Instance.audioClip.aud_touch.name);
             m_currentAudioFXSound.AddComponent<AudioSource>();
             Instance.UI = m_currentAudioFXSound.GetComponent<AudioSource>();
             CopyProperties(_instance.FXSound, Instance.UI, Instance.audioClip.aud_touch, Instance.fx);
             DontDestroyOnLoad(m_currentAudioFXSound);
-        } 
+        }
     }
 
     public static void CreatePlayFXSound(AudioClip aClip)
@@ -60,14 +63,16 @@ public class SoundManager : MonoBehaviour
 
     public static void CreatePlayFXSound()
     {
-        if (_instance.fx > 0){
+        if (_instance.fx > 0)
+        {
             Instance.UI.Play();
         }
     }
 
     public static void CreatePlayFXLoop(AudioClip aClip)
     {
-        if (!Instance.FXLoop.ContainsKey(aClip.name)){
+        if (!Instance.FXLoop.ContainsKey(aClip.name))
+        {
             GameObject obj = new GameObject(aClip.name);
             obj.transform.position = Vector3.zero;
             obj.AddComponent<AudioSource>();
@@ -80,7 +85,8 @@ public class SoundManager : MonoBehaviour
 
     public static void CreatePlayBgMusic(AudioClip aClip)
     {
-        if (!Instance.BgMusic.ContainsKey(aClip.name)){
+        if (!Instance.BgMusic.ContainsKey(aClip.name))
+        {
             GameObject obj = new GameObject(aClip.name);
             obj.transform.position = Vector3.zero;
             obj.AddComponent<AudioSource>();
@@ -91,50 +97,63 @@ public class SoundManager : MonoBehaviour
         Instance.PlayBgMusic(aClip);
     }
 
-    private void PlayBgMusic(AudioClip aClip){
-        if (bg > 0){
+    private void PlayBgMusic(AudioClip aClip)
+    {
+        if (bg > 0)
+        {
             Instance.BgMusic[aClip.name].gameObject.SetActive(true);
             Instance.BgMusic[aClip.name].volume = bg;
             if (!Instance.BgMusic[aClip.name].isPlaying)
                 Instance.BgMusic[aClip.name].Play();
-            if (Time.timeScale == 0){
+            if (Time.timeScale == 0)
+            {
                 Instance.BgMusic[aClip.name].Pause();
             }
         }
     }
 
-    private void PlayFXLoop(AudioClip aClip){
-        if (fx > 0){
+    private void PlayFXLoop(AudioClip aClip)
+    {
+        if (fx > 0)
+        {
             Instance.FXLoop[aClip.name].gameObject.SetActive(true);
             Instance.FXLoop[aClip.name].volume = fx;
             if (!Instance.FXLoop[aClip.name].isPlaying)
                 Instance.FXLoop[aClip.name].Play();
-            
-            if (Time.timeScale == 0){
+
+            if (Time.timeScale == 0)
+            {
                 Instance.FXLoop[aClip.name].Pause();
             }
         }
     }
 
-    public void StopFXLoop(AudioClip aClip){
-        if (this.FXLoop != null){
-            if (this.FXLoop.ContainsKey(aClip.name)){
+    public void StopFXLoop(AudioClip aClip)
+    {
+        if (this.FXLoop != null)
+        {
+            if (this.FXLoop.ContainsKey(aClip.name))
+            {
                 this.FXLoop[aClip.name].Stop();
                 this.FXLoop[aClip.name].gameObject.SetActive(false);
             }
         }
     }
 
-    public void StopBgMusic(AudioClip aClip){
-        if (this.BgMusic != null){
-            if (this.BgMusic.ContainsKey(aClip.name)){
+    public void StopBgMusic(AudioClip aClip)
+    {
+        if (this.BgMusic != null)
+        {
+            if (this.BgMusic.ContainsKey(aClip.name))
+            {
                 this.BgMusic[aClip.name].Stop();
                 this.BgMusic[aClip.name].gameObject.SetActive(false);
             }
         }
     }
 
-    private GameObject CustomSpawnHandler(AudioClip aClip){
+    private GameObject CustomSpawnHandler(AudioClip aClip)
+    {
         GameObject m_currentAudioFXSound = new GameObject(aClip.name);
         m_currentAudioFXSound.AddComponent<AudioSource>();
         m_currentAudioFXSound.AddComponent<Sound>();
@@ -169,23 +188,30 @@ public class SoundManager : MonoBehaviour
             newSource.SetCustomCurve(AudioSourceCurveType.CustomRolloff, volumeRolloffCurve);
         }
     }
-#endregion
+    #endregion
 
     #region Sound Setting
 
-    public static void PauseAllMusic(){
-        foreach(AudioSource audioSource in _instance.BgMusic.Values){
-            if (audioSource.gameObject.activeSelf){
+    public static void PauseAllMusic()
+    {
+        foreach (AudioSource audioSource in _instance.BgMusic.Values)
+        {
+            if (audioSource.gameObject.activeSelf)
+            {
                 audioSource.Pause();
             }
         }
-        foreach(AudioSource audioSource in _instance.FXLoop.Values){
-            if (audioSource.gameObject.activeSelf){
+        foreach (AudioSource audioSource in _instance.FXLoop.Values)
+        {
+            if (audioSource.gameObject.activeSelf)
+            {
                 audioSource.Pause();
             }
         }
-        foreach(GameObject go in _instance._pool.poolDictionary.Values){
-            if (go.activeSelf){
+        foreach (GameObject go in _instance._pool.poolDictionary.Values)
+        {
+            if (go.activeSelf)
+            {
                 go.GetComponent<AudioSource>().Pause();
             }
         }
@@ -195,44 +221,63 @@ public class SoundManager : MonoBehaviour
     /// Return true if can play music
     /// </summary>
     /// <returns></returns>
-    public static bool ContinuePlayAllMusic(){
+    public static bool ContinuePlayAllMusic()
+    {
         bool check = false;
-        if (Instance.bg > 0){
-            foreach(AudioSource audioSource in _instance.BgMusic.Values){
-                if (audioSource.gameObject.activeSelf){
+        if (Instance.bg > 0)
+        {
+            foreach (AudioSource audioSource in _instance.BgMusic.Values)
+            {
+                if (audioSource.gameObject.activeSelf)
+                {
                     check = true;
                     if (!audioSource.isPlaying)
                         audioSource.Play();
                 }
             }
-        } else {
-            foreach(AudioSource audioSource in _instance.BgMusic.Values){
-                if (audioSource.gameObject.activeSelf){
+        }
+        else
+        {
+            foreach (AudioSource audioSource in _instance.BgMusic.Values)
+            {
+                if (audioSource.gameObject.activeSelf)
+                {
                     audioSource.Stop();
                 }
             }
         }
-        if (Instance.fx > 0){
-            foreach(AudioSource audioSource in _instance.FXLoop.Values){
-                if (audioSource.gameObject.activeSelf){
+        if (Instance.fx > 0)
+        {
+            foreach (AudioSource audioSource in _instance.FXLoop.Values)
+            {
+                if (audioSource.gameObject.activeSelf)
+                {
                     check = true;
                     if (!audioSource.isPlaying)
                         audioSource.Play();
                 }
             }
-            foreach(GameObject go in _instance._pool.poolDictionary.Values){
-                if (go.activeSelf){
+            foreach (GameObject go in _instance._pool.poolDictionary.Values)
+            {
+                if (go.activeSelf)
+                {
                     go.GetComponent<AudioSource>().Play();
                 }
             }
-        } else {
-            foreach(AudioSource audioSource in _instance.FXLoop.Values){
-                if (audioSource.gameObject.activeSelf){
+        }
+        else
+        {
+            foreach (AudioSource audioSource in _instance.FXLoop.Values)
+            {
+                if (audioSource.gameObject.activeSelf)
+                {
                     audioSource.Stop();
                 }
             }
-            foreach(GameObject go in _instance._pool.poolDictionary.Values){
-                if (go.activeSelf){
+            foreach (GameObject go in _instance._pool.poolDictionary.Values)
+            {
+                if (go.activeSelf)
+                {
                     go.GetComponent<AudioSource>().Stop();
                 }
             }
@@ -240,21 +285,28 @@ public class SoundManager : MonoBehaviour
         return check;
     }
 
-    public static void DisableAllMusic(){
-        foreach(AudioSource audioSource in _instance.BgMusic.Values){
-            if (audioSource.gameObject.activeSelf){
+    public static void DisableAllMusic()
+    {
+        foreach (AudioSource audioSource in _instance.BgMusic.Values)
+        {
+            if (audioSource.gameObject.activeSelf)
+            {
                 audioSource.Stop();
                 audioSource.gameObject.SetActive(false);
             }
         }
-        foreach(AudioSource audioSource in _instance.FXLoop.Values){
-            if (audioSource.gameObject.activeSelf){
+        foreach (AudioSource audioSource in _instance.FXLoop.Values)
+        {
+            if (audioSource.gameObject.activeSelf)
+            {
                 audioSource.Stop();
                 audioSource.gameObject.SetActive(false);
             }
         }
-        foreach(GameObject go in _instance._pool.poolDictionary.Values){
-            if (go.activeSelf){
+        foreach (GameObject go in _instance._pool.poolDictionary.Values)
+        {
+            if (go.activeSelf)
+            {
                 go.GetComponent<AudioSource>().Stop();
                 go.gameObject.SetActive(false);
             }
@@ -263,8 +315,10 @@ public class SoundManager : MonoBehaviour
 
     public static void DisableBGMusic()
     {
-        foreach(AudioSource audioSource in _instance.BgMusic.Values){
-            if (audioSource.gameObject.activeSelf){
+        foreach (AudioSource audioSource in _instance.BgMusic.Values)
+        {
+            if (audioSource.gameObject.activeSelf)
+            {
                 audioSource.Stop();
                 audioSource.gameObject.SetActive(false);
             }
@@ -283,27 +337,31 @@ public class SoundManager : MonoBehaviour
 
     public static void ChangeVolumeBGMusic(float value)
     {
-        
+        _instance.firebase.UpdateProperties("bgMusic", value);
         PlayerPrefs.SetFloat("bg", value);
         _instance.bg = value;
-        foreach(AudioSource audioSource in _instance.BgMusic.Values){
+        foreach (AudioSource audioSource in _instance.BgMusic.Values)
+        {
             audioSource.volume = value;
         }
     }
 
     public static void ChangeVolumeFXSound(float value)
     {
+        _instance.firebase.UpdateProperties("fxMusic", value);
         PlayerPrefs.SetFloat("fx", value);
         _instance.fx = value;
         _instance.UI.volume = value;
-        foreach(AudioSource audioSource in _instance.FXLoop.Values){
+        foreach (AudioSource audioSource in _instance.FXLoop.Values)
+        {
             audioSource.volume = value;
         }
-        foreach(GameObject go in _instance._pool.poolDictionary.Values){
+        foreach (GameObject go in _instance._pool.poolDictionary.Values)
+        {
             go.GetComponent<AudioSource>().volume = value;
         }
     }
     #endregion
-    
+
 
 }

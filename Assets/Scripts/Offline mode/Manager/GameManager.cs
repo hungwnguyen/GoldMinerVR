@@ -7,11 +7,17 @@ namespace yuki
     public class GameManager : MonoBehaviour
     {
         [SerializeField] private float _timeLevel;
-        private int _level = 1; public int Level { get => _level; 
-        set => _level = value > 99999 ? 99999 : value; }
-        private float _currentTime; 
-        private float _targetScore; public float TargetScore { get => _targetScore; 
-        set => _targetScore = value > 999999 ? 999999 : value; }
+        private int _level = 1; public int Level
+        {
+            get => _level;
+            set => _level = value > 99999 ? 99999 : value;
+        }
+        private float _currentTime;
+        private float _targetScore; public float TargetScore
+        {
+            get => _targetScore;
+            set => _targetScore = value > 999999 ? 999999 : value;
+        }
         public static GameManager Instance;
         [SerializeField] private List<Background> bgs;
 
@@ -26,23 +32,26 @@ namespace yuki
                 Instance = this;
         }
 
-        private void ChangeBG(){
-            foreach(Background bg in bgs){
+        private void ChangeBG()
+        {
+            foreach (Background bg in bgs)
+            {
                 bg.SetBG();
             }
         }
 
-        public void ResetGame(){
+        public void ResetGame()
+        {
             Level = 1;
             TargetScore = 0;
             ChangeBG();
         }
-       
+
         public void StopCountdown()
         {
             StopAllCoroutines();
         }
-        
+
         public void RestartCoundown()
         {
             StartCoroutine(Countdown());
@@ -62,7 +71,8 @@ namespace yuki
         {
             while (_currentTime > 0)
             {
-                if (this._currentTime <= 10){
+                if (this._currentTime <= 10)
+                {
                     SoundManager.CreatePlayFXSound(SoundManager.Instance.audioClip.aud_dongho);
                     UIMain.Instance.Coundown();
                 }

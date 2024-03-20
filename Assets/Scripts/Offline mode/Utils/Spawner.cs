@@ -137,9 +137,9 @@ namespace yuki
             } catch {}
             int targetScore = 0;
             if (GameManager.Instance.Level == 1){
-                targetScore = 2500;
+                targetScore = 999;
             } else {
-                for (int i = 0; i < 10; i++){
+                for (int i = 0; i <= 8; i++){
                     targetScore += (int) gos[i].GetComponentInChildren<Rod>(true).Value;
                 }
             }

@@ -9,7 +9,7 @@ public class UIPopup : MonoBehaviour
 {
     [Serializable]
     public class MyEvent : UnityEvent { }
-    
+
     [Space(5f), Header("Run when end game"), Space(5f)]
     [FormerlySerializedAs("CustomEvent")]
     [SerializeField] private MyEvent _customEvent = new MyEvent();
@@ -26,16 +26,21 @@ public class UIPopup : MonoBehaviour
     [SerializeField] private yuki.EventHandler popupTarget, popupCongat;
     [SerializeField] private TMP_Text targetScore, hightScore, currentScore;
     private Animator animatorPopUp, animatorPopUpShop;
-    public static UIPopup Instance {get; private set;}
+    private Database firebase;
+    int hight;
+    public static UIPopup Instance { get; private set; }
 
     void Awake()
     {
-        if (Instance != null){
+        if (Instance != null)
+        {
             Destroy(this);
-        } else {
+        }
+        else
+        {
             Instance = this;
         }
-        
+        firebase = GameObject.FindWithTag("firebase").GetComponent<Database>();
         popupTarget.OnAnimationFinished += Initializtion;
         popupCongat.OnAnimationFinished += ShowShop;
         animatorPopUp = popupTarget.GetComponent<Animator>();
@@ -43,38 +48,41 @@ public class UIPopup : MonoBehaviour
         SoundManager.CreatePlayFXSound(SoundManager.Instance.audioClip.aud_muctieu);
     }
 
-    public void PlayPopUpCongat(){
+    public void PlayPopUpCongat()
+    {
         animatorPopUpShop.SetTrigger("newGame");
     }
-    private void ShowShop(){
+    private void ShowShop()
+    {
         SoundManager.CreatePlayBgMusic(SoundManager.Instance.audioClip.aud_shop);
         UIShop.Instance.SetStatus(true);
     }
 
-    public void SetTargetSocre(string value){
+    public void SetTargetSocre(string value)
+    {
         targetScore.text = value;
     }
 
-    public void SetCurrentSocre(){
-        currentScore.text = ((int) Player.Instance.Score) + "";
+    public void SetCurrentSocre()
+    {
+        currentScore.text = ((int)Player.Instance.Score) + "";
     }
 
-    public void SetHightSocre(){
-        int hight = PlayerPrefs.GetInt("hight score", 0);
-        if (hight < Player.Instance.Score){
-            hight = (int) Player.Instance.Score;
-            PlayerPrefs.SetInt("hight score", hight);
-        }
+    public void SetHightSocre()
+    {
+        hight = PlayerPrefs.GetInt("hight score", 0);
         hightScore.text = hight + "";
     }
 
-    public void ReSetAmin(){
+    public void ReSetAmin()
+    {
         UIMain.Instance.onSetUI();
         SoundManager.CreatePlayFXSound(SoundManager.Instance.audioClip.aud_muctieu);
         animatorPopUp.SetTrigger("newGame");
     }
 
-    private void Initializtion(){
+    private void Initializtion()
+    {
         UIMain.Instance.onSetUI();
         UIMain.Instance.EnventStartGame();
     }
@@ -86,33 +94,61 @@ public class UIPopup : MonoBehaviour
         Time.timeScale = 0;
         SoundManager.DisableAllMusic();
         SoundManager.CreatePlayFXSound(SoundManager.Instance.audioClip.aud_fail);
+
+        UpdateData();
     }
 
-    public void NextLevel(){
+    private void UpdateData()
+    {
+        hight = PlayerPrefs.GetInt("hight score", 0);
+        if (hight < Player.Instance.Score)
+        {
+            hight = (int)Player.Instance.Score;
+            PlayerPrefs.SetInt("hight score", hight);
+            firebase.UpdateProperties("maxScore", hight);
+        }
+        int maxLevel = PlayerPrefs.GetInt("maxLevel", 0);
+        if (maxLevel < GameManager.Instance.Level - 1)
+        {
+            maxLevel = GameManager.Instance.Level - 1;
+            PlayerPrefs.SetInt("maxLevel", maxLevel);
+            firebase.UpdateProperties("maxLevel", maxLevel);
+        }
+    }
+
+    public void NextLevel()
+    {
         Time.timeScale = 1;
         SoundManager.DisableAllMusic();
         GameManager.Instance.CheckIfCountdownEnd();
         GameManager.Instance.StopCountdown();
+        UpdateData();
     }
 
-    public void PauseGame(){
+    public void PauseGame()
+    {
         Time.timeScale = 0;
         SoundManager.PauseAllMusic();
+        UpdateData();
     }
 
-    public void ContinueGame(){
+    public void ContinueGame()
+    {
         SoundManager.ContinuePlayAllMusic();
         Time.timeScale = 1;
     }
 
-    public void LostAppear(){
+    public void LostAppear()
+    {
         EventEndGame();
     }
 
-    public void TargetAppear(){
+    public void TargetAppear()
+    {
     }
 
-    public void MessengerAppear(){
+    public void MessengerAppear()
+    {
     }
 
 }

@@ -4,15 +4,14 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - HorizontalLayoutGroupCustom
   - destroy
   - TNT
   - mouse
-  - luoicau
   - input
   - PopupTextCointainer
   - Rod
   - Lobby
+  - firebase
   layers:
   - Default
   - TransparentFX

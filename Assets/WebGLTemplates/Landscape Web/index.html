@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>{{{ PRODUCT_NAME }}}</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.png">
+    <link rel="stylesheet" href="TemplateData/style.css">
+    <link rel="manifest" href="manifest.webmanifest">
+  </head>
+  <body style="background-color: {{{ BACKGROUND_COLOR }}};" onload="startAudioOnClick()">
+    <script src="TemplateData/Loading.js"></script>
+    <div id="unity-container">
+      <canvas id="unity-canvas" tabindex="-1"></canvas>
+      <div id="unity-warning"> </div>
+    </div>
+    <script>
+      /* Bỏ comment 5 dòng nếu bạn muốn lưu game vào cache trên máy người chơi điều này có thể làm tăng tốc độ tải trò chơi, 
+      Cảnh báo điều này sẽ khiến việc test game trở lên khó khăn hơn và khiến người chơi không thể cập nhật phiên bản game mới nhất được deploy*/
+
+      // window.addEventListener("load", function () {
+      //   if ("serviceWorker" in navigator) {
+      //     navigator.serviceWorker.register("ServiceWorker.js");
+      //   }
+      // });
+      var container = document.querySelector("#unity-container");
+      var canvas = document.querySelector("#unity-canvas");
+      var percentText = document.getElementById("percent");
+
+      function onResize() {
+				if (window.innerHeight < window.innerWidth || isPc()){
+          var container = canvas.parentElement;
+          var w;
+          var h;
+          var width = {{{ WIDTH }}};
+          var height = {{{ HEIGHT }}};
+
+          // Calculate dimensions based on 16:9 aspect ratio
+          w = window.innerWidth;
+          h = w * height / width;
+
+          // Ensure dimensions fit within window
+          if (h > window.innerHeight) {
+            h = window.innerHeight;
+            w = h * width / height;
+          }
+
+          container.style.width = canvas.style.width = w + "px";
+          container.style.height = canvas.style.height = h + "px";
+          container.style.top = Math.floor((window.innerHeight - h) / 2) + "px";
+          container.style.left = Math.floor((window.innerWidth - w) / 2) + "px";
+          canvas.style.transform = "rotate(0deg)";
+          canvas.style.transformOrigin = "center";
+        } else if (!isPc()){
+          canvas.style.transform = "rotate(90deg)";
+          canvas.style.transformOrigin = "center";
+          var container = canvas.parentElement;
+          var w;
+          var h;
+          var width = {{{ HEIGHT }}};
+          var height = {{{ WIDTH }}};
+
+          // Calculate dimensions based on 16:9 aspect ratio
+          h = window.innerWidth;
+          w = h * height / width;
+
+          // Ensure dimensions fit within window
+          if (w > window.innerHeight) {
+            w = window.innerHeight;
+            h = w * width / height;
+          }
+
+          container.style.width = canvas.style.width = w + "px";
+          container.style.height = canvas.style.height = h + "px";
+          container.style.top = Math.floor((window.innerHeight - h) / 2) + "px";
+          container.style.left = Math.floor((window.innerWidth - w) / 2) + "px";
+        }
+			}
+
+      window.addEventListener('resize', onResize);
+      onResize();
+
+      var buildUrl = "Build";
+      var loaderUrl = buildUrl + "/{{{ LOADER_FILENAME }}}";
+      var config = {
+        dataUrl: buildUrl + "/{{{ DATA_FILENAME }}}",
+        frameworkUrl: buildUrl + "/{{{ FRAMEWORK_FILENAME }}}",
+        codeUrl: buildUrl + "/{{{ CODE_FILENAME }}}",
+      #if MEMORY_FILENAME
+        memoryUrl: buildUrl + "/{{{ MEMORY_FILENAME }}}",
+      #endif
+      #if SYMBOLS_FILENAME
+        symbolsUrl: buildUrl + "/{{{ SYMBOLS_FILENAME }}}",
+      #endif  
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "{{{ COMPANY_NAME }}}",
+        productName: "{{{ PRODUCT_NAME }}}",
+        productVersion: "{{{ PRODUCT_VERSION }}}",
+        showBanner: unityShowBanner,
+      };
+
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        // Mobile device style: fill the whole browser client area with the game canvas:
+        var meta = document.createElement('meta');
+        meta.name = 'viewport';
+        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+        document.getElementsByTagName('head')[0].appendChild(meta);
+      }
+      var unityInstance;
+      var script = document.createElement("script");
+      script.src = loaderUrl;
+      script.onload = () => {
+        createUnityInstance(canvas, config, (progress) => {
+          if (!percentText) {
+              return;
+          }
+          percentText.textContent = Math.floor(99 * progress) + "%";
+        }).then((unityInstances) => {
+          unityInstance = unityInstances;
+          setTimeout(function() {
+            percentText.textContent = "100%";
+          }, 1800);
+          setTimeout(function() {
+            document.body.removeChild(document.getElementById("cocosLoading"));
+          }, 2000);
+        }).catch((message) => {
+          alert(message);
+        });
+      };
+      document.body.appendChild(script);
+    </script>
+  </body>
+</html>
+<!-- <h1>From author Nguyễn Tiến Hưng 0374748599 with love</h1> -->
